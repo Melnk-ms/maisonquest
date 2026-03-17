@@ -1,0 +1,2005 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Immo Prestige Douala — Agency Profile | MaisonQuest</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue-deep: #0A2463;
+    --blue-mid: #1B4FD8;
+    --blue-light: #3D7EFF;
+    --blue-pale: #E8EFFF;
+    --blue-tint: #F4F7FF;
+    --gold: #E8A020;
+    --white: #FFFFFF;
+    --gray-dark: #1A1A2E;
+    --gray-mid: #4A5568;
+    --gray-light: #A0AEC0;
+    --gray-bg: #F8FAFF;
+    --border: #E2E8F0;
+    --green: #16a34a;
+    --green-bg: #f0fdf4;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--gray-bg); color: var(--gray-dark); }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 40px; height: 66px;
+    background: rgba(255,255,255,0.97);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 2px 16px rgba(10,36,99,0.06);
+  }
+  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .logo-icon { width: 34px; height: 34px; background: var(--blue-mid); border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+  .logo-text { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: var(--blue-deep); }
+  .logo-text span { color: var(--blue-mid); }
+  .nav-right { display: flex; align-items: center; gap: 14px; }
+  .nav-lang { display: flex; gap: 3px; background: var(--blue-tint); border-radius: 8px; padding: 3px; }
+  .lang-btn { padding: 4px 11px; border: none; background: transparent; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; color: var(--gray-mid); transition: all 0.2s; font-family: 'DM Sans', sans-serif; }
+  .lang-btn.active { background: var(--blue-mid); color: white; }
+  .currency-select { padding: 6px 10px; border: 1.5px solid rgba(10,36,99,0.15); border-radius: 8px; font-size: 13px; font-weight: 600; color: var(--blue-deep); background: var(--blue-tint); cursor: pointer; outline: none; font-family: 'DM Sans', sans-serif; }
+  .nav-cta { background: var(--blue-mid); color: white; padding: 9px 20px; border-radius: 9px; font-weight: 600; font-size: 14px; text-decoration: none; transition: background 0.2s; }
+  .nav-cta:hover { background: var(--blue-deep); }
+
+  /* ── BREADCRUMB ── */
+  .breadcrumb {
+    padding: 14px 40px; background: white; border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--gray-light);
+  }
+  .breadcrumb a { color: var(--blue-mid); text-decoration: none; font-weight: 500; }
+  .breadcrumb a:hover { color: var(--blue-deep); }
+  .breadcrumb-sep { color: var(--border); }
+
+  /* ── HERO BANNER ── */
+  .agency-hero {
+    background: linear-gradient(135deg, var(--blue-deep) 0%, #1340A8 60%, var(--blue-mid) 100%);
+    padding: 48px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .agency-hero::before {
+    content: '';
+    position: absolute; top: -120px; right: -120px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(61,126,255,0.2) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .agency-hero::after {
+    content: '';
+    position: absolute; bottom: -80px; left: 10%;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(232,160,32,0.1) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .agency-hero-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; gap: 32px;
+    position: relative; z-index: 1;
+    flex-wrap: wrap;
+  }
+
+  .agency-logo-big {
+    width: 100px; height: 100px;
+    background: white;
+    border-radius: 22px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 44px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    flex-shrink: 0;
+  }
+
+  .agency-hero-info { flex: 1; min-width: 200px; }
+
+  .agency-hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 34px; font-weight: 900;
+    color: white; margin-bottom: 8px;
+    letter-spacing: -0.5px;
+  }
+
+  .agency-hero-meta {
+    display: flex; align-items: center; gap: 16px;
+    flex-wrap: wrap; margin-bottom: 14px;
+  }
+
+  .meta-chip {
+    display: flex; align-items: center; gap: 6px;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 20px; padding: 5px 13px;
+    font-size: 13px; color: rgba(255,255,255,0.9); font-weight: 500;
+  }
+
+  .verified-chip {
+    display: flex; align-items: center; gap: 6px;
+    background: rgba(22,163,74,0.2);
+    border: 1px solid rgba(22,163,74,0.4);
+    border-radius: 20px; padding: 5px 13px;
+    font-size: 13px; color: #86efac; font-weight: 700;
+  }
+
+  .agency-hero-stats {
+    display: flex; gap: 28px; flex-wrap: wrap;
+  }
+
+  .hero-stat { text-align: center; }
+  .hero-stat strong { display: block; font-family: 'Playfair Display', serif; font-size: 26px; color: white; font-weight: 700; }
+  .hero-stat span { font-size: 12px; color: rgba(255,255,255,0.6); }
+
+  .stat-div { width: 1px; background: rgba(255,255,255,0.15); height: 36px; align-self: center; }
+
+  .agency-hero-actions {
+    display: flex; flex-direction: column; gap: 10px; flex-shrink: 0;
+  }
+
+  .btn-wa-hero {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    background: #25D366; color: white;
+    padding: 13px 0; border-radius: 12px;
+    font-size: 14px; font-weight: 700; text-decoration: none;
+    transition: background 0.2s, transform 0.15s; white-space: nowrap;
+    font-family: 'DM Sans', sans-serif; border: none; cursor: pointer;
+    width: 180px; min-width: 180px;
+  }
+  .btn-wa-hero:hover { background: #1ebc58; transform: translateY(-1px); }
+
+  .btn-follow {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    background: rgba(255,255,255,0.12); color: white;
+    padding: 12px 0; border-radius: 12px;
+    font-size: 14px; font-weight: 600; border: 1.5px solid rgba(255,255,255,0.25);
+    cursor: pointer; transition: background 0.2s, border-color 0.2s; white-space: nowrap;
+    font-family: 'DM Sans', sans-serif;
+    width: 180px; min-width: 180px; overflow: hidden;
+  }
+  .btn-follow:hover { background: rgba(255,255,255,0.2); }
+  .btn-follow.following { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.5); }
+
+  /* ── PAGE LAYOUT ── */
+  .page-wrap {
+    max-width: 1200px; margin: 0 auto;
+    padding: 28px 40px 60px;
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 28px; align-items: start;
+  }
+
+  /* ── TABS ── */
+  .tabs {
+    display: flex; gap: 2px;
+    background: white; border: 1px solid var(--border);
+    border-radius: 14px; padding: 5px;
+    margin-bottom: 24px;
+  }
+
+  .tab {
+    flex: 1; padding: 10px 16px; border: none; background: transparent;
+    border-radius: 10px; font-size: 14px; font-weight: 600;
+    color: var(--gray-mid); cursor: pointer;
+    transition: all 0.2s; font-family: 'DM Sans', sans-serif;
+    display: flex; align-items: center; justify-content: center; gap: 7px;
+  }
+  .tab:hover { color: var(--blue-mid); }
+  .tab.active { background: var(--blue-mid); color: white; box-shadow: 0 3px 10px rgba(27,79,216,0.25); }
+
+  .tab-count {
+    background: rgba(255,255,255,0.25); padding: 1px 7px;
+    border-radius: 10px; font-size: 12px;
+  }
+  .tab:not(.active) .tab-count { background: var(--gray-bg); color: var(--gray-light); }
+
+  /* ── FILTER ROW ── */
+  .filter-row {
+    display: flex; gap: 10px; align-items: center;
+    margin-bottom: 20px; flex-wrap: wrap;
+  }
+
+  .filter-chip {
+    padding: 7px 16px; border: 1.5px solid var(--border);
+    border-radius: 20px; background: white;
+    font-size: 13px; font-weight: 600; color: var(--gray-mid);
+    cursor: pointer; transition: all 0.2s; font-family: 'DM Sans', sans-serif;
+  }
+  .filter-chip:hover { border-color: var(--blue-mid); color: var(--blue-mid); }
+  .filter-chip.active { background: var(--blue-mid); border-color: var(--blue-mid); color: white; }
+
+  .filter-sort {
+    margin-left: auto; padding: 8px 14px;
+    border: 1.5px solid var(--border); border-radius: 10px;
+    font-size: 13px; font-family: 'DM Sans', sans-serif;
+    color: var(--gray-mid); background: white; outline: none; cursor: pointer; appearance: none;
+  }
+
+  /* ── LISTINGS GRID ── */
+  .listings-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px;
+  }
+
+  .listing-card {
+    background: white; border-radius: 16px; overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 10px rgba(10,36,99,0.04);
+    transition: transform 0.25s, box-shadow 0.25s; cursor: pointer;
+  }
+  .listing-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(10,36,99,0.1); }
+
+  .listing-img {
+    height: 175px; overflow: hidden;
+    background: linear-gradient(180deg, #e8edf5 0%, #1a2a5e 100%);
+    position: relative;
+  }
+
+  .listing-badge {
+    position: absolute; top: 11px; left: 11px;
+    background: var(--blue-mid); color: white;
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.5px; padding: 4px 9px; border-radius: 7px;
+  }
+  .listing-badge.featured { background: var(--gold); color: var(--blue-deep); }
+  .listing-badge.new { background: var(--green); }
+
+  .listing-fav {
+    position: absolute; top: 11px; right: 11px;
+    width: 30px; height: 30px; background: white; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+  }
+  .listing-fav:hover { transform: scale(1.15); }
+
+  .listing-body { padding: 14px 16px 16px; }
+  .listing-title { font-size: 15px; font-weight: 700; color: var(--blue-deep); margin-bottom: 4px; line-height: 1.3; }
+  .listing-loc { font-size: 12px; color: var(--gray-light); margin-bottom: 10px; display: flex; align-items: center; gap: 3px; }
+  .listing-feats { display: flex; gap: 10px; padding: 8px 0; border-top: 1px solid #EEF2FF; border-bottom: 1px solid #EEF2FF; margin-bottom: 10px; flex-wrap: wrap; }
+  .feat { font-size: 12px; color: var(--gray-mid); font-weight: 500; display: flex; align-items: center; gap: 3px; }
+  .listing-footer { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+  .listing-price { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700; color: var(--blue-deep); }
+  .listing-price .unit { font-family: 'DM Sans', sans-serif; font-size: 11px; color: var(--gray-light); font-weight: 400; }
+  .wa-btn { display: flex; align-items: center; gap: 5px; background: #25D366; color: white; padding: 7px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; text-decoration: none; transition: background 0.2s; }
+  .wa-btn:hover { background: #1ebc58; }
+
+  /* ── ABOUT TAB ── */
+  .about-section { background: white; border-radius: 16px; border: 1px solid var(--border); padding: 24px; margin-bottom: 20px; }
+  .about-title { font-size: 16px; font-weight: 700; color: var(--blue-deep); margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+  .about-text { font-size: 15px; color: var(--gray-mid); line-height: 1.75; }
+  .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 18px; }
+  .info-item { padding: 13px 16px; background: var(--gray-bg); border-radius: 11px; }
+  .info-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--gray-light); font-weight: 700; margin-bottom: 5px; }
+  .info-value { font-size: 14px; font-weight: 600; color: var(--blue-deep); }
+
+  /* Reviews */
+  .review-summary {
+    display: flex; align-items: center; gap: 28px;
+    padding: 20px; background: var(--blue-tint);
+    border-radius: 14px; margin-bottom: 20px;
+  }
+  .big-rating { text-align: center; }
+  .big-rating strong { font-family: 'Playfair Display', serif; font-size: 52px; font-weight: 700; color: var(--blue-deep); display: block; line-height: 1; }
+  .big-rating span { font-size: 13px; color: var(--gray-light); }
+  .stars-row { font-size: 22px; margin: 4px 0; }
+  .rating-bars { flex: 1; }
+  .bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+  .bar-label { font-size: 12px; color: var(--gray-mid); font-weight: 600; width: 30px; text-align: right; }
+  .bar-track { flex: 1; height: 7px; background: var(--border); border-radius: 4px; overflow: hidden; }
+  .bar-fill { height: 100%; background: var(--gold); border-radius: 4px; }
+  .bar-count { font-size: 12px; color: var(--gray-light); width: 20px; }
+
+  .review-card { padding: 18px; background: white; border: 1px solid var(--border); border-radius: 14px; margin-bottom: 14px; }
+  .review-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 10px; }
+  .reviewer-name { font-size: 14px; font-weight: 700; color: var(--blue-deep); }
+  .reviewer-date { font-size: 12px; color: var(--gray-light); }
+  .review-stars { font-size: 14px; margin-bottom: 8px; }
+  .review-text { font-size: 14px; color: var(--gray-mid); line-height: 1.65; }
+  .review-property { font-size: 12px; color: var(--blue-mid); font-weight: 600; margin-top: 8px; }
+
+  /* ── SIDEBAR ── */
+  .sidebar-card {
+    background: white; border-radius: 16px;
+    border: 1px solid var(--border); padding: 22px;
+    margin-bottom: 16px;
+    box-shadow: 0 3px 14px rgba(10,36,99,0.05);
+  }
+  .sidebar-title { font-size: 14px; font-weight: 700; color: var(--blue-deep); margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+
+  .contact-row { display: flex; align-items: center; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--border); }
+  .contact-row:last-child { border-bottom: none; padding-bottom: 0; }
+  .contact-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+  .contact-info { flex: 1; }
+  .contact-label { font-size: 11px; color: var(--gray-light); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+  .contact-val { font-size: 14px; font-weight: 600; color: var(--blue-deep); }
+  .contact-val a { color: var(--blue-mid); text-decoration: none; }
+  .contact-val a:hover { color: var(--blue-deep); }
+
+  .coverage-tags { display: flex; flex-wrap: wrap; gap: 7px; }
+  .coverage-tag { padding: 5px 12px; background: var(--blue-pale); color: var(--blue-mid); border-radius: 20px; font-size: 12px; font-weight: 600; }
+
+  .tier-badge {
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px; background: linear-gradient(135deg, #fefce8, #fef9c3);
+    border: 1px solid #fcd34d; border-radius: 13px; margin-bottom: 14px;
+  }
+  .tier-icon { font-size: 26px; }
+  .tier-name { font-size: 14px; font-weight: 700; color: #92400e; }
+  .tier-desc { font-size: 12px; color: #a16207; }
+
+  /* ── PAGINATION ── */
+  .pagination { display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 28px; }
+  .page-btn { width: 36px; height: 36px; border: 1.5px solid var(--border); border-radius: 8px; background: white; font-size: 13px; font-weight: 600; color: var(--gray-mid); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; font-family: 'DM Sans', sans-serif; }
+  .page-btn:hover { border-color: var(--blue-mid); color: var(--blue-mid); }
+  .page-btn.active { background: var(--blue-mid); border-color: var(--blue-mid); color: white; }
+
+
+  /* ── LOCATION DETECT BUTTON ── */
+  .location-bar {
+    background: linear-gradient(135deg, var(--blue-tint), #eef3ff);
+    border-bottom: 1px solid var(--blue-pale);
+    padding: 10px 40px;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 10px;
+  }
+  .location-bar-left { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--gray-mid); }
+  .location-indicator { display: flex; align-items: center; gap: 6px; font-weight: 600; color: var(--blue-deep); }
+  .location-dot { width: 8px; height: 8px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.3)} }
+  .detect-btn {
+    display: flex; align-items: center; gap: 7px;
+    background: white; color: var(--blue-mid);
+    padding: 8px 16px; border-radius: 20px;
+    font-size: 13px; font-weight: 700;
+    border: 1.5px solid var(--blue-pale);
+    cursor: pointer; transition: all 0.2s;
+    font-family: 'DM Sans', sans-serif;
+    box-shadow: 0 2px 8px rgba(27,79,216,0.08);
+  }
+  .detect-btn:hover { background: var(--blue-mid); color: white; border-color: var(--blue-mid); }
+  .unit-toggle { display: flex; gap: 3px; background: white; border-radius: 20px; padding: 3px; border: 1.5px solid var(--blue-pale); }
+  .unit-btn { padding: 5px 12px; border: none; background: transparent; border-radius: 16px; font-size: 12px; font-weight: 700; cursor: pointer; color: var(--gray-mid); transition: all 0.2s; font-family: 'DM Sans', sans-serif; }
+  .unit-btn.active { background: var(--blue-mid); color: white; }
+  /* ── RESPONSIVE ── */
+  @media (max-width: 960px) {
+    nav { padding: 0 20px; }
+    .breadcrumb { padding: 12px 20px; }
+    .agency-hero { padding: 32px 20px; }
+    .agency-hero-name { font-size: 24px; }
+    .page-wrap { grid-template-columns: 1fr; padding: 20px; }
+    .listings-grid { grid-template-columns: 1fr; }
+    .agency-hero-actions { flex-direction: row; }
+    .info-grid { grid-template-columns: 1fr; }
+  }
+
+  .nav-signin {
+    text-decoration: none;
+    color: var(--blue-mid, #1B4FD8);
+    font-size: 14px;
+    font-weight: 600;
+    padding: 8px 14px;
+    border-radius: 9px;
+    border: 1.5px solid var(--blue-pale, #E8EFFF);
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .nav-signin:hover { background: var(--blue-pale, #E8EFFF); }
+  .nav-user-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--blue-pale, #E8EFFF);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--blue-mid, #1B4FD8);
+    text-decoration: none;
+    transition: background 0.2s;
+    flex-shrink: 0;
+  }
+  .nav-user-icon:hover { background: var(--blue-mid, #1B4FD8); color: white; }
+
+  .back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: white;
+    border: 1.5px solid var(--border, #E2E8F0);
+    color: var(--gray-mid, #4A5568);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 7px 14px;
+    border-radius: 9px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    text-decoration: none;
+    transition: all 0.2s;
+    margin: 0;
+  }
+  .back-btn:hover { border-color: var(--blue-mid, #1B4FD8); color: var(--blue-mid, #1B4FD8); background: var(--blue-tint, #F4F7FF); }
+  .back-btn svg { flex-shrink: 0; }
+  .back-bar { padding: 12px 32px; background: white; border-bottom: 1px solid var(--border, #E2E8F0); }
+
+  /* ── WRITE REVIEW ── */
+  .write-review-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:var(--blue-mid);color:white;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background 0.2s;margin-bottom:20px;}
+  .write-review-btn:hover{background:var(--blue-deep);}
+  .review-modal-overlay{position:fixed;inset:0;background:rgba(10,36,99,0.45);z-index:9990;display:none;align-items:center;justify-content:center;backdrop-filter:blur(3px);}
+  .review-modal-overlay.open{display:flex;}
+  .review-modal{position:relative;z-index:9991;}
+  .review-modal{background:white;border-radius:20px;padding:32px;width:100%;max-width:520px;box-shadow:0 20px 60px rgba(10,36,99,0.2);}
+  .review-modal-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--blue-deep);margin-bottom:4px;}
+  .review-modal-sub{font-size:13px;color:var(--gray-light);margin-bottom:24px;}
+  .review-section-label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--gray-dark);margin-bottom:8px;}
+  .star-picker{display:flex;gap:6px;margin-bottom:20px;}
+  .star-picker span{font-size:32px;cursor:pointer;transition:transform 0.15s;filter:grayscale(1);opacity:0.4;}
+  .star-picker span.active{filter:none;opacity:1;}
+  .star-picker span:hover{transform:scale(1.2);}
+  .review-listing-select{width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:9px;font-size:14px;font-family:'DM Sans',sans-serif;color:var(--gray-dark);outline:none;margin-bottom:20px;transition:border-color 0.2s;}
+  .review-listing-select:focus{border-color:var(--blue-light);}
+  .review-textarea{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:9px;font-size:14px;font-family:'DM Sans',sans-serif;color:var(--gray-dark);resize:vertical;min-height:110px;outline:none;transition:border-color 0.2s;margin-bottom:8px;}
+  .review-textarea:focus{border-color:var(--blue-light);}
+  .review-char-count{font-size:11px;color:var(--gray-light);text-align:right;margin-bottom:20px;}
+  .review-modal-actions{display:flex;gap:10px;justify-content:flex-end;}
+  .review-cancel-btn{padding:10px 20px;background:var(--gray-bg);color:var(--gray-mid);border:1.5px solid var(--border);border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;}
+  .review-submit-btn{padding:10px 24px;background:var(--blue-mid);color:white;border:none;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background 0.2s;}
+  .review-submit-btn:hover{background:var(--blue-deep);}
+  .review-avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--blue-mid),var(--blue-light));display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:white;flex-shrink:0;}
+  .review-tag{display:inline-block;padding:3px 10px;background:var(--blue-pale);color:var(--blue-mid);border-radius:6px;font-size:11px;font-weight:700;margin-top:6px;}
+  .review-helpful{display:flex;align-items:center;gap:8px;margin-top:10px;}
+
+  .review-actions{display:flex;align-items:center;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);}
+  .review-actions-spacer{flex:1;}
+  .like-btn{display:flex;align-items:center;gap:5px;padding:5px 12px;border:1.5px solid var(--border);border-radius:20px;background:none;font-size:12px;font-weight:600;color:var(--gray-mid);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
+  .like-btn:hover{border-color:var(--blue-mid);color:var(--blue-mid);background:var(--blue-tint);}
+  .like-btn.liked{border-color:var(--blue-mid);color:var(--blue-mid);background:var(--blue-pale);}
+  .flag-btn{display:flex;align-items:center;gap:5px;padding:5px 12px;border:1.5px solid var(--border);border-radius:20px;background:none;font-size:12px;font-weight:600;color:var(--gray-light);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
+  .flag-btn:hover{border-color:#f97316;color:#f97316;background:#fff7ed;}
+  .flag-btn.flagged{border-color:#ef4444;color:#ef4444;background:#fef2f2;}
+
+  .helpful-btn{font-size:12px;color:var(--gray-light);background:none;border:1.5px solid var(--border);border-radius:6px;padding:3px 10px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
+  .helpful-btn:hover{border-color:var(--blue-mid);color:var(--blue-mid);}
+
+/* ── SESSION NAV ── */
+.nav-user-dropdown { position: relative; }
+.nav-user-icon {
+  width: 38px; height: 38px; border-radius: 50%;
+  background: var(--blue-pale, #E8EFFF);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--blue-mid, #1B4FD8); text-decoration: none;
+  cursor: pointer; border: none; font-family: inherit;
+  transition: background 0.2s; flex-shrink: 0; font-size: 13px; font-weight: 700;
+}
+.nav-user-icon:hover, .nav-user-icon.active { background: var(--blue-mid, #1B4FD8); color: white; }
+.nav-user-menu {
+  position: absolute; top: calc(100% + 10px); right: 0;
+  background: white; border: 1px solid var(--border, #E2E8F0);
+  border-radius: 14px; min-width: 200px;
+  box-shadow: 0 8px 30px rgba(10,36,99,0.14);
+  z-index: 9999; overflow: hidden;
+  opacity: 0; transform: translateY(-8px);
+  pointer-events: none; transition: opacity 0.2s, transform 0.2s;
+}
+.nav-user-menu.open { opacity: 1; transform: translateY(0); pointer-events: all; }
+.nav-user-menu-header {
+  padding: 14px 16px 10px;
+  border-bottom: 1px solid var(--border, #E2E8F0);
+}
+.nav-user-menu-name { font-size: 14px; font-weight: 700; color: var(--blue-deep, #0A2463); }
+.nav-user-menu-type { font-size: 11px; color: var(--gray-light, #A0AEC0); margin-top: 2px; text-transform: capitalize; }
+.nav-user-menu-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 11px 16px; font-size: 13px; font-weight: 600;
+  color: var(--gray-dark, #1A1A2E); text-decoration: none;
+  cursor: pointer; border: none; background: none;
+  width: 100%; font-family: inherit; transition: background 0.15s;
+}
+.nav-user-menu-item:hover { background: var(--blue-tint, #F4F7FF); color: var(--blue-mid, #1B4FD8); }
+.nav-user-menu-item.danger { color: #dc2626; }
+.nav-user-menu-item.danger:hover { background: #fef2f2; }
+.nav-user-menu-divider { height: 1px; background: var(--border, #E2E8F0); margin: 4px 0; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="maisonquest.html" class="logo">
+    <div class="logo-icon">🏠</div>
+    <span class="logo-text">Maison<span>Quest</span></span>
+  </a>
+  <div class="nav-right">
+    <select class="currency-select" id="nav-currency" onchange="setCurrency(this.value)">
+      <option value="XAF">XAF – CFA</option>
+      <option value="USD">USD – $</option>
+      <option value="EUR">EUR – €</option>
+      <option value="GBP">GBP – £</option>
+    </select>
+    <div class="nav-lang">
+      <button class="lang-btn active">EN</button>
+      <button class="lang-btn">FR</button>
+    </div>
+    <a href="#" onclick="MQ.listProperty();return false;" class="nav-cta">List a Property →</a>
+    <div id="nav-user-area" style="display:flex;align-items:center;gap:10px;position:relative;"></div>
+  </div>
+</nav>
+<!-- BACK BAR -->
+<div class="back-bar">
+  <button class="back-btn" onclick="goBack()">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    Back
+  </button>
+</div>
+
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="maisonquest.html">Home</a>
+  <span class="breadcrumb-sep">›</span>
+  <a href="maisonquest.html">Home</a>
+  <span class="breadcrumb-sep">›</span>
+  <span>Immo Prestige Douala</span>
+</div>
+
+
+<!-- AGENCY HERO BANNER -->
+<div class="agency-hero">
+  <div class="agency-hero-inner">
+    <div class="agency-logo-big">🏢</div>
+    <div class="agency-hero-info">
+      <h1 class="agency-hero-name">Immo Prestige Douala</h1>
+      <div class="agency-hero-meta">
+        <div class="verified-chip">✅ Verified Agency</div>
+        <div class="meta-chip">📍 Douala, Cameroon</div>
+        <div class="meta-chip">🗓 Member since 2022</div>
+        <div class="meta-chip">⭐ 4.8 rating</div>
+      </div>
+      <div class="agency-hero-stats">
+        <div class="hero-stat">
+          <strong>47</strong>
+          <span>Active Listings</span>
+        </div>
+        <div class="stat-div"></div>
+        <div class="hero-stat">
+          <strong>120+</strong>
+          <span>Deals Closed</span>
+        </div>
+        <div class="stat-div"></div>
+        <div class="hero-stat">
+          <strong>3 yrs</strong>
+          <span>On MaisonQuest</span>
+        </div>
+        <div class="stat-div"></div>
+        <div class="hero-stat">
+          <strong>98%</strong>
+          <span>Response Rate</span>
+        </div>
+      </div>
+    </div>
+    <div class="agency-hero-actions">
+      <a href="https://wa.me/237600000000" class="btn-wa-hero">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp
+      </a>
+      <button class="btn-follow" id="follow-btn" onclick="toggleFollow(this)">🔔 Follow Agency</button>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE BODY -->
+<div class="page-wrap">
+
+  <!-- LEFT MAIN -->
+  <div class="main-content">
+
+    <!-- TABS -->
+    <div class="tabs" style="display:flex;align-items:center;">
+      <button class="tab active" onclick="setTab(this,'listings')">🏠 Listings <span class="tab-count">47</span></button>
+      <button class="tab" onclick="setTab(this,'about')">ℹ️ About</button>
+      <button class="tab" onclick="setTab(this,'reviews')">⭐ Reviews <span class="tab-count">38</span></button>
+      <button id="write-review-tab-btn" onclick="handleWriteReview()" style="margin-left:auto;display:inline-flex;align-items:center;gap:7px;padding:8px 16px;background:var(--blue-mid);color:white;border:none;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background 0.2s;flex-shrink:0;">✏️ Write a Review</button>
+    </div>
+
+    <!-- LISTINGS TAB -->
+    <div id="tab-listings">
+      <div class="filter-row">
+        <button class="filter-chip active" onclick="setFilter(this)">All (47)</button>
+        <button class="filter-chip" onclick="setFilter(this)">🏢 Apartments (28)</button>
+        <button class="filter-chip" onclick="setFilter(this)">🏡 Guest Houses (10)</button>
+        <button class="filter-chip" onclick="setFilter(this)">🛏 Rooms (6)</button>
+        <button class="filter-chip" onclick="setFilter(this)">🌍 Land (3)</button>
+        <select class="filter-sort">
+          <option>Newest First</option>
+          <option>Price: Low to High</option>
+          <option>Price: High to Low</option>
+        </select>
+      </div>
+
+      <div class="listings-grid">
+
+        <!-- Listing 1 -->
+        <div class="listing-card" data-type="apartment">
+          <div class="listing-img">
+            <div class="listing-badge featured">⭐ Featured</div>
+            <div class="listing-fav" onclick="toggleFav(this);event.stopPropagation()">🤍</div>
+          </div>
+          <div class="listing-body">
+            <div class="listing-title">Modern 3-Bedroom Apartment</div>
+            <div class="listing-loc">📍 Bonapriso, Douala</div>
+            <div class="listing-feats">
+              <div class="feat">🛏 3 beds</div>
+              <div class="feat">🚿 2 baths</div>
+              <div class="feat size-feat" data-sqm="120">📐 120 m²</div>
+            </div>
+            <div class="listing-footer">
+              <div class="listing-price"><span class="price-val" data-cfa="180000">180,000</span> <span class="unit">CFA/mo</span></div>
+              <a href="maisonquest-listing-detail.html" class="wa-btn">View →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Listing 2 -->
+        <div class="listing-card" data-type="guesthouse">
+          <div class="listing-img">
+            <div class="listing-badge new">New</div>
+            <div class="listing-fav" onclick="toggleFav(this);event.stopPropagation()">🤍</div>
+          </div>
+          <div class="listing-body">
+            <div class="listing-title">Executive Guest House with Pool</div>
+            <div class="listing-loc">📍 Bonanjo, Douala</div>
+            <div class="listing-feats">
+              <div class="feat">🛏 4 beds</div>
+              <div class="feat">🚿 3 baths</div>
+              <div class="feat size-feat" data-sqm="200">📐 200 m²</div>
+              <div class="feat">🌿 Garden</div>
+            </div>
+            <div class="listing-footer">
+              <div class="listing-price"><span class="price-val" data-cfa="320000">320,000</span> <span class="unit">CFA/mo</span></div>
+              <a href="maisonquest-listing-detail.html" class="wa-btn">View →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Listing 3 -->
+        <div class="listing-card" data-type="apartment">
+          <div class="listing-img">
+            <div class="listing-badge">Apartment</div>
+            <div class="listing-fav" onclick="toggleFav(this);event.stopPropagation()">🤍</div>
+          </div>
+          <div class="listing-body">
+            <div class="listing-title">Bright 2-Bed, Secured Building</div>
+            <div class="listing-loc">📍 Makepe, Douala</div>
+            <div class="listing-feats">
+              <div class="feat">🛏 2 beds</div>
+              <div class="feat">🚿 1 bath</div>
+              <div class="feat size-feat" data-sqm="80">📐 80 m²</div>
+            </div>
+            <div class="listing-footer">
+              <div class="listing-price"><span class="price-val" data-cfa="95000">95,000</span> <span class="unit">CFA/mo</span></div>
+              <a href="maisonquest-listing-detail.html" class="wa-btn">View →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Listing 4 -->
+        <div class="listing-card" data-type="room">
+          <div class="listing-img">
+            <div class="listing-badge featured">⭐ Featured</div>
+            <div class="listing-fav" onclick="toggleFav(this);event.stopPropagation()">🤍</div>
+          </div>
+          <div class="listing-body">
+            <div class="listing-title">Studio — Ideal for Students</div>
+            <div class="listing-loc">📍 Akwa, Douala</div>
+            <div class="listing-feats">
+              <div class="feat">🛏 1 bed</div>
+              <div class="feat">🚿 1 bath</div>
+              <div class="feat size-feat" data-sqm="32">📐 32 m²</div>
+            </div>
+            <div class="listing-footer">
+              <div class="listing-price"><span class="price-val" data-cfa="40000">40,000</span> <span class="unit">CFA/mo</span></div>
+              <a href="maisonquest-listing-detail.html" class="wa-btn">View →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Listing 5 -->
+        <div class="listing-card" data-type="land">
+          <div class="listing-img">
+            <div class="listing-badge">Land</div>
+            <div class="listing-fav" onclick="toggleFav(this);event.stopPropagation()">🤍</div>
+          </div>
+          <div class="listing-body">
+            <div class="listing-title">600m² Land Plot — Titre Foncier</div>
+            <div class="listing-loc">📍 Logpom, Douala</div>
+            <div class="listing-feats">
+              <div class="feat size-feat" data-sqm="600">📐 600 m²</div>
+              <div class="feat">📄 Titre Foncier</div>
+              <div class="feat">🛣 Road Access</div>
+            </div>
+            <div class="listing-footer">
+              <div class="listing-price"><span class="price-val" data-cfa="8500000">8,500,000</span> <span class="unit">CFA</span></div>
+              <a href="maisonquest-listing-detail.html" class="wa-btn">View →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Listing 6 -->
+        <div class="listing-card" data-type="guesthouse">
+          <div class="listing-img">
+            <div class="listing-badge">Guest House</div>
+            <div class="listing-fav" onclick="toggleFav(this);event.stopPropagation()">🤍</div>
+          </div>
+          <div class="listing-body">
+            <div class="listing-title">Furnished 3-Bed Villa</div>
+            <div class="listing-loc">📍 Bonapriso, Douala</div>
+            <div class="listing-feats">
+              <div class="feat">🛏 3 beds</div>
+              <div class="feat">🚿 2 baths</div>
+              <div class="feat size-feat" data-sqm="150">📐 150 m²</div>
+              <div class="feat">🪑 Furnished</div>
+            </div>
+            <div class="listing-footer">
+              <div class="listing-price"><span class="price-val" data-cfa="250000">250,000</span> <span class="unit">CFA/mo</span></div>
+              <a href="maisonquest-listing-detail.html" class="wa-btn">View →</a>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- end listings-grid -->
+
+      <div class="pagination" id="pagination">
+        <button class="page-btn arrow" onclick="prevPage()">‹</button>
+        <button class="page-btn active" onclick="setPage(this)">1</button>
+        <button class="page-btn" onclick="setPage(this)">2</button>
+        <button class="page-btn" onclick="setPage(this)">3</button>
+        <button class="page-btn arrow" onclick="nextPage()">›</button>
+      </div>
+    </div><!-- end tab-listings -->
+
+    <!-- ABOUT TAB -->
+    <div id="tab-about" style="display:none;">
+      <div class="about-section">
+        <div class="about-title">About Immo Prestige Douala</div>
+        <div class="about-text">
+          Immo Prestige Douala is one of Cameroon's most trusted real estate agencies, operating in Douala since 2019. We specialize in residential rentals, guest house management, and land sales across all major neighborhoods of Douala.
+          <br><br>
+          Our team of experienced agents knows Douala's property market inside out. We work exclusively with verified, legal properties — every listing on our profile comes with full documentation and a signed agency mandate from the property owner.
+          <br><br>
+          We pride ourselves on transparent pricing, fast response times, and helping both locals and the Cameroonian diaspora find their ideal home with confidence and ease.
+        </div>
+        <div class="info-grid">
+          <div class="info-item">
+            <div class="info-label">Founded</div>
+            <div class="info-value">2019</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Location</div>
+            <div class="info-value">Bonapriso, Douala</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Speciality</div>
+            <div class="info-value">Residential Rentals & Land</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Languages</div>
+            <div class="info-value">French, English</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">License Number</div>
+            <div class="info-value">AI-DLA-2019-0142</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Response Time</div>
+            <div class="info-value">Usually within 2 hours</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- REVIEWS TAB -->
+    <div id="tab-reviews" style="display:none;">
+      <button class="write-review-btn" onclick="handleWriteReview()">✏️ Write a Review</button>
+      <div id="submitted-reviews"></div>
+      <div class="review-summary">
+        <div class="big-rating">
+          <strong>4.8</strong>
+          <div class="stars-row">⭐⭐⭐⭐⭐</div>
+          <span>38 reviews</span>
+        </div>
+        <div class="rating-bars">
+          <div class="bar-row"><span class="bar-label">5★</span><div class="bar-track"><div class="bar-fill" style="width:78%"></div></div><span class="bar-count">30</span></div>
+          <div class="bar-row"><span class="bar-label">4★</span><div class="bar-track"><div class="bar-fill" style="width:15%"></div></div><span class="bar-count">6</span></div>
+          <div class="bar-row"><span class="bar-label">3★</span><div class="bar-track"><div class="bar-fill" style="width:5%"></div></div><span class="bar-count">2</span></div>
+          <div class="bar-row"><span class="bar-label">2★</span><div class="bar-track"><div class="bar-fill" style="width:0%"></div></div><span class="bar-count">0</span></div>
+          <div class="bar-row"><span class="bar-label">1★</span><div class="bar-track"><div class="bar-fill" style="width:0%"></div></div><span class="bar-count">0</span></div>
+        </div>
+      </div>
+
+      <div class="review-card" id="review-0">
+        <div class="review-header">
+          <div>
+            <div class="reviewer-name">Sandrine M. <span style="background:#f0fdf4;color:#16a34a;font-size:10px;font-weight:700;padding:2px 7px;border-radius:5px;margin-left:6px;">Verified Renter</span></div>
+            <div class="reviewer-date">January 2026</div>
+          </div>
+        </div>
+        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+        <div class="review-text">Excellent service from start to finish. The agent was professional, responded quickly on WhatsApp, and the apartment was exactly as described. No hidden fees, no surprises. I would recommend Immo Prestige to anyone looking for property in Douala.</div>
+        <div class="review-property">Property: 3-Bed Apartment, Bonapriso</div>
+        <div class="review-actions">
+          <button class="like-btn" onclick="likeReview(this, 'review-0')">👍 <span class="like-count">14</span> Helpful</button>
+          <div class="review-actions-spacer"></div>
+          <button class="flag-btn" onclick="flagReview(this, 'review-0')">🚩 Flag</button>
+        </div>
+      </div>
+
+      <div class="review-card" id="review-1">
+        <div class="review-header">
+          <div>
+            <div class="reviewer-name">Jean-Pierre K. <span style="background:#f0fdf4;color:#16a34a;font-size:10px;font-weight:700;padding:2px 7px;border-radius:5px;margin-left:6px;">Verified Renter</span></div>
+            <div class="reviewer-date">November 2025</div>
+          </div>
+        </div>
+        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+        <div class="review-text">I was searching from France and they helped me find an apartment for my mother in Douala. Everything was handled professionally over WhatsApp. The photos were accurate and the lease was properly drafted. Very trustworthy agency.</div>
+        <div class="review-property">Property: 2-Bed Apartment, Makepe</div>
+        <div class="review-actions">
+          <button class="like-btn" onclick="likeReview(this, 'review-1')">👍 <span class="like-count">8</span> Helpful</button>
+          <div class="review-actions-spacer"></div>
+          <button class="flag-btn" onclick="flagReview(this, 'review-1')">🚩 Flag</button>
+        </div>
+      </div>
+
+      <div class="review-card" id="review-2">
+        <div class="review-header">
+          <div>
+            <div class="reviewer-name">Armelle N. <span style="background:#f0fdf4;color:#16a34a;font-size:10px;font-weight:700;padding:2px 7px;border-radius:5px;margin-left:6px;">Verified Renter</span></div>
+            <div class="reviewer-date">September 2025</div>
+          </div>
+        </div>
+        <div class="review-stars">⭐⭐⭐⭐</div>
+        <div class="review-text">Good agency overall. Response time was fast and the agent showed us 4 different options before we decided. Took a little longer than expected to get the lease signed but everything worked out well in the end.</div>
+        <div class="review-property">Property: Guest House, Bonanjo</div>
+        <div class="review-actions">
+          <button class="like-btn" onclick="likeReview(this, 'review-2')">👍 <span class="like-count">3</span> Helpful</button>
+          <div class="review-actions-spacer"></div>
+          <button class="flag-btn" onclick="flagReview(this, 'review-2')">🚩 Flag</button>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end main-content -->
+
+  <!-- RIGHT SIDEBAR -->
+  <aside>
+
+    <!-- Tier badge -->
+    <div class="tier-badge">
+      <div class="tier-icon">⭐</div>
+      <div>
+        <div class="tier-name">Pro Agency — Verified Partner</div>
+        <div class="tier-desc">Top-tier listing visibility on MaisonQuest</div>
+      </div>
+    </div>
+
+    <!-- Contact info -->
+    <div class="sidebar-card">
+      <div class="sidebar-title">Contact Information</div>
+      <div class="contact-row">
+        <div class="contact-icon" style="background:#dcfce7;">📱</div>
+        <div class="contact-info">
+          <div class="contact-label">WhatsApp</div>
+          <div class="contact-val"><a href="https://wa.me/237600000000">+237 600 000 000</a></div>
+        </div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-icon" style="background:#dbeafe;">📞</div>
+        <div class="contact-info">
+          <div class="contact-label">Phone</div>
+          <div class="contact-val"><a href="tel:+237600000000">+237 600 000 000</a></div>
+        </div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-icon" style="background:#ede9fe;">✉️</div>
+        <div class="contact-info">
+          <div class="contact-label">Email</div>
+          <div class="contact-val"><a href="/cdn-cgi/l/email-protection#0764686973666473476e6a6a6877756274736e606229646a"><span class="__cf_email__" data-cfemail="01626e6f7560627541686c6c6e71736472756866642f626c">[email&#160;protected]</span></a></div>
+        </div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-icon" style="background:#fef9c3;">📍</div>
+        <div class="contact-info">
+          <div class="contact-label">Office Address</div>
+          <div class="contact-val">Rue Joffre, Bonapriso, Douala</div>
+        </div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-icon" style="background:#fce7f3;">🕐</div>
+        <div class="contact-info">
+          <div class="contact-label">Office Hours</div>
+          <div class="contact-val">Mon–Sat, 8am – 6pm</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Areas covered -->
+    <div class="sidebar-card">
+      <div class="sidebar-title">Areas Covered</div>
+      <div class="coverage-tags">
+        <span class="coverage-tag">Bonapriso</span>
+        <span class="coverage-tag">Bonanjo</span>
+        <span class="coverage-tag">Akwa</span>
+        <span class="coverage-tag">Makepe</span>
+        <span class="coverage-tag">Deido</span>
+        <span class="coverage-tag">Logpom</span>
+        <span class="coverage-tag">Bonamoussadi</span>
+        <span class="coverage-tag">Bassa</span>
+      </div>
+    </div>
+
+    <!-- Quick stats -->
+    <div class="sidebar-card">
+      <div class="sidebar-title">Agency Stats</div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;justify-content:space-between;font-size:14px;">
+          <span style="color:var(--gray-mid);">Active listings</span>
+          <span style="font-weight:700;color:var(--blue-deep);">47</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:14px;">
+          <span style="color:var(--gray-mid);">Deals closed</span>
+          <span style="font-weight:700;color:var(--blue-deep);">120+</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:14px;">
+          <span style="color:var(--gray-mid);">Response rate</span>
+          <span style="font-weight:700;color:var(--green);">98%</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:14px;">
+          <span style="color:var(--gray-mid);">Avg. response time</span>
+          <span style="font-weight:700;color:var(--blue-deep);">&lt; 2 hours</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:14px;">
+          <span style="color:var(--gray-mid);">Member since</span>
+          <span style="font-weight:700;color:var(--blue-deep);">2022</span>
+        </div>
+      </div>
+    </div>
+
+  </aside>
+
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+<script>
+function goBack() {
+  if (document.referrer && document.referrer !== window.location.href) {
+    history.back();
+  } else {
+    window.location.href = 'maisonquest.html';
+  }
+}
+
+var selectedStars = 0;
+
+function openReviewModal() {
+  var overlay = document.getElementById('review-modal-overlay');
+  overlay.style.cssText = 'display:flex !important; position:fixed; inset:0; background:rgba(10,36,99,0.55); z-index:99999; align-items:center; justify-content:center; backdrop-filter:blur(3px);';
+  document.body.style.overflow = 'hidden';
+}
+
+function closeReviewModal() {
+  var overlay = document.getElementById('review-modal-overlay');
+  overlay.style.cssText = 'display:none;';
+  document.body.style.overflow = '';
+}
+
+function handleWriteReview() {
+  var session = null;
+  try { session = JSON.parse(sessionStorage.getItem('mq_session')); } catch(e) {}
+  var userType = (session && session.type) || sessionStorage.getItem('mq_user_type');
+  if (userType === 'agency') {
+    showAgencyReviewBlocker();
+  } else {
+    openReviewModal();
+  }
+}
+
+function showAgencyReviewBlocker() {
+  var n = document.createElement('div');
+  n.style.cssText = 'position:fixed;top:80px;right:24px;background:#1e293b;color:white;border-radius:14px;padding:16px 20px;font-size:13px;font-weight:600;z-index:9999;box-shadow:0 4px 20px rgba(0,0,0,0.25);max-width:300px;line-height:1.6;';
+  n.innerHTML = '<div style="font-size:15px;margin-bottom:6px;">🔒 Renters Only</div><div style="font-weight:400;color:rgba(255,255,255,0.75);">Only renters can leave reviews. Reviews must come from people who have searched for or inquired about a property.</div>';
+  document.body.appendChild(n);
+  setTimeout(function(){ n.style.transition='opacity 0.3s'; n.style.opacity='0'; setTimeout(function(){n.remove();},300); }, 4000);
+}
+
+
+function setStars(n) {
+  selectedStars = n;
+  var stars = document.querySelectorAll('#star-picker span');
+  stars.forEach(function(s, i) {
+    s.classList.toggle('active', i < n);
+  });
+}
+
+function updateCharCount(el) {
+  var len = el.value.length;
+  document.getElementById('char-count').textContent = len;
+  if (len > 500) el.value = el.value.substring(0, 500);
+}
+
+function submitReview() {
+  if (!selectedStars) { alert('Please select a star rating.'); return; }
+  var text = document.getElementById('review-textarea').value.trim();
+  if (text.length < 20) { alert('Please write at least 20 characters.'); return; }
+  var listing = document.getElementById('review-listing-select').value;
+  var starsHTML = '⭐'.repeat(selectedStars);
+  var now = new Date();
+  var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var dateStr = months[now.getMonth()] + ' ' + now.getFullYear();
+  var card = document.createElement('div');
+  card.className = 'review-card';
+  card.style.borderLeft = '3px solid var(--blue-mid)';
+  card.innerHTML =
+    '<div class="review-header">' +
+      '<div style="display:flex;align-items:center;gap:10px;">' +
+        '<div class="review-avatar">JK</div>' +
+        '<div><div class="reviewer-name">Jean Kamga <span class="review-tag">Verified Renter</span></div>' +
+        '<div class="reviewer-date">' + dateStr + '</div></div>' +
+      '</div>' +
+    '</div>' +
+    '<div class="review-stars">' + starsHTML + '</div>' +
+    '<div class="review-text">' + text + '</div>' +
+    (listing ? '<div class="review-property">Property: ' + listing + '</div>' : '') +
+    '<div class="review-actions"><button class="like-btn" onclick="likeReview(this,\'new-\'+Date.now())">👍 <span class="like-count">0</span> Helpful</button><div class="review-actions-spacer"></div><button class="flag-btn" onclick="flagReview(this,\'new-\'+Date.now())">🚩 Flag</button></div>';
+  document.getElementById('submitted-reviews').prepend(card);
+  // Reset form
+  selectedStars = 0;
+  document.querySelectorAll('#star-picker span').forEach(function(s){ s.classList.remove('active'); });
+  document.getElementById('review-textarea').value = '';
+  document.getElementById('review-listing-select').value = '';
+  document.getElementById('char-count').textContent = '0';
+  document.getElementById('review-modal-overlay').style.display = 'none';
+  document.body.style.overflow = '';
+  // Switch to reviews tab
+  document.querySelectorAll('.tab').forEach(function(btn){
+    var isReviews = btn.textContent.toLowerCase().includes('review');
+    btn.classList.toggle('active', isReviews);
+    if (isReviews) setTab(btn, 'reviews');
+  });
+  // Show success toast
+  showProfileToast('✓ Review submitted! Thank you for your feedback.');
+}
+
+var likedReviews = {};
+var flaggedReviews = {};
+
+function likeReview(btn, reviewId) {
+  var countEl = btn.querySelector('.like-count');
+  if (likedReviews[reviewId]) {
+    // Unlike
+    likedReviews[reviewId] = false;
+    if (countEl) countEl.textContent = parseInt(countEl.textContent) - 1;
+    btn.classList.remove('liked');
+    btn.title = '';
+  } else {
+    // Like
+    likedReviews[reviewId] = true;
+    if (countEl) countEl.textContent = parseInt(countEl.textContent) + 1;
+    btn.classList.add('liked');
+    btn.title = 'You found this helpful';
+  }
+}
+
+function flagReview(btn, reviewId) {
+  if (flaggedReviews[reviewId]) {
+    // Unflag
+    flaggedReviews[reviewId] = false;
+    btn.textContent = '🚩 Flag';
+    btn.classList.remove('flagged');
+    btn.disabled = false;
+  } else {
+    // Flag
+    if (!confirm('Flag this review as inappropriate?\n\nFlagged reviews are reviewed by MaisonQuest and may be removed if they violate our community guidelines.')) return;
+    flaggedReviews[reviewId] = true;
+    btn.textContent = '🚩 Flagged';
+    btn.classList.add('flagged');
+    btn.disabled = false; // keep enabled so they can unflag
+    btn.onclick = function() { flagReview(btn, reviewId); };
+    showProfileToast('Review flagged. Our team will review it shortly.');
+  }
+}
+
+function showProfileToast(msg) {
+  var n = document.createElement('div');
+  n.style.cssText = 'position:fixed;top:80px;right:24px;background:#15803d;color:white;border-radius:12px;padding:12px 18px;font-size:13px;font-weight:600;z-index:9999;box-shadow:0 4px 16px rgba(0,0,0,0.2);';
+  n.textContent = msg;
+  document.body.appendChild(n);
+  setTimeout(function(){ n.style.transition='opacity 0.3s'; n.style.opacity='0'; setTimeout(function(){n.remove();},300); }, 3500);
+}
+</script><script>
+// Set user context from URL param (set by auth page on login)
+(function() {
+  var params = new URLSearchParams(window.location.search);
+  var from = params.get('from');
+  if (from) sessionStorage.setItem('mq_user_type', from);
+})();
+
+  const rates   = { XAF: 1, USD: 0.00165, EUR: 0.00152, GBP: 0.00130 };
+  const symbols = { XAF: 'CFA', USD: '$', EUR: '€', GBP: '£' };
+  let activeCurrency = 'XAF';
+  let activeUnits    = 'metric';
+  const SQM_TO_SQFT  = 10.7639;
+
+  const locationProfiles = {
+    US: { currency: 'USD', units: 'imperial', label: '🇺🇸 United States — USD & ft²' },
+    GB: { currency: 'GBP', units: 'imperial', label: '🇬🇧 United Kingdom — GBP & ft²' },
+    FR: { currency: 'EUR', units: 'metric',   label: '🇫🇷 France — EUR & m²' },
+    DE: { currency: 'EUR', units: 'metric',   label: '🇩🇪 Germany — EUR & m²' },
+    CM: { currency: 'XAF', units: 'metric',   label: '🇨🇲 Cameroon — CFA & m²' },
+    DEFAULT: { currency: 'XAF', units: 'metric', label: '📍 Showing XAF (CFA) · m²' },
+  };
+
+  function setCurrency(val) {
+    activeCurrency = val;
+    document.getElementById('nav-currency').value = val;
+    document.querySelectorAll('.price-val[data-cfa]').forEach(el => {
+      const cfa  = parseInt(el.dataset.cfa);
+      const conv = Math.round(cfa * rates[val]);
+      const unit = el.closest('.listing-price')?.querySelector('.unit');
+      const isMo = unit && unit.dataset.mo === '1';
+      el.textContent = val === 'XAF'
+        ? cfa.toLocaleString('fr-FR')
+        : symbols[val] + conv.toLocaleString('en-US');
+      if (unit) unit.textContent = val === 'XAF'
+        ? (isMo ? 'CFA/mo' : 'CFA')
+        : (isMo ? val + '/mo' : val);
+    });
+    updateLocationLabel();
+  }
+
+  function setUnits(mode) {
+    activeUnits = mode;
+    document.getElementById('unit-metric').classList.toggle('active', mode === 'metric');
+    document.getElementById('unit-imperial').classList.toggle('active', mode === 'imperial');
+    document.querySelectorAll('.size-feat[data-sqm]').forEach(el => {
+      const sqm  = parseFloat(el.dataset.sqm);
+      const sqft = Math.round(sqm * SQM_TO_SQFT);
+      el.textContent = mode === 'metric' ? ('📐 ' + sqm + ' m²') : ('📐 ' + sqft.toLocaleString() + ' ft²');
+    });
+    updateLocationLabel();
+  }
+
+  function updateLocationLabel() {
+    const unit = activeUnits === 'metric' ? 'm²' : 'ft²';
+    const curr = activeCurrency === 'XAF' ? 'XAF (CFA)' : activeCurrency;
+    document.getElementById('location-label').textContent = '📍 Showing prices in ' + curr + ' · Sizes in ' + unit;
+  }
+
+  function detectLocation() {
+    const btn = document.querySelector('.detect-btn');
+    btn.textContent = '📡 Detecting...';
+    btn.disabled = true;
+    fetch('https://ipapi.co/json/')
+      .then(r => r.json())
+      .then(data => {
+        const code    = data.country_code || 'DEFAULT';
+        const profile = locationProfiles[code] || locationProfiles.DEFAULT;
+        setCurrency(profile.currency);
+        setUnits(profile.units);
+        document.getElementById('location-label').textContent = profile.label;
+        btn.textContent = '✅ Location Set';
+        setTimeout(() => { btn.textContent = '📡 Detect My Location'; btn.disabled = false; }, 3000);
+      })
+      .catch(() => {
+        document.getElementById('location-label').textContent = '📍 Could not detect — set currency manually above';
+        btn.textContent = '📡 Detect My Location';
+        btn.disabled = false;
+      });
+  }
+
+  function setFilter(btn) {
+    document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    const text = btn.textContent.toLowerCase();
+    let type = null;
+    if (text.includes('apartment'))  type = 'apartment';
+    else if (text.includes('guest')) type = 'guesthouse';
+    else if (text.includes('room'))  type = 'room';
+    else if (text.includes('land'))  type = 'land';
+    document.querySelectorAll('.listing-card').forEach(card => {
+      card.style.display = (!type || card.dataset.type === type) ? '' : 'none';
+    });
+  }
+
+  function setTab(btn, name) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    ['listings','about','reviews'].forEach(t => {
+      document.getElementById('tab-' + t).style.display = t === name ? 'block' : 'none';
+    });
+  }
+
+  function toggleFollow(btn) {
+    const on = btn.classList.toggle('following');
+    btn.innerHTML = on
+      ? '<span>✅</span> Following'
+      : '<span>🔔</span> Follow Agency';
+  }
+
+  function toggleFav(el) { el.textContent = el.textContent === '🤍' ? '❤️' : '🤍'; }
+
+  function setPage(btn) {
+    document.querySelectorAll('.page-btn:not(.arrow)').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function prevPage() {
+    const pages = [...document.querySelectorAll('.page-btn:not(.arrow)')];
+    const curr  = pages.findIndex(b => b.classList.contains('active'));
+    if (curr > 0) setPage(pages[curr - 1]);
+  }
+
+  function nextPage() {
+    const pages = [...document.querySelectorAll('.page-btn:not(.arrow)')];
+    const curr  = pages.findIndex(b => b.classList.contains('active'));
+    if (curr < pages.length - 1) setPage(pages[curr + 1]);
+  }
+
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+
+  document.querySelectorAll('.listing-price .unit').forEach(u => {
+    if (u.textContent.includes('/mo')) u.dataset.mo = '1';
+  });
+</script>
+
+</div>
+
+<!-- WRITE REVIEW MODAL -->
+<div class="review-modal-overlay" id="review-modal-overlay">
+  <div class="review-modal" onclick="event.stopPropagation()">
+    <div class="review-modal-title">Write a Review</div>
+    <div class="review-modal-sub">Share your experience with Immo Prestige Douala</div>
+
+    <div class="review-section-label">Overall Rating</div>
+    <div class="star-picker" id="star-picker">
+      <span onclick="setStars(1)">⭐</span>
+      <span onclick="setStars(2)">⭐</span>
+      <span onclick="setStars(3)">⭐</span>
+      <span onclick="setStars(4)">⭐</span>
+      <span onclick="setStars(5)">⭐</span>
+    </div>
+
+    <div class="review-section-label">Which listing did you inquire about? (optional)</div>
+    <select class="review-listing-select" id="review-listing-select">
+      <option value="">— Select a listing —</option>
+      <option value="Modern 3-Bed Apartment, Bonapriso">Modern 3-Bed Apartment — Bonapriso</option>
+      <option value="Executive Guest House, Bonanjo">Executive Guest House — Bonanjo</option>
+      <option value="Studio — Students Welcome, Akwa">Studio — Students Welcome — Akwa</option>
+      <option value="600m² Land Plot, Logpom">600m² Land Plot — Logpom</option>
+      <option value="2-Bed Apartment, Makepe">2-Bed Apartment — Makepe</option>
+    </select>
+
+    <div class="review-section-label">Your Review</div>
+    <textarea class="review-textarea" id="review-textarea" placeholder="Describe your experience with this agency — their responsiveness, professionalism, accuracy of listings..." oninput="updateCharCount(this)"></textarea>
+    <div class="review-char-count"><span id="char-count">0</span> / 500 characters</div>
+
+    <div class="review-modal-actions">
+      <button class="review-cancel-btn" onclick="closeReviewModal()">Cancel</button>
+      <button class="review-submit-btn" onclick="submitReview()">Submit Review</button>
+    </div>
+  </div>
+</div>
+
+
+
+<style id="mq-session-css">
+.nav-user-dropdown{position:relative;}
+.nav-user-icon{width:38px;height:38px;border-radius:50%;background:var(--blue-pale,#E8EFFF);display:flex;align-items:center;justify-content:center;color:var(--blue-mid,#1B4FD8);cursor:pointer;border:none;font-family:inherit;font-size:13px;font-weight:700;transition:background 0.2s;flex-shrink:0;text-decoration:none;}
+.nav-user-icon:hover,.nav-user-icon.active{background:var(--blue-mid,#1B4FD8);color:white;}
+.nav-user-menu{position:absolute;top:calc(100% + 10px);right:0;background:white;border:1px solid var(--border,#E2E8F0);border-radius:14px;min-width:210px;box-shadow:0 8px 30px rgba(10,36,99,0.15);z-index:9999;overflow:hidden;opacity:0;transform:translateY(-8px);pointer-events:none;transition:opacity 0.2s,transform 0.2s;}
+.nav-user-menu.open{opacity:1;transform:translateY(0);pointer-events:all;}
+.nav-user-menu-header{padding:14px 16px 10px;border-bottom:1px solid var(--border,#E2E8F0);}
+.nav-user-menu-name{font-size:14px;font-weight:700;color:var(--blue-deep,#0A2463);}
+.nav-user-menu-type{font-size:11px;color:var(--gray-light,#A0AEC0);margin-top:2px;}
+.nav-user-menu-item{display:flex;align-items:center;gap:10px;padding:11px 16px;font-size:13px;font-weight:600;color:var(--gray-dark,#1A1A2E);text-decoration:none;cursor:pointer;border:none;background:none;width:100%;font-family:inherit;transition:background 0.15s;text-align:left;}
+.nav-user-menu-item:hover{background:var(--blue-tint,#F4F7FF);color:var(--blue-mid,#1B4FD8);}
+.nav-user-menu-item.danger{color:#dc2626;}
+.nav-user-menu-item.danger:hover{background:#fef2f2;color:#dc2626;}
+.nav-user-menu-divider{height:1px;background:var(--border,#E2E8F0);margin:4px 0;}
+.nav-signin{text-decoration:none;color:var(--blue-mid,#1B4FD8);font-size:14px;font-weight:600;padding:8px 14px;border-radius:9px;border:1.5px solid var(--blue-pale,#E8EFFF);transition:all 0.2s;white-space:nowrap;}
+.nav-signin:hover{background:var(--blue-pale,#E8EFFF);}
+</style>
+<script>
+var MQ={SESSION_KEY:'mq_session',TIMEOUT_MS:30*60*1000,
+save:function(t,n,i){sessionStorage.setItem(MQ.SESSION_KEY,JSON.stringify({type:t,name:n,initials:i,lastActive:Date.now()}));},
+get:function(){try{var r=sessionStorage.getItem(MQ.SESSION_KEY);if(!r)return null;var s=JSON.parse(r);if(Date.now()-s.lastActive>MQ.TIMEOUT_MS){MQ.clear();return null;}return s;}catch(e){return null;}},
+touch:function(){try{var r=sessionStorage.getItem(MQ.SESSION_KEY);if(!r)return;var s=JSON.parse(r);s.lastActive=Date.now();sessionStorage.setItem(MQ.SESSION_KEY,JSON.stringify(s));}catch(e){}},
+clear:function(){sessionStorage.removeItem(MQ.SESSION_KEY);},
+logout:function(){MQ.clear();window.location.href='maisonquest-auth.html';},
+dashboardUrl:function(){var s=MQ.get();if(!s)return'maisonquest-auth.html';return s.type==='agency'?'maisonquest-dashboard.html':'maisonquest-renter-dashboard.html';},listProperty:function(){
+  var s=MQ.get();
+  if(s && s.type==='agency'){
+    // Already logged in as agency — go straight to dashboard and open the Add Listing modal
+    window.location.href='maisonquest-dashboard.html?action=add-listing';
+  } else if(s && s.type==='renter'){
+    // Logged in as renter — nudge them to create an agency account
+    if(confirm('List a Property is for real estate agencies.\n\nWould you like to create a free agency account?')){
+      window.location.href='maisonquest-auth.html?mode=signup&type=agency';
+    }
+  } else {
+    // Not logged in — send to auth with signup hint
+    window.location.href='maisonquest-auth.html';
+  }
+},
+initNav:function(){
+  var s=MQ.get();
+  var c=document.getElementById('nav-user-area');
+  if(!c)return;
+  var fr=sessionStorage.getItem('mq_lang')==='FR';
+  if(s){
+    var accountType = s.type==='agency' ? (fr?'Compte agence':'Agency Account') : (fr?'Compte locataire':'Renter Account');
+    var renterLinks = fr ?
+      '<a href="maisonquest-renter-dashboard.html?tab=saved" class="nav-user-menu-item">&#10084; Annonces sauvegardées</a>'+
+      '<a href="maisonquest-renter-dashboard.html?tab=inquiries" class="nav-user-menu-item">&#128231; Mes demandes</a>'+
+      '<a href="maisonquest-renter-dashboard.html?tab=messages" class="nav-user-menu-item">&#128172; Messages</a>' :
+      '<a href="maisonquest-renter-dashboard.html?tab=saved" class="nav-user-menu-item">&#10084; Saved Listings</a>'+
+      '<a href="maisonquest-renter-dashboard.html?tab=inquiries" class="nav-user-menu-item">&#128231; My Inquiries</a>'+
+      '<a href="maisonquest-renter-dashboard.html?tab=messages" class="nav-user-menu-item">&#128172; Messages</a>';
+    var agencyLinks = fr ?
+      '<a href="maisonquest-dashboard.html?tab=listings" class="nav-user-menu-item">&#127968; Mes annonces</a>'+
+      '<a href="maisonquest-agency-profile.html" class="nav-user-menu-item">&#128100; Profil public</a>'+
+      '<a href="maisonquest-dashboard.html?tab=inquiries" class="nav-user-menu-item">&#128231; Demandes</a>' :
+      '<a href="maisonquest-dashboard.html?tab=listings" class="nav-user-menu-item">&#127968; My Listings</a>'+
+      '<a href="maisonquest-agency-profile.html" class="nav-user-menu-item">&#128100; Public Profile</a>'+
+      '<a href="maisonquest-dashboard.html?tab=inquiries" class="nav-user-menu-item">&#128231; Inquiries</a>';
+    c.innerHTML='<div class="nav-user-dropdown" id="nav-user-dropdown">'+
+      '<button class="nav-user-icon" id="nav-user-btn" onclick="MQ.toggleMenu()">'+s.initials+'</button>'+
+      '<div class="nav-user-menu" id="nav-user-menu">'+
+        '<div class="nav-user-menu-header">'+
+          '<div class="nav-user-menu-name">'+s.name+'</div>'+
+          '<div class="nav-user-menu-type">'+accountType+'</div>'+
+        '</div>'+
+        '<a href="'+MQ.dashboardUrl()+'" class="nav-user-menu-item">&#9732; '+(fr?'Tableau de bord':'Dashboard')+'</a>'+
+        (s.type==='renter'? renterLinks : agencyLinks)+
+        '<div class="nav-user-menu-divider"></div>'+
+        '<a href="'+MQ.dashboardUrl()+'?tab=settings" class="nav-user-menu-item">&#9881; '+(fr?'Paramètres du compte':'Account Settings')+'</a>'+
+        '<div class="nav-user-menu-divider"></div>'+
+        '<button class="nav-user-menu-item danger" onclick="MQ.logout()">&#8594; '+(fr?'Se déconnecter':'Sign Out')+'</button>'+
+      '</div></div>';
+  } else {
+    c.innerHTML=
+      '<a href="maisonquest-auth.html" class="nav-signin">'+(fr?'Se connecter':'Sign In')+'</a>'+
+      '<a href="maisonquest-auth.html" class="nav-user-icon" style="display:flex;align-items:center;justify-content:center;text-decoration:none;" title="Create account">'+
+        '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>'+
+      '</a>';
+  }
+},
+toggleMenu:function(){
+  var m=document.getElementById('nav-user-menu');
+  var b=document.getElementById('nav-user-btn');
+  if(!m)return;
+  var o=m.classList.contains('open');
+  m.classList.toggle('open',!o);
+  if(b)b.classList.toggle('active',!o);
+  if(!o){
+    setTimeout(function(){
+      document.addEventListener('click',function h(e){
+        var d=document.getElementById('nav-user-dropdown');
+        if(d&&!d.contains(e.target)){m.classList.remove('open');if(b)b.classList.remove('active');document.removeEventListener('click',h);}
+      });
+    },10);
+  }
+},
+startInactivityTimer:function(){
+  ['mousemove','keydown','click','scroll','touchstart'].forEach(function(e){document.addEventListener(e,MQ.touch,{passive:true});});
+  setInterval(function(){if(sessionStorage.getItem(MQ.SESSION_KEY)&&!MQ.get()){MQ.clear();window.location.href='maisonquest-auth.html';}},60000);
+}};
+(function(){
+  function run(){MQ.initNav();MQ.startInactivityTimer();MQ.touch();}
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',run);}
+  else{run();}
+})();
+</script>
+<script id="mq-lang-script">
+(function() {
+  var LANG_KEY = 'mq_lang';
+
+  var FR = {
+    // NAV
+    'Apartments / Appartements': 'Appartements',
+    'Guest Houses': "Maisons d'hôtes",
+    'Land / Terrains': 'Terrains',
+    'Agencies / Agences': 'Agences',
+    'List a Property →': 'Publier une annonce →',
+    'Sign In': 'Se connecter',
+    // HERO
+    "🇨🇲 Cameroon's #1 Real Estate Platform \u00a0·\u00a0": '🇨🇲 Plateforme Immobilière N°1 au Cameroun \u00a0·\u00a0',
+    'Now Live': 'En ligne',
+    'Find Your Perfect': 'Trouvez Votre',
+    'Home in Cameroon': 'Maison au Cameroun',
+    'Browse verified apartments, guest houses, rooms and land from trusted real estate companies across Douala, Yaoundé and beyond.': "Parcourez des appartements, maisons d'hôtes, chambres et terrains vérifiés auprès d'agences de confiance à Douala, Yaoundé et au-delà.",
+    // SEARCH TABS
+    '🏢 Rent / Louer': '🏢 Louer',
+    '🏡 Guest House': "🏡 Maison d'hôtes",
+    '🌍 Buy Land / Acheter Terrain': '🌍 Acheter un Terrain',
+    // SEARCH FIELDS
+    'CITY / VILLE': 'VILLE',
+    'NEIGHBORHOOD / QUARTIER': 'QUARTIER',
+    'BUDGET RANGE': 'BUDGET',
+    'All Cities': 'Toutes les villes',
+    'All Areas': 'Tous les quartiers',
+    'All Budgets': 'Tous les budgets',
+    '🔍 Search': '🔍 Rechercher',
+    // STATS BAR
+    'Active Listings': 'Annonces actives',
+    'Partner Agencies': 'Agences partenaires',
+    'Cities Covered': 'Villes couvertes',
+    'Verified Companies': 'Entreprises vérifiées',
+    // HOMEPAGE SECTIONS
+    'Browse By Type': 'Parcourir par type',
+    "Find exactly what you're looking for": 'Trouvez exactement ce que vous cherchez',
+    'Apartments': 'Appartements',
+    'Rooms & Studios': 'Chambres & Studios',
+    'Land & Plots': 'Terrains & Parcelles',
+    'View all apartments →': 'Voir tous les appartements →',
+    'View all rooms →': 'Voir toutes les chambres →',
+    'View all guest houses →': "Voir toutes les maisons d'hôtes →",
+    'View all land →': 'Voir tous les terrains →',
+    'Featured Listings': 'Annonces vedettes',
+    'Verified properties from trusted agencies': 'Propriétés vérifiées par des agences de confiance',
+    'View All Listings →': 'Voir toutes les annonces →',
+    'Trusted Partner Agencies Across Cameroon': 'Agences Partenaires de Confiance au Cameroun',
+    'Trusted real estate companies on MaisonQuest': 'Agences immobilières de confiance sur MaisonQuest',
+    'View Agency Profile →': 'Voir le profil →',
+    'View All Agencies →': 'Voir toutes les agences →',
+    'Hand-Picked For You': 'Sélectionnés Pour Vous',
+    'How MaisonQuest Works': 'Comment fonctionne MaisonQuest',
+    'Simple Process': 'Processus Simple',
+    'Direct Communication': 'Communication Directe',
+    'Verified Agencies': 'Agences Vérifiées',
+    'Verified Listings': 'Annonces Vérifiées',
+    'Happy Renters': 'Locataires Satisfaits',
+    'Are You a Real Estate Agency?': 'Vous êtes une Agence Immobilière ?',
+    "Join MaisonQuest — it's free to get started": "Rejoignez MaisonQuest — c'est gratuit",
+    'List Your Properties →': 'Publier vos Biens →',
+    "Connect with verified agencies, browse thousands of listings, and secure your next home — all in one place.": "Connectez-vous avec des agences vérifiées, parcourez des milliers d'annonces et trouvez votre prochain logement — en un seul endroit.",
+    'Built for Cameroon 🇨🇲': 'Conçu pour le Cameroun 🇨🇲',
+    '© 2025 MaisonQuest. Cameroon 🇨🇲': '© 2025 MaisonQuest. Cameroun 🇨🇲',
+    // LISTING CARDS
+    'View Details': 'Voir détails',
+    'New': 'Nouveau',
+    'Active': 'Actif',
+    'Paused': 'En pause',
+    'Expired': 'Expiré',
+    'Published': 'Publié',
+    '/ month': '/ mois',
+    'CFA/mo': 'CFA/mois',
+    '← Back to Home': '← Retour à l\'accueil',
+    '← Back': '← Retour',
+    // LISTINGS PAGE
+    'Find Your Next Home': 'Trouvez Votre Prochain Logement',
+    'What Are You': 'Que cherchez-vous',
+    "Looking For?": 'à louer ou acheter ?',
+    'Filters': 'Filtres',
+    '🎛 Filters': '🎛 Filtres',
+    'Property Type': 'Type de bien',
+    'Budget Range': 'Fourchette de prix',
+    'Bedrooms': 'Chambres',
+    'Bathrooms': 'Salles de bain',
+    'Any': 'Indifférent',
+    'Apply Filters': 'Appliquer',
+    'Reset': 'Réinitialiser',
+    'Sort: Newest First': 'Trier : Plus récents',
+    'Most Recent': 'Plus récents',
+    'Most Relevant': 'Plus pertinents',
+    'Price: Low to High': 'Prix croissant',
+    'Price: High to Low': 'Prix décroissant',
+    'Most Popular': 'Plus populaires',
+    'Highest Rated': 'Mieux notés',
+    'Lowest Rated': 'Moins bien notés',
+    'Newest First': 'Plus récents',
+    'listings found': 'annonces trouvées',
+    'Load More Listings': 'Charger plus d\'annonces',
+    'No properties found': 'Aucune annonce trouvée',
+    'Try adjusting your filters or expanding your budget range.': 'Essayez de modifier vos filtres ou d\'élargir votre budget.',
+    '✕ Clear': '✕ Effacer',
+    'Clear all': 'Tout effacer',
+    'All Types': 'Tous les types',
+    'All Status': 'Tous les statuts',
+    'All Ratings': 'Toutes les notes',
+    // LISTING DETAIL
+    'About this Property': 'À propos de ce bien',
+    'Property Details': 'Détails du bien',
+    'Rental Details': 'Détails de location',
+    'Amenities & Features': 'Équipements & caractéristiques',
+    'Location': 'Localisation',
+    'Similar Properties in Douala': 'Propriétés similaires à Douala',
+    'View all listings →': 'Voir toutes les annonces →',
+    'Save Listing': 'Sauvegarder',
+    'Share': 'Partager',
+    'Contact': 'Contacter',
+    '📞 Call Agency': '📞 Appeler l\'agence',
+    'WhatsApp Agency': 'WhatsApp Agence',
+    'Contact via WhatsApp': 'Contacter via WhatsApp',
+    'Message on WhatsApp': 'Message WhatsApp',
+    'Send Inquiry': 'Envoyer une demande',
+    '✉️ Send Message': '✉️ Envoyer un message',
+    'View Profile': 'Voir le profil',
+    'View Agency Details': 'Voir l\'agence',
+    'View all listings from this agency →': 'Voir toutes les annonces de cette agence →',
+    'per month': 'par mois',
+    'For Sale': 'À vendre',
+    'For Rent': 'À louer',
+    'Floor Area': 'Surface',
+    'Floor': 'Étage',
+    'Minimum Lease': 'Durée minimale',
+    'Available From': 'Disponible à partir du',
+    'Security Deposit': 'Caution',
+    'Listing For': 'Type de location',
+    'Move In': 'Emménagement',
+    'Furnished': 'Meublé',
+    '🪑 Furnished': '🪑 Meublé',
+    '⚠️ Safety Reminder': '⚠️ Rappel de sécurité',
+    'Never pay before visiting the property.': 'Ne payez jamais avant d\'avoir visité le bien.',
+    '🛡️ Always contact through MaisonQuest.': '🛡️ Contactez toujours via MaisonQuest.',
+    // AGENCY PROFILE
+    'Listings': 'Annonces',
+    'Reviews': 'Avis',
+    'About': 'À propos',
+    'ℹ️ About': 'ℹ️ À propos',
+    '⭐ Reviews': '⭐ Avis',
+    '✏️ Write a Review': '✏️ Laisser un avis',
+    '✏️ Write Review': '✏️ Laisser un avis',
+    'Write a Review': 'Laisser un avis',
+    'Verified Agency': 'Agence vérifiée',
+    '✅ Verified Agency': '✅ Agence vérifiée',
+    'Response Rate': 'Taux de réponse',
+    'Response rate': 'Taux de réponse',
+    'Response Time': 'Délai de réponse',
+    'Avg. response time': 'Délai de réponse moyen',
+    'Usually within 2 hours': 'Généralement en moins de 2 heures',
+    'Active listings': 'Annonces actives',
+    'Active Listings →': 'Annonces actives →',
+    'Deals Closed': 'Ventes conclues',
+    'Deals closed': 'Ventes conclues',
+    'Member since': 'Membre depuis',
+    'Office Hours': 'Heures de bureau',
+    'Office Address': 'Adresse du bureau',
+    'Languages': 'Langues',
+    'Speciality': 'Spécialité',
+    'Areas Covered': 'Zones couvertes',
+    'Founded': 'Fondée en',
+    'License Number': 'Numéro de licence',
+    '🔔 Follow Agency': '🔔 Suivre l\'agence',
+    'Showing 3 of 38 reviews': 'Affichage de 3 avis sur 38',
+    'Verified Renter': 'Locataire vérifié',
+    '👍 Helpful': '👍 Utile',
+    '🚩 Flag': '🚩 Signaler',
+    '🚩 Flagged': '🚩 Signalé',
+    'Read more ↓': 'Lire la suite ↓',
+    'Overall Rating': 'Note globale',
+    'Recommend Rate': 'Taux de recommandation',
+    'Share your experience with Immo Prestige Douala': 'Partagez votre expérience avec Immo Prestige Douala',
+    'Submit Review': 'Soumettre l\'avis',
+    'Your Review': 'Votre avis',
+    'Which listing did you inquire about? (optional)': 'Pour quelle annonce ? (facultatif)',
+    '— Select a listing —': '— Sélectionner une annonce —',
+    'Cancel': 'Annuler',
+    // AUTH PAGE
+    'Welcome back': 'Bon retour',
+    'Sign in to your MaisonQuest account': 'Connectez-vous à votre compte MaisonQuest',
+    'Create your account': 'Créer votre compte',
+    'Email Address': 'Adresse e-mail',
+    'Email address': 'Adresse e-mail',
+    'Email': 'E-mail',
+    'Password': 'Mot de passe',
+    'Forgot password?': 'Mot de passe oublié ?',
+    "Don't have an account?": 'Pas encore de compte ?',
+    'Already have an account?': 'Déjà un compte ?',
+    'Sign Up': "S'inscrire",
+    'Sign in': 'Se connecter',
+    'Create Account': 'Créer un compte',
+    'Create one free': 'Créer un compte gratuit',
+    'Renter': 'Locataire',
+    'Agency / Agence': 'Agence',
+    'I am a...': 'Je suis...',
+    'First Name': 'Prénom',
+    'Last Name': 'Nom',
+    'Agency Name': 'Nom de l\'agence',
+    'Phone Number': 'Numéro de téléphone',
+    'By creating an account you agree to our': 'En créant un compte, vous acceptez nos',
+    'Terms of Service': 'Conditions d\'utilisation',
+    'Privacy Policy': 'Politique de confidentialité',
+    'and': 'et',
+    'Reset password': 'Réinitialiser le mot de passe',
+    'Back to Sign In': 'Retour à la connexion',
+    "Enter your email and we'll send a reset link": 'Entrez votre e-mail et nous vous enverrons un lien',
+    'Send Reset Link': 'Envoyer le lien',
+    'Looking for a home': 'Cherche un logement',
+    'Renter account': 'Compte locataire',
+    // DASHBOARD COMMON
+    'Dashboard': 'Tableau de bord',
+    'Overview': 'Aperçu',
+    'My Listings': 'Mes annonces',
+    'Inquiries': 'Demandes',
+    'Analytics': 'Statistiques',
+    'Settings': 'Paramètres',
+    'Log Out': 'Se déconnecter',
+    'Sign Out': 'Se déconnecter',
+    '+ Add Listing': '+ Ajouter une annonce',
+    '+ Add New Listing': '+ Nouvelle annonce',
+    'Dashboard Overview': 'Aperçu du tableau de bord',
+    'Recent Activity': 'Activité récente',
+    'Recent Inquiries': 'Demandes récentes',
+    'Listing Views': 'Vues des annonces',
+    'Agency Stats': 'Statistiques de l\'agence',
+    'Top Performing Listings': 'Meilleures annonces',
+    // AGENCY DASHBOARD STATS
+    'Total Views (30 days) →': 'Vues totales (30 jours) →',
+    'Inquiries This Month →': 'Demandes ce mois →',
+    'WhatsApp Taps (30 days) →': 'Contacts WhatsApp (30 jours) →',
+    'Active Listings →': 'Annonces actives →',
+    // LISTING MANAGEMENT
+    'Edit': 'Modifier',
+    '✏️ Edit': '✏️ Modifier',
+    'Delete': 'Supprimer',
+    '🗑 Delete': '🗑 Supprimer',
+    'Pause': 'Mettre en pause',
+    'Resume': 'Reprendre',
+    'Publish Listing': 'Publier l\'annonce',
+    'Save as Draft': 'Enregistrer en brouillon',
+    'Save Changes': 'Enregistrer les modifications',
+    'Save': 'Enregistrer',
+    'Add Listing': 'Ajouter une annonce',
+    'Listing Title': 'Titre de l\'annonce',
+    'Property Title': 'Titre du bien',
+    'Description': 'Description',
+    'Price (CFA)': 'Prix (CFA)',
+    'Property Type': 'Type de bien',
+    'City': 'Ville',
+    'Neighborhood': 'Quartier',
+    'Size (m2)': 'Surface (m²)',
+    'Photos': 'Photos',
+    'Mark Closed': 'Marquer comme conclu',
+    'Mark as Replied': 'Marquer comme répondu',
+    'Follow Up': 'Relancer',
+    'Reply on WhatsApp': 'Répondre sur WhatsApp',
+    'Delete Listing?': 'Supprimer l\'annonce ?',
+    'Yes, Move to Trash': 'Oui, mettre à la corbeille',
+    'Cancel - Keep Listing': 'Annuler - Conserver',
+    'Trash': 'Corbeille',
+    'Empty Trash': 'Vider la corbeille',
+    // INQUIRIES
+    'Awaiting reply': 'En attente de réponse',
+    'Replied': 'Répondu',
+    'Closed': 'Fermé',
+    'New': 'Nouveau',
+    'Actions': 'Actions',
+    'Date': 'Date',
+    'Status': 'Statut',
+    'Type': 'Type',
+    'Via': 'Via',
+    'On Platform': 'Sur la plateforme',
+    'On MaisonQuest': 'Sur MaisonQuest',
+    // MESSAGES
+    'Messages': 'Messages',
+    'Conversations': 'Conversations',
+    'Unread Messages': 'Messages non lus',
+    '↩ Reply': '↩ Répondre',
+    // ANALYTICS
+    'Monthly Performance': 'Performance mensuelle',
+    'Click any month to see per-listing breakdown': 'Cliquez sur un mois pour voir le détail par annonce',
+    'All Listings — Performance Overview': 'Toutes les annonces — Aperçu des performances',
+    'Sorted by views': 'Trié par vues',
+    'Listing Performance Breakdown': 'Détail de performance par annonce',
+    '📊 Most Viewed': '📊 Plus vues',
+    '🏆 Best Converting': '🏆 Meilleures conversions',
+    '⚠️ Needs Attention': '⚠️ À améliorer',
+    'Views': 'Vues',
+    'WA Taps': 'Contacts WA',
+    'WA taps': 'Contacts WA',
+    'Conv. Rate': 'Taux de conv.',
+    'Health': 'Santé',
+    'Trend': 'Tendance',
+    'Reach Bar': 'Portée',
+    'VIEWS': 'VUES',
+    'INQUIRIES': 'DEMANDES',
+    'WHATSAPP': 'WHATSAPP',
+    'CONVERSION': 'CONVERSION',
+    '↗ Export Report': '↗ Exporter',
+    // SETTINGS
+    'Agency Information': 'Informations de l\'agence',
+    'Password & Security': 'Mot de passe & sécurité',
+    'Change Password': 'Changer le mot de passe',
+    'Current Password': 'Mot de passe actuel',
+    'New Password': 'Nouveau mot de passe',
+    'Confirm New Password': 'Confirmer le nouveau mot de passe',
+    'Update Password': 'Mettre à jour le mot de passe',
+    'Update your password. We recommend using a strong, unique password.': 'Mettez à jour votre mot de passe. Utilisez un mot de passe fort et unique.',
+    'Notification Preferences': 'Préférences de notifications',
+    'Notifications': 'Notifications',
+    'New Inquiry Received': 'Nouvelle demande reçue',
+    'New Review Posted': 'Nouvel avis publié',
+    'Weekly Performance Summary': 'Résumé hebdomadaire des performances',
+    'Listing Insight Tips': 'Conseils d\'optimisation',
+    'Monthly Drill-down Insights': 'Analyse mensuelle détaillée',
+    'Danger Zone': 'Zone de danger',
+    'Export My Data': 'Exporter mes données',
+    'Delete Account': 'Supprimer le compte',
+    'Delete My Account': 'Supprimer mon compte',
+    'Subscription': 'Abonnement',
+    'Current Plan': 'Forfait actuel',
+    'Upgrade to Elite': 'Passer à Elite',
+    'Downgrade': 'Rétrograder',
+    'Renew': 'Renouveler',
+    // RENTER DASHBOARD
+    'My Inquiries': 'Mes demandes',
+    'Saved Listings': 'Annonces sauvegardées',
+    'My Reviews': 'Mes avis',
+    'Personal Information': 'Informations personnelles',
+    'Inquiries Sent': 'Demandes envoyées',
+    'Replies Received': 'Réponses reçues',
+    'Agencies contacted →': 'Agences contactées →',
+    'Agencies responded →': 'Agences ayant répondu →',
+    'Your Saved Listings': 'Vos annonces sauvegardées',
+    "Agencies You Haven't Reviewed Yet": 'Agences que vous n\'avez pas encore évaluées',
+    'Properties you love →': 'Vos biens favoris →',
+    'Price changes or status updates on saved listings': 'Changements de prix ou de statut des annonces sauvegardées',
+    'New listings in your area': 'Nouvelles annonces dans votre zone',
+    'New messages': 'Nouveaux messages',
+    'Account': 'Compte',
+    'Phone': 'Téléphone',
+    'Remove': 'Retirer',
+    '+ Find a Home': '+ Trouver un logement',
+    '🏠 Listings': '🏠 Annonces',
+    // NAV DROPDOWN
+    'Public Profile': 'Profil public',
+    'Account Settings': 'Paramètres du compte',
+    // MISC
+    'Learn More': 'En savoir plus',
+    'See all →': 'Voir tout →',
+    'Back': 'Retour',
+    'Menu': 'Menu',
+    'Home': 'Accueil',
+    'Search Listings': 'Rechercher des annonces',
+    '🔍 Update': '🔍 Mettre à jour',
+    'Loading...': 'Chargement...',
+    'Report': 'Signaler',
+    'Required': 'Requis',
+    'for': 'pour',
+      'Overview': 'Aperçu',
+      'Dashboard Overview': 'Aperçu général',
+      'Total Inquiries (All Time)': 'Total demandes (tout temps)',
+      'Total Views (All Time)': 'Total vues (tout temps)',
+      'WhatsApp Taps (All Time)': 'Contacts WhatsApp (tout temps)',
+      "Listing Boosts": "Boosts d'annonces",
+      'Inquiry Management': 'Gestion des demandes',
+      'Inquiry Sources': 'Sources des demandes',
+      'How renters contact you': 'Comment les locataires vous contactent',
+      'Daily views across all listings': 'Vues quotidiennes sur toutes les annonces',
+      'Views, clicks, WhatsApp taps': 'Vues, clics, contacts WhatsApp',
+      'Showing your most viewed listings first': 'Vos annonces les plus vues en premier',
+      'Click to upload photos': 'Cliquer pour ajouter des photos',
+      'JPG, PNG - up to 10 photos, 5MB each': 'JPG, PNG — max 10 photos, 5 Mo chacune',
+      'Current Photos - click x to remove': 'Photos actuelles — cliquer × pour supprimer',
+      'Removed photos will be deleted when you save.': 'Les photos supprimées seront effacées à la sauvegarde.',
+      'Rent / Monthly': 'Location / Mensuel',
+      'Short Stay': 'Courte durée',
+      'Sale': 'Vente',
+      'Both': 'Les deux',
+      'Room / Studio': 'Chambre / Studio',
+      'Room/Studio': 'Chambre/Studio',
+      'Land': 'Terrain',
+      'Apartment': 'Appartement',
+      'Studio': 'Studio',
+      'Rooms': 'Chambres',
+      'Floor': 'Étage',
+      'Main': 'Principal',
+      '/ 500 characters': '/ 500 caractères',
+      'Half bath = toilet only, no shower/tub': 'Demi-bain = toilettes uniquement',
+      'This listing will be moved to Trash': 'Cette annonce sera déplacée dans la corbeille',
+      'The listing will be kept in your': "L'annonce sera conservée dans votre",
+      ', after which it is permanently deleted. You can restore it any time before then.': ', puis supprimée définitivement.',
+      'Deleted listings are kept here for 30 days before permanent deletion.': 'Annonces conservées 30 jours avant suppression définitive.',
+      'These actions are permanent and cannot be undone': 'Ces actions sont permanentes et irréversibles',
+      'Awaiting your reply →': 'En attente de votre réponse →',
+      'Replied (28)': 'Répondu (28)',
+      'Closed (5)': 'Fermé (5)',
+      'New (5)': 'Nouveau (5)',
+      'All (38)': 'Tous (38)',
+      'All (47)': 'Tous (47)',
+      'Yesterday': 'Hier',
+      'Yesterday ›': 'Hier ›',
+      'Yesterday at 3:45pm': 'Hier à 15h45',
+      "Today, 7:02am": "Aujourd'hui, 7h02",
+      "Today, 9:14am": "Aujourd'hui, 9h14",
+      "Today at 7:02am": "Aujourd'hui à 7h02",
+      "Today at 9:14am": "Aujourd'hui à 9h14",
+      '2 hours ago': 'Il y a 2 heures',
+      '3 days ago': 'Il y a 3 jours',
+      '3 days ago ›': 'Il y a 3 j ›',
+      'Starter': 'Débutant',
+      'Elite': 'Élite',
+      'Free': 'Gratuit',
+      'Compare Plans': 'Comparer les forfaits',
+      'Basic profile page': 'Page de profil basique',
+      'Up to 5 listings': "Jusqu'à 5 annonces",
+      'No cap on active properties': "Aucune limite d'annonces actives",
+      'Unlimited Listings': 'Annonces illimitées',
+      'Unlimited listings': 'Annonces illimitées',
+      'Featured Placement': 'Mise en avant',
+      'Featured placement': 'Mise en avant',
+      'Homepage feature slot': "Emplacement page d'accueil",
+      'Priority in search results': 'Priorité dans les résultats',
+      'Priority support': 'Support prioritaire',
+      'Full Analytics': 'Statistiques complètes',
+      'Full analytics': 'Statistiques complètes',
+      'Full inbox with reply tracking': 'Boîte de réception avec suivi',
+      'Account manager': 'Gestionnaire de compte',
+      'Trust signal on your profile': 'Signal de confiance sur votre profil',
+      'Verified Badge': 'Badge vérifié',
+      'Verified badge': 'Badge vérifié',
+      '2 free boosts per month': '2 boosts gratuits par mois',
+      '2 free boosts/month': '2 boosts gratuits/mois',
+      '5 free boosts/month': '5 boosts gratuits/mois',
+      'Everything in Pro': 'Tout inclus dans Pro',
+      'Platform': 'Plateforme',
+      'WhatsApp button': 'Bouton WhatsApp',
+      'Top-tier listing visibility on MaisonQuest': 'Visibilité maximale sur MaisonQuest',
+      'Contact Information': 'Coordonnées',
+      'Forgot your current password?': 'Mot de passe actuel oublié ?',
+      'Reset via email →': 'Réinitialiser par e-mail →',
+      'Choose what alerts you receive': 'Choisissez vos alertes',
+      'Control what appears in your Analytics tab': "Contrôlez l'onglet Statistiques",
+      'A weekly digest of your views, inquiries and top listings': 'Résumé hebdomadaire vues, demandes et meilleures annonces',
+      'Get notified when a renter sends an inquiry': 'Notifié quand un locataire envoie une demande',
+      'Get notified when a renter leaves a review': 'Notifié quand un locataire laisse un avis',
+      'Permanently delete your account and all saved data. This cannot be undone.': 'Supprimer définitivement votre compte et données. Irréversible.',
+      'Download a copy of all your data including saved listings and messages.': 'Télécharger vos données incluant annonces et messages.',
+      'Request Export': "Demander l'export",
+      'Welcome back, Jean': 'Bon retour, Jean',
+      'Welcome to MaisonQuest!': 'Bienvenue sur MaisonQuest !',
+      'Account created successfully': 'Compte créé avec succès',
+      'You sent an inquiry': 'Vous avez envoyé une demande',
+      'You saved a new listing': 'Vous avez sauvegardé une annonce',
+      'Immo Prestige replied to your inquiry': 'Immo Prestige a répondu à votre demande',
+      "Agencies You Haven't Reviewed Yet": "Agences non encore évaluées",
+      'Get notified when an agency replies': "Notifié quand une agence répond",
+      'New listings in your area': 'Nouvelles annonces dans votre zone',
+      '(2 written)': '(2 rédigés)',
+      '(3 properties)': '(3 biens)',
+      '(4 sent)': '(4 envoyées)',
+      'LISTINGS': 'ANNONCES',
+      'Listing': 'Annonce',
+      'Property': 'Bien',
+      'Price': 'Prix',
+      'Listing updates': "Mises à jour des annonces",
+      'MaisonQuest newsletters': 'Newsletters MaisonQuest',
+      'Tips, guides and platform updates': 'Conseils, guides et mises à jour',
+      'View →': 'Voir →',
+      'View Listing': "Voir l'annonce",
+      'View Public Profile': 'Voir le profil public',
+      '✕ Close': '✕ Fermer',
+      'Helpful': 'Utile',
+      'New Inquiry Received': 'Nouvelle demande reçue',
+      'New Review Posted': 'Nouvel avis publié',
+      'Weekly Performance Summary': 'Résumé hebdomadaire des performances',
+      'Weekly digest of new properties in Douala': 'Résumé hebdomadaire nouvelles annonces',
+      'New messages': 'Nouveaux messages',
+      'CFA / month': 'CFA / mois',
+      'Mon–Sat, 8am – 6pm': 'Lun–Sam, 8h – 18h',
+      'French, English': 'Français, Anglais',
+      'Residential Rentals & Land': 'Locations résidentielles & terrains',
+      '30 days': '30 jours',
+      'Show actionable tips under each listing in the performance table — what to improve, boost, or highlight': "Afficher des conseils d'optimisation sous chaque annonce",
+      'Show the 💡 insight callout when you click a month on the chart': 'Afficher le conseil 💡 lors du clic sur un mois',
+      '3 yrs': '3 ans',
+      'Pro Agency — Verified Partner': 'Agence Pro — Partenaire Vérifié',
+      '38 reviews': '38 avis',
+      'Showing 3 of 38 reviews': '3 avis sur 38',
+      'About Immo Prestige Douala': "À propos d'Immo Prestige Douala",
+      'Listing Performance Breakdown': 'Détail de performance par annonce',
+      'All Listings — Performance Overview': 'Toutes les annonces — Aperçu',
+    'total': 'total',
+  };
+
+  // Build reverse FR→EN map
+  var EN = {};
+  for (var k in FR) { EN[FR[k]] = k; }
+
+  function applyLang(lang) {
+    var dict = lang === 'FR' ? FR : EN;
+    function walk(node) {
+      if (node.nodeType === 3) {
+        var t = node.textContent.trim();
+        if (t && dict[t] !== undefined) {
+          node.textContent = node.textContent.replace(t, dict[t]);
+        }
+      } else if (node.nodeType === 1) {
+        var tag = node.tagName;
+        if (tag === 'SCRIPT' || tag === 'STYLE' || tag === 'NOSCRIPT' || tag === 'TEXTAREA') return;
+        // Translate placeholder and title attributes
+        if (node.placeholder && dict[node.placeholder]) node.placeholder = dict[node.placeholder];
+        if (node.title && dict[node.title]) node.title = dict[node.title];
+        for (var i = 0; i < node.childNodes.length; i++) walk(node.childNodes[i]);
+      }
+    }
+    walk(document.body);
+    // Update lang buttons
+    document.querySelectorAll('.lang-btn').forEach(function(b) {
+      b.classList.toggle('active', b.textContent.trim() === lang);
+    });
+  }
+
+  function setLang(lang) {
+    sessionStorage.setItem('mq_lang', lang);
+    if (lang === 'FR') {
+      applyLang('FR');
+      // Re-render the nav dropdown in French
+      if (window.MQ && MQ.initNav) MQ.initNav();
+    } else {
+      window.location.reload();
+    }
+    document.querySelectorAll('.lang-btn').forEach(function(b) {
+      b.classList.toggle('active', b.textContent.trim() === lang);
+    });
+  }
+
+  function init() {
+    // Wire buttons
+    document.querySelectorAll('.lang-btn').forEach(function(btn) {
+      btn.onclick = function() { setLang(btn.textContent.trim()); };
+    });
+    // Apply saved lang
+    var saved = sessionStorage.getItem('mq_lang') || 'EN';
+    if (saved === 'FR') applyLang('FR');
+    document.querySelectorAll('.lang-btn').forEach(function(b) {
+      b.classList.toggle('active', b.textContent.trim() === saved);
+    });
+  }
+
+  // Expose globally so nav rebuild after dropdown open can re-translate
+  window.MQLang = { setLang: setLang, applyLang: applyLang, init: init };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() { setTimeout(init, 80); });
+  } else {
+    setTimeout(init, 80);
+  }
+})();
+</script>
+
+
+<!-- PRIVACY / TERMS MODAL -->
+<div id="policy-modal-overlay" style="display:none;position:fixed;inset:0;background:rgba(10,36,99,0.55);z-index:99999;align-items:center;justify-content:center;padding:20px;" onclick="closePolicyModal()">
+  <div style="background:white;border-radius:20px;max-width:680px;width:100%;max-height:80vh;overflow:hidden;display:flex;flex-direction:column;" onclick="event.stopPropagation()">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:24px 28px;border-bottom:1px solid #E2E8F0;">
+      <h2 id="policy-modal-title" style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#0A2463;"></h2>
+      <button onclick="closePolicyModal()" style="background:none;border:none;font-size:22px;cursor:pointer;color:#A0AEC0;line-height:1;">&#10005;</button>
+    </div>
+    <div id="policy-modal-body" style="padding:28px;overflow-y:auto;font-size:14px;line-height:1.8;color:#4A5568;"></div>
+  </div>
+</div>
+<script>
+var PRIVACY_CONTENT = '<h3 style="color:#0A2463;font-size:16px;font-weight:700;margin:0 0 12px;">1. Information We Collect</h3><p>MaisonQuest collects information you provide when creating an account (name, email, phone), when submitting inquiries, and when interacting with listings. We also collect basic usage data such as pages visited and search filters used.</p><br><h3 style="color:#0A2463;font-size:16px;font-weight:700;margin:0 0 12px;">2. How We Use Your Information</h3><p>Your information is used to provide and improve the MaisonQuest service, connect you with verified agencies, send relevant notifications, and ensure platform security. We do not sell your personal data to third parties.</p><br><h3 style="color:#0A2463;font-size:16px;font-weight:700;margin:0 0 12px;">3. Data Sharing</h3><p>We share your contact information with agencies only when you initiate an inquiry or send a message. Agency partners are contractually obligated to keep your data confidential.</p><br><h3 style="color:#0A2463;font-size:16px;font-weight:700;margin:0 0 12px;">4. Cookies</h3><p>MaisonQuest uses session storage to remember your language and currency preferences. We do not use third-party tracking cookies.</p><br><h3 style="color:#0A2463;font-size:16px;font-weight:700;margin:0 0 12px;">5. Your Rights</h3><p>You may request access to, correction of, or deletion of your personal data at any time by contacting us at privacy@maisonquest.cm. We will respond within 30 days.</p><br><h3 style="color:#0A2463;font-size:16px;font-weight:700;margin:0 0 12px;">6. Updates</h3><p>This policy may be updated periodically. Continued use of MaisonQuest after changes constitutes acceptance of the updated policy. Last updated: January 2026.</p>';
+var TERMS_CONTENT = '<h3 style="color:#0A2463;font-size:16px;font-weight:700;margin:0 0 12px;">1. Acceptance of Terms</h3><p>By using MaisonQuest, you agree to these Terms of Service. These terms apply to all users — renters, agencies, and visitors.</p><br><h3 style="color:#0A2463;font-size:16px;font-weight:700;margin:0 0 12px;">2. Platform Purpose</h3><p>MaisonQuest is a property listing marketplace connecting renters with verified real estate agencies in Cameroon. We do not participate in transactions, collect payments, or act as a party to any rental agreement.</p><br><h3 style="color:#0A2463;font-size:16px;font-weight:700;margin:0 0 12px;">3. Agency Responsibilities</h3><p>Agencies are responsible for the accuracy of their listings. Fraudulent listings will result in immediate account suspension.</p><br><h3 style="color:#0A2463;font-size:16px;font-weight:700;margin:0 0 12px;">4. Renter Responsibilities</h3><p>Renters agree to use the platform in good faith. Abuse of the messaging system or harassment of agencies is prohibited.</p><br><h3 style="color:#0A2463;font-size:16px;font-weight:700;margin:0 0 12px;">5. Safety</h3><p>Never transfer money before physically visiting a property and signing a lease. Report suspicious listings using the flag feature.</p><br><h3 style="color:#0A2463;font-size:16px;font-weight:700;margin:0 0 12px;">6. Reviews</h3><p>Reviews must be honest and based on real experiences. Fake reviews are prohibited and will be removed.</p><br><h3 style="color:#0A2463;font-size:16px;font-weight:700;margin:0 0 12px;">7. Limitation of Liability</h3><p>MaisonQuest is not liable for disputes between renters and agencies, or for any loss from transactions outside our platform.</p><br><h3 style="color:#0A2463;font-size:16px;font-weight:700;margin:0 0 12px;">8. Changes</h3><p>Terms may be updated at any time. Last updated: January 2026.</p>';
+function openPolicyModal(type) {
+  var o = document.getElementById('policy-modal-overlay');
+  document.getElementById('policy-modal-title').textContent = type==='privacy' ? 'Privacy Policy' : 'Terms of Service';
+  document.getElementById('policy-modal-body').innerHTML = type==='privacy' ? PRIVACY_CONTENT : TERMS_CONTENT;
+  o.style.display='flex'; document.body.style.overflow='hidden';
+}
+function closePolicyModal() {
+  document.getElementById('policy-modal-overlay').style.display='none';
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown', function(e){ if(e.key==='Escape') closePolicyModal(); });
+</script>
+</body>
+</html>

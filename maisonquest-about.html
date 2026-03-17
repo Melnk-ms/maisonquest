@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About MaisonQuest — Cameroon's Property Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue-deep: #0A2463;
+    --blue-mid: #1B4FD8;
+    --blue-light: #3D7EFF;
+    --blue-pale: #E8EFFF;
+    --blue-tint: #F4F7FF;
+    --gold: #E8A020;
+    --white: #FFFFFF;
+    --gray-dark: #1A1A2E;
+    --gray-mid: #4A5568;
+    --gray-light: #A0AEC0;
+    --gray-bg: #F8FAFF;
+    --border: #E2E8F0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--gray-dark); overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 48px; height: 70px;
+    background: rgba(255,255,255,0.95); backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(10,36,99,0.08);
+    box-shadow: 0 2px 20px rgba(10,36,99,0.06);
+  }
+  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .logo-icon { width: 36px; height: 36px; background: var(--blue-deep); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+  .logo-text { font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 20px; color: var(--blue-deep); }
+  .logo-text span { color: var(--blue-mid); }
+  .nav-links { display: flex; list-style: none; gap: 32px; }
+  .nav-links a { text-decoration: none; font-weight: 500; font-size: 14px; color: var(--gray-mid); transition: color 0.2s; }
+  .nav-links a:hover { color: var(--blue-mid); }
+  .nav-right { display: flex; align-items: center; gap: 12px; }
+  .nav-lang { display: flex; background: var(--gray-bg); border-radius: 8px; padding: 3px; gap: 2px; }
+  .lang-btn { background: none; border: none; padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 700; cursor: pointer; color: var(--gray-light); font-family: 'DM Sans', sans-serif; transition: all 0.2s; }
+  .lang-btn.active { background: white; color: var(--blue-deep); box-shadow: 0 1px 4px rgba(0,0,0,0.1); }
+  .nav-cta { background: var(--blue-deep); color: white; padding: 10px 20px; border-radius: 10px; font-weight: 700; font-size: 14px; text-decoration: none; transition: all 0.2s; white-space: nowrap; }
+  .nav-cta:hover { background: var(--blue-mid); transform: translateY(-1px); }
+
+  /* HERO */
+  .about-hero {
+    margin-top: 70px;
+    background: var(--blue-deep);
+    padding: 100px 48px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .about-hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 80% 50%, rgba(61,126,255,0.25) 0%, transparent 60%),
+                radial-gradient(ellipse at 10% 80%, rgba(232,160,32,0.12) 0%, transparent 50%);
+  }
+  .about-hero::after {
+    content: '🏠';
+    position: absolute; right: 8%; top: 50%; transform: translateY(-50%);
+    font-size: 180px; opacity: 0.06; pointer-events: none;
+  }
+  .hero-inner { max-width: 720px; position: relative; z-index: 1; }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(232,160,32,0.15); border: 1px solid rgba(232,160,32,0.3);
+    color: var(--gold); font-size: 12px; font-weight: 700; letter-spacing: 0.08em;
+    padding: 6px 14px; border-radius: 20px; margin-bottom: 24px; text-transform: uppercase;
+  }
+  .about-hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(38px, 5vw, 64px);
+    font-weight: 900; color: white; line-height: 1.1; margin-bottom: 24px;
+  }
+  .about-hero h1 em { color: var(--gold); font-style: italic; }
+  .about-hero p {
+    font-size: 18px; color: rgba(255,255,255,0.75); line-height: 1.7; max-width: 580px;
+  }
+
+  /* CONTENT */
+  .about-content { max-width: 1100px; margin: 0 auto; padding: 80px 48px; }
+
+  /* STORY SECTION */
+  .story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; margin-bottom: 100px; }
+  .story-text h2 { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 700; color: var(--blue-deep); line-height: 1.2; margin-bottom: 20px; }
+  .story-text h2 span { color: var(--blue-mid); }
+  .story-text p { font-size: 16px; color: var(--gray-mid); line-height: 1.8; margin-bottom: 16px; }
+  .story-visual {
+    background: linear-gradient(135deg, var(--blue-deep) 0%, var(--blue-mid) 100%);
+    border-radius: 24px; padding: 48px; color: white;
+    display: flex; flex-direction: column; gap: 24px;
+    position: relative; overflow: hidden;
+  }
+  .story-visual::before {
+    content: ''; position: absolute; top: -40px; right: -40px;
+    width: 200px; height: 200px;
+    background: rgba(255,255,255,0.05); border-radius: 50%;
+  }
+  .story-stat { position: relative; z-index: 1; }
+  .story-stat .num {
+    font-family: 'Playfair Display', serif; font-size: 48px; font-weight: 900;
+    color: var(--gold); line-height: 1;
+  }
+  .story-stat .label { font-size: 14px; color: rgba(255,255,255,0.7); font-weight: 500; margin-top: 4px; }
+  .story-divider { height: 1px; background: rgba(255,255,255,0.15); }
+
+  /* MISSION */
+  .mission-section { margin-bottom: 100px; }
+  .section-label { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue-mid); margin-bottom: 12px; }
+  .mission-section h2 { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 700; color: var(--blue-deep); line-height: 1.2; margin-bottom: 48px; max-width: 600px; }
+  .mission-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .mission-card {
+    background: var(--blue-tint); border-radius: 20px; padding: 36px 28px;
+    border: 1px solid var(--border); position: relative; overflow: hidden;
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .mission-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(10,36,99,0.1); }
+  .mission-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--blue-mid); }
+  .mission-card:nth-child(2)::before { background: var(--gold); }
+  .mission-card:nth-child(3)::before { background: #16a34a; }
+  .mission-icon { font-size: 32px; margin-bottom: 16px; }
+  .mission-card h3 { font-size: 18px; font-weight: 700; color: var(--blue-deep); margin-bottom: 10px; }
+  .mission-card p { font-size: 14px; color: var(--gray-mid); line-height: 1.7; }
+
+  /* VALUES */
+  .values-section { margin-bottom: 100px; }
+  .values-section h2 { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 700; color: var(--blue-deep); line-height: 1.2; margin-bottom: 48px; }
+  .values-list { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  .value-item { display: flex; gap: 20px; align-items: flex-start; padding: 28px; background: white; border: 1px solid var(--border); border-radius: 16px; transition: box-shadow 0.2s; }
+  .value-item:hover { box-shadow: 0 8px 24px rgba(10,36,99,0.08); }
+  .value-num { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 900; color: var(--blue-pale); line-height: 1; min-width: 44px; }
+  .value-text h4 { font-size: 16px; font-weight: 700; color: var(--blue-deep); margin-bottom: 8px; }
+  .value-text p { font-size: 14px; color: var(--gray-mid); line-height: 1.7; }
+
+  /* TIMELINE */
+  .timeline-section { margin-bottom: 100px; }
+  .timeline-section h2 { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 700; color: var(--blue-deep); line-height: 1.2; margin-bottom: 48px; }
+  .timeline { position: relative; padding-left: 40px; }
+  .timeline::before { content: ''; position: absolute; left: 8px; top: 8px; bottom: 8px; width: 2px; background: var(--border); }
+  .timeline-item { position: relative; margin-bottom: 40px; }
+  .timeline-dot { position: absolute; left: -38px; top: 4px; width: 16px; height: 16px; background: var(--blue-mid); border-radius: 50%; border: 3px solid white; box-shadow: 0 0 0 2px var(--blue-mid); }
+  .timeline-year { font-size: 12px; font-weight: 700; color: var(--blue-mid); letter-spacing: 0.05em; margin-bottom: 6px; }
+  .timeline-item h4 { font-size: 17px; font-weight: 700; color: var(--blue-deep); margin-bottom: 6px; }
+  .timeline-item p { font-size: 14px; color: var(--gray-mid); line-height: 1.7; }
+
+  /* CTA BAND */
+  .cta-band {
+    background: var(--blue-deep); border-radius: 24px;
+    padding: 64px 60px; margin-bottom: 80px;
+    display: flex; align-items: center; justify-content: space-between; gap: 40px;
+    position: relative; overflow: hidden;
+  }
+  .cta-band::before {
+    content: ''; position: absolute; top: -60px; right: -60px;
+    width: 300px; height: 300px; background: rgba(61,126,255,0.15); border-radius: 50%;
+  }
+  .cta-band-text { position: relative; z-index: 1; }
+  .cta-band-text h2 { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: white; margin-bottom: 10px; }
+  .cta-band-text p { font-size: 16px; color: rgba(255,255,255,0.7); }
+  .cta-band-actions { display: flex; gap: 12px; flex-shrink: 0; position: relative; z-index: 1; }
+  .cta-btn-primary { background: var(--gold); color: var(--blue-deep); padding: 14px 28px; border-radius: 12px; font-weight: 700; font-size: 15px; text-decoration: none; transition: all 0.2s; }
+  .cta-btn-primary:hover { background: #f0a820; transform: translateY(-2px); }
+  .cta-btn-secondary { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.25); color: white; padding: 14px 28px; border-radius: 12px; font-weight: 600; font-size: 15px; text-decoration: none; transition: all 0.2s; }
+  .cta-btn-secondary:hover { background: rgba(255,255,255,0.18); }
+
+  /* FOOTER */
+  footer { background: var(--blue-deep); color: white; padding: 40px 48px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+  .footer-logo { display: flex; align-items: center; gap: 10px; }
+  .footer-logo-icon { width: 32px; height: 32px; background: rgba(255,255,255,0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+  .footer-logo-text { font-weight: 700; font-size: 16px; color: white; }
+  .footer-logo-text span { color: var(--gold); }
+  .footer-copy { font-size: 13px; color: rgba(255,255,255,0.5); }
+  .footer-links { display: flex; list-style: none; gap: 24px; flex-wrap: wrap; }
+  .footer-links a { font-size: 13px; color: rgba(255,255,255,0.6); text-decoration: none; transition: color 0.2s; font-weight: 500; }
+  .footer-links a:hover { color: white; }
+
+  /* NAV DROPDOWN CSS */
+  .nav-user-dropdown{position:relative;}
+  .nav-user-icon{width:36px;height:36px;border-radius:50%;background:var(--blue-deep);color:white;border:none;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:'DM Sans',sans-serif;transition:box-shadow 0.2s;}
+  .nav-user-icon:hover{box-shadow:0 0 0 3px var(--blue-pale);}
+  .nav-user-menu{position:absolute;top:calc(100% + 10px);right:0;background:white;border-radius:14px;box-shadow:0 8px 32px rgba(10,36,99,0.15);border:1px solid var(--border);min-width:220px;z-index:999;opacity:0;transform:translateY(-8px);pointer-events:none;transition:opacity 0.18s,transform 0.18s;}
+  .nav-user-menu.open{opacity:1;transform:translateY(0);pointer-events:all;}
+  .nav-user-menu-header{padding:14px 16px 10px;border-bottom:1px solid var(--border);}
+  .nav-user-menu-name{font-size:14px;font-weight:700;color:var(--blue-deep);}
+  .nav-user-menu-type{font-size:12px;color:var(--gray-light);margin-top:2px;}
+  .nav-user-menu-item{display:flex;align-items:center;gap:10px;padding:11px 16px;font-size:13px;font-weight:600;color:var(--gray-dark);text-decoration:none;cursor:pointer;border:none;background:none;width:100%;font-family:inherit;transition:background 0.15s;text-align:left;}
+  .nav-user-menu-item:hover{background:var(--blue-tint);color:var(--blue-mid);}
+  .nav-user-menu-item.danger{color:#dc2626;}
+  .nav-user-menu-item.danger:hover{background:#fef2f2;color:#dc2626;}
+  .nav-user-menu-divider{height:1px;background:var(--border);margin:4px 0;}
+  .nav-signin{font-size:14px;font-weight:600;color:var(--blue-mid);text-decoration:none;padding:8px 14px;border-radius:8px;transition:background 0.15s;}
+  .nav-signin:hover{background:var(--blue-tint);}
+
+  @media (max-width: 768px) {
+    nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    .about-hero { padding: 60px 20px 50px; }
+    .about-content { padding: 50px 20px; }
+    .story-grid { grid-template-columns: 1fr; gap: 40px; }
+    .mission-cards { grid-template-columns: 1fr; }
+    .values-list { grid-template-columns: 1fr; }
+    .cta-band { flex-direction: column; padding: 40px 28px; }
+    .cta-band-actions { flex-direction: column; width: 100%; }
+    footer { padding: 32px 20px; flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="maisonquest.html" class="logo">
+    <div class="logo-icon">🏠</div>
+    <span class="logo-text">Maison<span>Quest</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="maisonquest-listings.html">Apartments / Appartements</a></li>
+    <li><a href="maisonquest-listings.html">Guest Houses</a></li>
+    <li><a href="maisonquest-listings.html">Land / Terrains</a></li>
+    <li><a href="maisonquest-agency-profile.html">Agencies / Agences</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="nav-lang">
+      <button class="lang-btn active">EN</button>
+      <button class="lang-btn">FR</button>
+    </div>
+    <a href="#" onclick="MQ && MQ.listProperty ? MQ.listProperty() : window.location.href='maisonquest-auth.html'; return false;" class="nav-cta">List a Property →</a>
+    <div id="nav-user-area" style="display:flex;align-items:center;gap:10px;position:relative;"></div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="about-hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">🇨🇲 Our Story</div>
+    <h1>Built for Cameroon.<br><em>By people who get it.</em></h1>
+    <p>MaisonQuest was created to solve a real problem that affects people all across Cameroon — finding a home shouldn't mean scrolling through blurry WhatsApp photos, dodging scams, or missing out because you're searching from abroad.</p>
+  </div>
+</section>
+
+<!-- MAIN CONTENT -->
+<div class="about-content">
+
+  <!-- STORY -->
+  <div class="story-grid">
+    <div class="story-text">
+      <div class="section-label">The Origin</div>
+      <h2>The way people find homes in Cameroon <span>needed to change</span></h2>
+      <p>For too long, finding a property in Cameroon meant relying on WhatsApp groups flooded with reposts, Facebook pages with no filter, and word-of-mouth chains that left renters — especially those searching from abroad — completely in the dark.</p>
+      <p>MaisonQuest was born in 2026 from a simple question: what if there was one place where you could search across all of Cameroon, see verified listings with real photos and real prices, and contact the agency directly — without the noise?</p>
+      <p>We built MaisonQuest to give agencies a professional reach beyond social media, and to give renters — whether they're in Cameroon or searching from Europe, North America, or anywhere in the diaspora — a search experience that actually works.</p>
+    </div>
+    <div class="story-visual">
+      <div class="story-stat">
+        <div class="num">🇨🇲</div>
+        <div class="label">Built for Cameroon — nationwide coverage</div>
+      </div>
+      <div class="story-divider"></div>
+      <div class="story-stat">
+        <div class="num" style="font-size:20px;line-height:1.5;letter-spacing:0.01em;">Douala · Yaoundé<br>Buea · Bamenda<br>Bafoussam · Limbe<br><span style="color:rgba(255,255,255,0.45);font-size:15px;">& more cities</span></div>
+        <div class="label" style="margin-top:8px;">Cities where you can search</div>
+      </div>
+      <div class="story-divider"></div>
+      <div class="story-stat">
+        <div class="num">2026</div>
+        <div class="label">Founded — growing fast</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MISSION -->
+  <div class="mission-section">
+    <div class="section-label">What We Do</div>
+    <h2>A platform built on three simple promises</h2>
+    <div class="mission-cards">
+      <div class="mission-card">
+        <div class="mission-icon">✅</div>
+        <h3>Verified Only</h3>
+        <p>Every property on MaisonQuest is listed by a licensed, verified real estate agency. No individuals, no scams, no mystery landlords.</p>
+      </div>
+      <div class="mission-card">
+        <div class="mission-icon">💬</div>
+        <h3>Direct Contact</h3>
+        <p>One tap connects you to the agency on WhatsApp or through our platform. No gatekeepers, no middlemen taking a cut from both sides.</p>
+      </div>
+      <div class="mission-card">
+        <div class="mission-icon">🔍</div>
+        <h3>Full Transparency</h3>
+        <p>Prices, photos, floor areas, lease terms — all shown upfront. What you see on MaisonQuest is what you find when you show up.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TIMELINE -->
+  <div class="timeline-section">
+    <div class="section-label">Our Journey</div>
+    <h2>How we got here</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">Early 2026</div>
+        <h4>The problem becomes impossible to ignore</h4>
+        <p>Finding property in Cameroon was stuck in the past — scattered across WhatsApp groups and Facebook pages with no structure, no verification, and no real reach. People abroad trying to secure housing back home had it even worse. MaisonQuest starts as an idea to fix this.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">2026</div>
+        <h4>Building the platform</h4>
+        <p>The focus: create a single, professional destination where verified agencies can list properties with real photos, accurate prices, and full details — replacing the noise of social media with something renters can actually rely on.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">Now</div>
+        <h4>Live and growing</h4>
+        <p>MaisonQuest is live — bilingual, nationwide, and built for both renters on the ground in Cameroon and those searching from the diaspora. We're onboarding agencies, adding listings, and expanding city by city.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">Next</div>
+        <h4>Every city in Cameroon</h4>
+        <p>From Douala and Yaoundé to Buea, Bamenda, Bafoussam, Limbe and beyond — our goal is to make MaisonQuest the default way people find property anywhere in Cameroon.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA BAND -->
+  <div class="cta-band">
+    <div class="cta-band-text">
+      <h2>Ready to find your next home?</h2>
+      <p>Browse thousands of verified listings across Douala and Yaoundé.</p>
+    </div>
+    <div class="cta-band-actions">
+      <a href="maisonquest-listings.html" class="cta-btn-primary">Browse Listings →</a>
+      <a href="maisonquest-contact.html" class="cta-btn-secondary">Contact Us</a>
+    </div>
+  </div>
+
+</div><!-- end about-content -->
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-logo" style="margin-bottom:8px;">
+      <div class="footer-logo-icon">🏠</div>
+      <span class="footer-logo-text">Maison<span>Quest</span></span>
+    </div>
+    <div class="footer-copy">© 2025 MaisonQuest. Cameroon 🇨🇲</div>
+  </div>
+  <ul class="footer-links">
+    <li><a href="maisonquest-about.html">About / À propos</a></li>
+    <li><a href="maisonquest-auth.html">For Agencies</a></li>
+    <li><a href="maisonquest-contact.html">Contact</a></li>
+    <li><a href="#" onclick="openPolicyModal('privacy'); return false;">Privacy Policy</a></li>
+    <li><a href="#" onclick="openPolicyModal('terms'); return false;">Terms</a></li>
+  </ul>
+  <div class="footer-copy">Built for Cameroon 🇨🇲</div>
+</footer>
+
+<!-- POLICY MODAL (shared) -->
+<div id="policy-modal-overlay" style="display:none;position:fixed;inset:0;background:rgba(10,36,99,0.55);z-index:9999;align-items:center;justify-content:center;padding:20px;" onclick="closePolicyModal()">
+  <div style="background:white;border-radius:20px;max-width:680px;width:100%;max-height:80vh;overflow:hidden;display:flex;flex-direction:column;" onclick="event.stopPropagation()">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:24px 28px;border-bottom:1px solid #E2E8F0;">
+      <h2 id="policy-modal-title" style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#0A2463;"></h2>
+      <button onclick="closePolicyModal()" style="background:none;border:none;font-size:22px;cursor:pointer;color:#A0AEC0;line-height:1;">✕</button>
+    </div>
+    <div id="policy-modal-body" style="padding:28px;overflow-y:auto;font-size:14px;line-height:1.8;color:#4A5568;"></div>
+  </div>
+</div>
+
+<script>
+var PRIVACY_CONTENT = '<h3 style="color:#0A2463;font-size:16px;font-weight:700;margin:0 0 12px;">1. Information We Collect</h3><p>MaisonQuest collects information you provide when creating an account (name, email, phone), when submitting inquiries, and when interacting with listings. We also collect basic usage data such as pages visited and search filters used.</p><br><h3 style="color:#0A2463;font-size:16px;font-weight:700;margin:0 0 12px;">2. How We Use Your Information</h3><p>Your information is used to provide and improve the MaisonQuest service, connect you with verified agencies, send relevant notifications, and ensure platform security. We do not sell your personal data to third parties.</p><br><h3 style="color:#0A2463;font-size:16px;font-weight:700;margin:0 0 12px;">3. Data Sharing</h3><p>We share your contact information with agencies only when you initiate an inquiry or send a message. Agency partners are contractually obligated to keep your data confidential and use it only for responding to your inquiry.</p><br><h3 style="color:#0A2463;font-size:16px;font-weight:700;margin:0 0 12px;">4. Cookies</h3><p>MaisonQuest uses session storage to remember your language and currency preferences. We do not use third-party tracking cookies.</p><br><h3 style="color:#0A2463;font-size:16px;font-weight:700;margin:0 0 12px;">5. Your Rights</h3><p>You may request access to, correction of, or deletion of your personal data at any time by contacting us at privacy@maisonquest.cm. We will respond within 30 days.</p><br><h3 style="color:#0A2463;font-size:16px;font-weight:700;margin:0 0 12px;">6. Updates</h3><p>This policy may be updated periodically. Continued use of MaisonQuest after changes constitutes acceptance of the updated policy. Last updated: January 2026.</p>';
+
+var TERMS_CONTENT = '<h3 style="color:#0A2463;font-size:16px;font-weight:700;margin:0 0 12px;">1. Acceptance of Terms</h3><p>By using MaisonQuest, you agree to these Terms of Service. If you do not agree, please do not use the platform. These terms apply to all users — renters, agencies, and visitors.</p><br><h3 style="color:#0A2463;font-size:16px;font-weight:700;margin:0 0 12px;">2. Platform Purpose</h3><p>MaisonQuest is a property listing marketplace connecting renters with verified real estate agencies in Cameroon. We do not participate in transactions, collect payments, or act as a party to any rental agreement.</p><br><h3 style="color:#0A2463;font-size:16px;font-weight:700;margin:0 0 12px;">3. Agency Responsibilities</h3><p>Agencies are responsible for the accuracy of their listings, including pricing, photos, and availability. Agencies must hold a valid real estate license and keep their account information up to date. Fraudulent listings will result in immediate account suspension.</p><br><h3 style="color:#0A2463;font-size:16px;font-weight:700;margin:0 0 12px;">4. Renter Responsibilities</h3><p>Renters agree to use the platform in good faith — inquiries should represent genuine interest. Abuse of the messaging system, fake inquiries, or harassment of agencies is prohibited and may result in account termination.</p><br><h3 style="color:#0A2463;font-size:16px;font-weight:700;margin:0 0 12px;">5. Safety</h3><p>MaisonQuest strongly advises: never transfer money before physically visiting a property and signing a lease. Always verify the agency\'s credentials. Report suspicious listings using the flag feature.</p><br><h3 style="color:#0A2463;font-size:16px;font-weight:700;margin:0 0 12px;">6. Reviews</h3><p>Reviews must be honest and based on real experiences. Fake reviews, whether positive or negative, are prohibited. MaisonQuest reserves the right to remove reviews that violate community guidelines.</p><br><h3 style="color:#0A2463;font-size:16px;font-weight:700;margin:0 0 12px;">7. Limitation of Liability</h3><p>MaisonQuest is not liable for disputes between renters and agencies, or for any loss arising from transactions conducted outside our platform. Use MaisonQuest tools for all communications wherever possible.</p><br><h3 style="color:#0A2463;font-size:16px;font-weight:700;margin:0 0 12px;">8. Changes to Terms</h3><p>These terms may be updated at any time. We will notify users of significant changes via email or platform notification. Last updated: January 2026.</p>';
+
+function openPolicyModal(type) {
+  var overlay = document.getElementById('policy-modal-overlay');
+  var title = document.getElementById('policy-modal-title');
+  var body = document.getElementById('policy-modal-body');
+  title.textContent = type === 'privacy' ? 'Privacy Policy' : 'Terms of Service';
+  body.innerHTML = type === 'privacy' ? PRIVACY_CONTENT : TERMS_CONTENT;
+  overlay.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+function closePolicyModal() {
+  document.getElementById('policy-modal-overlay').style.display = 'none';
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closePolicyModal(); });
+</script>
+
+<!-- MQ Session script will be injected here by the lang/session system -->
+<script>
+var MQ = {
+  SESSION_KEY: 'mq_session', TIMEOUT_MS: 30*60*1000,
+  save: function(t,n,i){sessionStorage.setItem(MQ.SESSION_KEY,JSON.stringify({type:t,name:n,initials:i,lastActive:Date.now()}));},
+  get: function(){try{var r=sessionStorage.getItem(MQ.SESSION_KEY);if(!r)return null;var s=JSON.parse(r);if(Date.now()-s.lastActive>MQ.TIMEOUT_MS){MQ.clear();return null;}return s;}catch(e){return null;}},
+  touch: function(){var s=MQ.get();if(s){s.lastActive=Date.now();sessionStorage.setItem(MQ.SESSION_KEY,JSON.stringify(s));}},
+  clear: function(){sessionStorage.removeItem(MQ.SESSION_KEY);sessionStorage.removeItem('mq_user_type');},
+  logout: function(){MQ.clear();window.location.href='maisonquest-auth.html';},
+  dashboardUrl: function(){var s=MQ.get();if(!s)return'maisonquest-auth.html';return s.type==='agency'?'maisonquest-dashboard.html':'maisonquest-renter-dashboard.html';},
+  listProperty: function(){var s=MQ.get();if(s&&s.type==='agency'){window.location.href='maisonquest-dashboard.html?action=add-listing';}else if(s&&s.type==='renter'){if(confirm('List a property as an agency? Create a free agency account to get started.'))window.location.href='maisonquest-auth.html';}else{window.location.href='maisonquest-auth.html';}},
+  toggleMenu: function(){var m=document.querySelector('.nav-user-menu');if(m)m.classList.toggle('open');},
+  initNav: function(){
+    var area=document.getElementById('nav-user-area');if(!area)return;
+    var s=MQ.get();
+    if(!s){area.innerHTML='<a href="maisonquest-auth.html" class="nav-signin">Sign In</a>';return;}
+    area.innerHTML='<div class="nav-user-dropdown"><button class="nav-user-icon" onclick="MQ.toggleMenu()">'+s.initials+'</button><div class="nav-user-menu"><div class="nav-user-menu-header"><div class="nav-user-menu-name">'+s.name+'</div><div class="nav-user-menu-type">'+(s.type==='agency'?'Agency Account':'Renter Account')+'</div></div>'+'<a href="'+MQ.dashboardUrl()+'" class="nav-user-menu-item">🏠 Dashboard</a>'+(s.type==='renter'?'<a href="maisonquest-renter-dashboard.html?tab=saved" class="nav-user-menu-item">❤️ Saved Listings</a><a href="maisonquest-renter-dashboard.html?tab=inquiries" class="nav-user-menu-item">📧 My Inquiries</a><a href="maisonquest-renter-dashboard.html?tab=messages" class="nav-user-menu-item">💬 Messages</a>':'<a href="maisonquest-dashboard.html?tab=listings" class="nav-user-menu-item">🏘 My Listings</a><a href="maisonquest-agency-profile.html" class="nav-user-menu-item">👤 Public Profile</a><a href="maisonquest-dashboard.html?tab=inquiries" class="nav-user-menu-item">📧 Inquiries</a>')+'<div class="nav-user-menu-divider"></div><a href="'+MQ.dashboardUrl()+'?tab=settings" class="nav-user-menu-item">⚙ Account Settings</a><div class="nav-user-menu-divider"></div><button class="nav-user-menu-item danger" onclick="MQ.logout()">→ Sign Out</button></div></div>';
+    document.addEventListener('click',function(e){var d=document.querySelector('.nav-user-dropdown');if(d&&!d.contains(e.target)){var m=document.querySelector('.nav-user-menu');if(m)m.classList.remove('open');}});
+  }
+};
+document.addEventListener('DOMContentLoaded', function(){ MQ.initNav(); });
+</script>
+<script id="mq-lang-script">
+(function() {
+  var LANG_KEY = 'mq_lang';
+
+  var FR = {
+    // NAV
+    'Apartments / Appartements': 'Appartements',
+    'Guest Houses': "Maisons d'hôtes",
+    'Land / Terrains': 'Terrains',
+    'Agencies / Agences': 'Agences',
+    'List a Property →': 'Publier une annonce →',
+    'Sign In': 'Se connecter',
+    // HERO
+    "🇨🇲 Cameroon's #1 Real Estate Platform \u00a0·\u00a0": '🇨🇲 Plateforme Immobilière N°1 au Cameroun \u00a0·\u00a0',
+    'Now Live': 'En ligne',
+    'Find Your Perfect': 'Trouvez Votre',
+    'Home in Cameroon': 'Maison au Cameroun',
+    'Browse verified apartments, guest houses, rooms and land from trusted real estate companies across Douala, Yaoundé and beyond.': "Parcourez des appartements, maisons d'hôtes, chambres et terrains vérifiés auprès d'agences de confiance à Douala, Yaoundé et au-delà.",
+    // SEARCH TABS
+    '🏢 Rent / Louer': '🏢 Louer',
+    '🏡 Guest House': "🏡 Maison d'hôtes",
+    '🌍 Buy Land / Acheter Terrain': '🌍 Acheter un Terrain',
+    // SEARCH FIELDS
+    'CITY / VILLE': 'VILLE',
+    'NEIGHBORHOOD / QUARTIER': 'QUARTIER',
+    'BUDGET RANGE': 'BUDGET',
+    'All Cities': 'Toutes les villes',
+    'All Areas': 'Tous les quartiers',
+    'All Budgets': 'Tous les budgets',
+    '🔍 Search': '🔍 Rechercher',
+    // STATS BAR
+    'Active Listings': 'Annonces actives',
+    'Partner Agencies': 'Agences partenaires',
+    'Cities Covered': 'Villes couvertes',
+    'Verified Companies': 'Entreprises vérifiées',
+    // HOMEPAGE SECTIONS
+    'Browse By Type': 'Parcourir par type',
+    "Find exactly what you're looking for": 'Trouvez exactement ce que vous cherchez',
+    'Apartments': 'Appartements',
+    'Rooms & Studios': 'Chambres & Studios',
+    'Land & Plots': 'Terrains & Parcelles',
+    'View all apartments →': 'Voir tous les appartements →',
+    'View all rooms →': 'Voir toutes les chambres →',
+    'View all guest houses →': "Voir toutes les maisons d'hôtes →",
+    'View all land →': 'Voir tous les terrains →',
+    'Featured Listings': 'Annonces vedettes',
+    'Verified properties from trusted agencies': 'Propriétés vérifiées par des agences de confiance',
+    'View All Listings →': 'Voir toutes les annonces →',
+    'Trusted Partner Agencies Across Cameroon': 'Agences Partenaires de Confiance au Cameroun',
+    'Trusted real estate companies on MaisonQuest': 'Agences immobilières de confiance sur MaisonQuest',
+    'View Agency Profile →': 'Voir le profil →',
+    'View All Agencies →': 'Voir toutes les agences →',
+    'Hand-Picked For You': 'Sélectionnés Pour Vous',
+    'How MaisonQuest Works': 'Comment fonctionne MaisonQuest',
+    'Simple Process': 'Processus Simple',
+    'Direct Communication': 'Communication Directe',
+    'Verified Agencies': 'Agences Vérifiées',
+    'Verified Listings': 'Annonces Vérifiées',
+    'Happy Renters': 'Locataires Satisfaits',
+    'Are You a Real Estate Agency?': 'Vous êtes une Agence Immobilière ?',
+    "Join MaisonQuest — it's free to get started": "Rejoignez MaisonQuest — c'est gratuit",
+    'List Your Properties →': 'Publier vos Biens →',
+    "Connect with verified agencies, browse thousands of listings, and secure your next home — all in one place.": "Connectez-vous avec des agences vérifiées, parcourez des milliers d'annonces et trouvez votre prochain logement — en un seul endroit.",
+    'Built for Cameroon 🇨🇲': 'Conçu pour le Cameroun 🇨🇲',
+    '© 2025 MaisonQuest. Cameroon 🇨🇲': '© 2025 MaisonQuest. Cameroun 🇨🇲',
+    // LISTING CARDS
+    'View Details': 'Voir détails',
+    'New': 'Nouveau',
+    'Active': 'Actif',
+    'Paused': 'En pause',
+    'Expired': 'Expiré',
+    'Published': 'Publié',
+    '/ month': '/ mois',
+    'CFA/mo': 'CFA/mois',
+    '← Back to Home': '← Retour à l\'accueil',
+    '← Back': '← Retour',
+    // LISTINGS PAGE
+    'Find Your Next Home': 'Trouvez Votre Prochain Logement',
+    'What Are You': 'Que cherchez-vous',
+    "Looking For?": 'à louer ou acheter ?',
+    'Filters': 'Filtres',
+    '🎛 Filters': '🎛 Filtres',
+    'Property Type': 'Type de bien',
+    'Budget Range': 'Fourchette de prix',
+    'Bedrooms': 'Chambres',
+    'Bathrooms': 'Salles de bain',
+    'Any': 'Indifférent',
+    'Apply Filters': 'Appliquer',
+    'Reset': 'Réinitialiser',
+    'Sort: Newest First': 'Trier : Plus récents',
+    'Most Recent': 'Plus récents',
+    'Most Relevant': 'Plus pertinents',
+    'Price: Low to High': 'Prix croissant',
+    'Price: High to Low': 'Prix décroissant',
+    'Most Popular': 'Plus populaires',
+    'Highest Rated': 'Mieux notés',
+    'Lowest Rated': 'Moins bien notés',
+    'Newest First': 'Plus récents',
+    'listings found': 'annonces trouvées',
+    'Load More Listings': 'Charger plus d\'annonces',
+    'No properties found': 'Aucune annonce trouvée',
+    'Try adjusting your filters or expanding your budget range.': 'Essayez de modifier vos filtres ou d\'élargir votre budget.',
+    '✕ Clear': '✕ Effacer',
+    'Clear all': 'Tout effacer',
+    'All Types': 'Tous les types',
+    'All Status': 'Tous les statuts',
+    'All Ratings': 'Toutes les notes',
+    // LISTING DETAIL
+    'About this Property': 'À propos de ce bien',
+    'Property Details': 'Détails du bien',
+    'Rental Details': 'Détails de location',
+    'Amenities & Features': 'Équipements & caractéristiques',
+    'Location': 'Localisation',
+    'Similar Properties in Douala': 'Propriétés similaires à Douala',
+    'View all listings →': 'Voir toutes les annonces →',
+    'Save Listing': 'Sauvegarder',
+    'Share': 'Partager',
+    'Contact': 'Contacter',
+    '📞 Call Agency': '📞 Appeler l\'agence',
+    'WhatsApp Agency': 'WhatsApp Agence',
+    'Contact via WhatsApp': 'Contacter via WhatsApp',
+    'Message on WhatsApp': 'Message WhatsApp',
+    'Send Inquiry': 'Envoyer une demande',
+    '✉️ Send Message': '✉️ Envoyer un message',
+    'View Profile': 'Voir le profil',
+    'View Agency Details': 'Voir l\'agence',
+    'View all listings from this agency →': 'Voir toutes les annonces de cette agence →',
+    'per month': 'par mois',
+    'For Sale': 'À vendre',
+    'For Rent': 'À louer',
+    'Floor Area': 'Surface',
+    'Floor': 'Étage',
+    'Minimum Lease': 'Durée minimale',
+    'Available From': 'Disponible à partir du',
+    'Security Deposit': 'Caution',
+    'Listing For': 'Type de location',
+    'Move In': 'Emménagement',
+    'Furnished': 'Meublé',
+    '🪑 Furnished': '🪑 Meublé',
+    '⚠️ Safety Reminder': '⚠️ Rappel de sécurité',
+    'Never pay before visiting the property.': 'Ne payez jamais avant d\'avoir visité le bien.',
+    '🛡️ Always contact through MaisonQuest.': '🛡️ Contactez toujours via MaisonQuest.',
+    // AGENCY PROFILE
+    'Listings': 'Annonces',
+    'Reviews': 'Avis',
+    'About': 'À propos',
+    'ℹ️ About': 'ℹ️ À propos',
+    '⭐ Reviews': '⭐ Avis',
+    '✏️ Write a Review': '✏️ Laisser un avis',
+    '✏️ Write Review': '✏️ Laisser un avis',
+    'Write a Review': 'Laisser un avis',
+    'Verified Agency': 'Agence vérifiée',
+    '✅ Verified Agency': '✅ Agence vérifiée',
+    'Response Rate': 'Taux de réponse',
+    'Response rate': 'Taux de réponse',
+    'Response Time': 'Délai de réponse',
+    'Avg. response time': 'Délai de réponse moyen',
+    'Usually within 2 hours': 'Généralement en moins de 2 heures',
+    'Active listings': 'Annonces actives',
+    'Active Listings →': 'Annonces actives →',
+    'Deals Closed': 'Ventes conclues',
+    'Deals closed': 'Ventes conclues',
+    'Member since': 'Membre depuis',
+    'Office Hours': 'Heures de bureau',
+    'Office Address': 'Adresse du bureau',
+    'Languages': 'Langues',
+    'Speciality': 'Spécialité',
+    'Areas Covered': 'Zones couvertes',
+    'Founded': 'Fondée en',
+    'License Number': 'Numéro de licence',
+    '🔔 Follow Agency': '🔔 Suivre l\'agence',
+    'Showing 3 of 38 reviews': 'Affichage de 3 avis sur 38',
+    'Verified Renter': 'Locataire vérifié',
+    '👍 Helpful': '👍 Utile',
+    '🚩 Flag': '🚩 Signaler',
+    '🚩 Flagged': '🚩 Signalé',
+    'Read more ↓': 'Lire la suite ↓',
+    'Overall Rating': 'Note globale',
+    'Recommend Rate': 'Taux de recommandation',
+    'Share your experience with Immo Prestige Douala': 'Partagez votre expérience avec Immo Prestige Douala',
+    'Submit Review': 'Soumettre l\'avis',
+    'Your Review': 'Votre avis',
+    'Which listing did you inquire about? (optional)': 'Pour quelle annonce ? (facultatif)',
+    '— Select a listing —': '— Sélectionner une annonce —',
+    'Cancel': 'Annuler',
+    // AUTH PAGE
+    'Welcome back': 'Bon retour',
+    'Sign in to your MaisonQuest account': 'Connectez-vous à votre compte MaisonQuest',
+    'Create your account': 'Créer votre compte',
+    'Email Address': 'Adresse e-mail',
+    'Email address': 'Adresse e-mail',
+    'Email': 'E-mail',
+    'Password': 'Mot de passe',
+    'Forgot password?': 'Mot de passe oublié ?',
+    "Don't have an account?": 'Pas encore de compte ?',
+    'Already have an account?': 'Déjà un compte ?',
+    'Sign Up': "S'inscrire",
+    'Sign in': 'Se connecter',
+    'Create Account': 'Créer un compte',
+    'Create one free': 'Créer un compte gratuit',
+    'Renter': 'Locataire',
+    'Agency / Agence': 'Agence',
+    'I am a...': 'Je suis...',
+    'First Name': 'Prénom',
+    'Last Name': 'Nom',
+    'Agency Name': 'Nom de l\'agence',
+    'Phone Number': 'Numéro de téléphone',
+    'By creating an account you agree to our': 'En créant un compte, vous acceptez nos',
+    'Terms of Service': 'Conditions d\'utilisation',
+    'Privacy Policy': 'Politique de confidentialité',
+    'and': 'et',
+    'Reset password': 'Réinitialiser le mot de passe',
+    'Back to Sign In': 'Retour à la connexion',
+    "Enter your email and we'll send a reset link": 'Entrez votre e-mail et nous vous enverrons un lien',
+    'Send Reset Link': 'Envoyer le lien',
+    'Looking for a home': 'Cherche un logement',
+    'Renter account': 'Compte locataire',
+    // DASHBOARD COMMON
+    'Dashboard': 'Tableau de bord',
+    'Overview': 'Aperçu',
+    'My Listings': 'Mes annonces',
+    'Inquiries': 'Demandes',
+    'Analytics': 'Statistiques',
+    'Settings': 'Paramètres',
+    'Log Out': 'Se déconnecter',
+    'Sign Out': 'Se déconnecter',
+    '+ Add Listing': '+ Ajouter une annonce',
+    '+ Add New Listing': '+ Nouvelle annonce',
+    'Dashboard Overview': 'Aperçu du tableau de bord',
+    'Recent Activity': 'Activité récente',
+    'Recent Inquiries': 'Demandes récentes',
+    'Listing Views': 'Vues des annonces',
+    'Agency Stats': 'Statistiques de l\'agence',
+    'Top Performing Listings': 'Meilleures annonces',
+    // AGENCY DASHBOARD STATS
+    'Total Views (30 days) →': 'Vues totales (30 jours) →',
+    'Inquiries This Month →': 'Demandes ce mois →',
+    'WhatsApp Taps (30 days) →': 'Contacts WhatsApp (30 jours) →',
+    'Active Listings →': 'Annonces actives →',
+    // LISTING MANAGEMENT
+    'Edit': 'Modifier',
+    '✏️ Edit': '✏️ Modifier',
+    'Delete': 'Supprimer',
+    '🗑 Delete': '🗑 Supprimer',
+    'Pause': 'Mettre en pause',
+    'Resume': 'Reprendre',
+    'Publish Listing': 'Publier l\'annonce',
+    'Save as Draft': 'Enregistrer en brouillon',
+    'Save Changes': 'Enregistrer les modifications',
+    'Save': 'Enregistrer',
+    'Add Listing': 'Ajouter une annonce',
+    'Listing Title': 'Titre de l\'annonce',
+    'Property Title': 'Titre du bien',
+    'Description': 'Description',
+    'Price (CFA)': 'Prix (CFA)',
+    'Property Type': 'Type de bien',
+    'City': 'Ville',
+    'Neighborhood': 'Quartier',
+    'Size (m2)': 'Surface (m²)',
+    'Photos': 'Photos',
+    'Mark Closed': 'Marquer comme conclu',
+    'Mark as Replied': 'Marquer comme répondu',
+    'Follow Up': 'Relancer',
+    'Reply on WhatsApp': 'Répondre sur WhatsApp',
+    'Delete Listing?': 'Supprimer l\'annonce ?',
+    'Yes, Move to Trash': 'Oui, mettre à la corbeille',
+    'Cancel - Keep Listing': 'Annuler - Conserver',
+    'Trash': 'Corbeille',
+    'Empty Trash': 'Vider la corbeille',
+    // INQUIRIES
+    'Awaiting reply': 'En attente de réponse',
+    'Replied': 'Répondu',
+    'Closed': 'Fermé',
+    'New': 'Nouveau',
+    'Actions': 'Actions',
+    'Date': 'Date',
+    'Status': 'Statut',
+    'Type': 'Type',
+    'Via': 'Via',
+    'On Platform': 'Sur la plateforme',
+    'On MaisonQuest': 'Sur MaisonQuest',
+    // MESSAGES
+    'Messages': 'Messages',
+    'Conversations': 'Conversations',
+    'Unread Messages': 'Messages non lus',
+    '↩ Reply': '↩ Répondre',
+    // ANALYTICS
+    'Monthly Performance': 'Performance mensuelle',
+    'Click any month to see per-listing breakdown': 'Cliquez sur un mois pour voir le détail par annonce',
+    'All Listings — Performance Overview': 'Toutes les annonces — Aperçu des performances',
+    'Sorted by views': 'Trié par vues',
+    'Listing Performance Breakdown': 'Détail de performance par annonce',
+    '📊 Most Viewed': '📊 Plus vues',
+    '🏆 Best Converting': '🏆 Meilleures conversions',
+    '⚠️ Needs Attention': '⚠️ À améliorer',
+    'Views': 'Vues',
+    'WA Taps': 'Contacts WA',
+    'WA taps': 'Contacts WA',
+    'Conv. Rate': 'Taux de conv.',
+    'Health': 'Santé',
+    'Trend': 'Tendance',
+    'Reach Bar': 'Portée',
+    'VIEWS': 'VUES',
+    'INQUIRIES': 'DEMANDES',
+    'WHATSAPP': 'WHATSAPP',
+    'CONVERSION': 'CONVERSION',
+    '↗ Export Report': '↗ Exporter',
+    // SETTINGS
+    'Agency Information': 'Informations de l\'agence',
+    'Password & Security': 'Mot de passe & sécurité',
+    'Change Password': 'Changer le mot de passe',
+    'Current Password': 'Mot de passe actuel',
+    'New Password': 'Nouveau mot de passe',
+    'Confirm New Password': 'Confirmer le nouveau mot de passe',
+    'Update Password': 'Mettre à jour le mot de passe',
+    'Update your password. We recommend using a strong, unique password.': 'Mettez à jour votre mot de passe. Utilisez un mot de passe fort et unique.',
+    'Notification Preferences': 'Préférences de notifications',
+    'Notifications': 'Notifications',
+    'New Inquiry Received': 'Nouvelle demande reçue',
+    'New Review Posted': 'Nouvel avis publié',
+    'Weekly Performance Summary': 'Résumé hebdomadaire des performances',
+    'Listing Insight Tips': 'Conseils d\'optimisation',
+    'Monthly Drill-down Insights': 'Analyse mensuelle détaillée',
+    'Danger Zone': 'Zone de danger',
+    'Export My Data': 'Exporter mes données',
+    'Delete Account': 'Supprimer le compte',
+    'Delete My Account': 'Supprimer mon compte',
+    'Subscription': 'Abonnement',
+    'Current Plan': 'Forfait actuel',
+    'Upgrade to Elite': 'Passer à Elite',
+    'Downgrade': 'Rétrograder',
+    'Renew': 'Renouveler',
+    // RENTER DASHBOARD
+    'My Inquiries': 'Mes demandes',
+    'Saved Listings': 'Annonces sauvegardées',
+    'My Reviews': 'Mes avis',
+    'Personal Information': 'Informations personnelles',
+    'Inquiries Sent': 'Demandes envoyées',
+    'Replies Received': 'Réponses reçues',
+    'Agencies contacted →': 'Agences contactées →',
+    'Agencies responded →': 'Agences ayant répondu →',
+    'Your Saved Listings': 'Vos annonces sauvegardées',
+    "Agencies You Haven't Reviewed Yet": 'Agences que vous n\'avez pas encore évaluées',
+    'Properties you love →': 'Vos biens favoris →',
+    'Price changes or status updates on saved listings': 'Changements de prix ou de statut des annonces sauvegardées',
+    'New listings in your area': 'Nouvelles annonces dans votre zone',
+    'New messages': 'Nouveaux messages',
+    'Account': 'Compte',
+    'Phone': 'Téléphone',
+    'Remove': 'Retirer',
+    '+ Find a Home': '+ Trouver un logement',
+    '🏠 Listings': '🏠 Annonces',
+    // NAV DROPDOWN
+    'Public Profile': 'Profil public',
+    'Account Settings': 'Paramètres du compte',
+    // MISC
+    'Learn More': 'En savoir plus',
+    'See all →': 'Voir tout →',
+    'Back': 'Retour',
+    'Menu': 'Menu',
+    'Home': 'Accueil',
+    'Search Listings': 'Rechercher des annonces',
+    '🔍 Update': '🔍 Mettre à jour',
+    'Loading...': 'Chargement...',
+    'Report': 'Signaler',
+    'Required': 'Requis',
+    'for': 'pour',
+      'Overview': 'Aperçu',
+      'Dashboard Overview': 'Aperçu général',
+      'Total Inquiries (All Time)': 'Total demandes (tout temps)',
+      'Total Views (All Time)': 'Total vues (tout temps)',
+      'WhatsApp Taps (All Time)': 'Contacts WhatsApp (tout temps)',
+      "Listing Boosts": "Boosts d'annonces",
+      'Inquiry Management': 'Gestion des demandes',
+      'Inquiry Sources': 'Sources des demandes',
+      'How renters contact you': 'Comment les locataires vous contactent',
+      'Daily views across all listings': 'Vues quotidiennes sur toutes les annonces',
+      'Views, clicks, WhatsApp taps': 'Vues, clics, contacts WhatsApp',
+      'Showing your most viewed listings first': 'Vos annonces les plus vues en premier',
+      'Click to upload photos': 'Cliquer pour ajouter des photos',
+      'JPG, PNG - up to 10 photos, 5MB each': 'JPG, PNG — max 10 photos, 5 Mo chacune',
+      'Current Photos - click x to remove': 'Photos actuelles — cliquer × pour supprimer',
+      'Removed photos will be deleted when you save.': 'Les photos supprimées seront effacées à la sauvegarde.',
+      'Rent / Monthly': 'Location / Mensuel',
+      'Short Stay': 'Courte durée',
+      'Sale': 'Vente',
+      'Both': 'Les deux',
+      'Room / Studio': 'Chambre / Studio',
+      'Room/Studio': 'Chambre/Studio',
+      'Land': 'Terrain',
+      'Apartment': 'Appartement',
+      'Studio': 'Studio',
+      'Rooms': 'Chambres',
+      'Floor': 'Étage',
+      'Main': 'Principal',
+      '/ 500 characters': '/ 500 caractères',
+      'Half bath = toilet only, no shower/tub': 'Demi-bain = toilettes uniquement',
+      'This listing will be moved to Trash': 'Cette annonce sera déplacée dans la corbeille',
+      'The listing will be kept in your': "L'annonce sera conservée dans votre",
+      ', after which it is permanently deleted. You can restore it any time before then.': ', puis supprimée définitivement.',
+      'Deleted listings are kept here for 30 days before permanent deletion.': 'Annonces conservées 30 jours avant suppression définitive.',
+      'These actions are permanent and cannot be undone': 'Ces actions sont permanentes et irréversibles',
+      'Awaiting your reply →': 'En attente de votre réponse →',
+      'Replied (28)': 'Répondu (28)',
+      'Closed (5)': 'Fermé (5)',
+      'New (5)': 'Nouveau (5)',
+      'All (38)': 'Tous (38)',
+      'All (47)': 'Tous (47)',
+      'Yesterday': 'Hier',
+      'Yesterday ›': 'Hier ›',
+      'Yesterday at 3:45pm': 'Hier à 15h45',
+      "Today, 7:02am": "Aujourd'hui, 7h02",
+      "Today, 9:14am": "Aujourd'hui, 9h14",
+      "Today at 7:02am": "Aujourd'hui à 7h02",
+      "Today at 9:14am": "Aujourd'hui à 9h14",
+      '2 hours ago': 'Il y a 2 heures',
+      '3 days ago': 'Il y a 3 jours',
+      '3 days ago ›': 'Il y a 3 j ›',
+      'Starter': 'Débutant',
+      'Elite': 'Élite',
+      'Free': 'Gratuit',
+      'Compare Plans': 'Comparer les forfaits',
+      'Basic profile page': 'Page de profil basique',
+      'Up to 5 listings': "Jusqu'à 5 annonces",
+      'No cap on active properties': "Aucune limite d'annonces actives",
+      'Unlimited Listings': 'Annonces illimitées',
+      'Unlimited listings': 'Annonces illimitées',
+      'Featured Placement': 'Mise en avant',
+      'Featured placement': 'Mise en avant',
+      'Homepage feature slot': "Emplacement page d'accueil",
+      'Priority in search results': 'Priorité dans les résultats',
+      'Priority support': 'Support prioritaire',
+      'Full Analytics': 'Statistiques complètes',
+      'Full analytics': 'Statistiques complètes',
+      'Full inbox with reply tracking': 'Boîte de réception avec suivi',
+      'Account manager': 'Gestionnaire de compte',
+      'Trust signal on your profile': 'Signal de confiance sur votre profil',
+      'Verified Badge': 'Badge vérifié',
+      'Verified badge': 'Badge vérifié',
+      '2 free boosts per month': '2 boosts gratuits par mois',
+      '2 free boosts/month': '2 boosts gratuits/mois',
+      '5 free boosts/month': '5 boosts gratuits/mois',
+      'Everything in Pro': 'Tout inclus dans Pro',
+      'Platform': 'Plateforme',
+      'WhatsApp button': 'Bouton WhatsApp',
+      'Top-tier listing visibility on MaisonQuest': 'Visibilité maximale sur MaisonQuest',
+      'Contact Information': 'Coordonnées',
+      'Forgot your current password?': 'Mot de passe actuel oublié ?',
+      'Reset via email →': 'Réinitialiser par e-mail →',
+      'Choose what alerts you receive': 'Choisissez vos alertes',
+      'Control what appears in your Analytics tab': "Contrôlez l'onglet Statistiques",
+      'A weekly digest of your views, inquiries and top listings': 'Résumé hebdomadaire vues, demandes et meilleures annonces',
+      'Get notified when a renter sends an inquiry': 'Notifié quand un locataire envoie une demande',
+      'Get notified when a renter leaves a review': 'Notifié quand un locataire laisse un avis',
+      'Permanently delete your account and all saved data. This cannot be undone.': 'Supprimer définitivement votre compte et données. Irréversible.',
+      'Download a copy of all your data including saved listings and messages.': 'Télécharger vos données incluant annonces et messages.',
+      'Request Export': "Demander l'export",
+      'Welcome back, Jean': 'Bon retour, Jean',
+      'Welcome to MaisonQuest!': 'Bienvenue sur MaisonQuest !',
+      'Account created successfully': 'Compte créé avec succès',
+      'You sent an inquiry': 'Vous avez envoyé une demande',
+      'You saved a new listing': 'Vous avez sauvegardé une annonce',
+      'Immo Prestige replied to your inquiry': 'Immo Prestige a répondu à votre demande',
+      "Agencies You Haven't Reviewed Yet": "Agences non encore évaluées",
+      'Get notified when an agency replies': "Notifié quand une agence répond",
+      'New listings in your area': 'Nouvelles annonces dans votre zone',
+      '(2 written)': '(2 rédigés)',
+      '(3 properties)': '(3 biens)',
+      '(4 sent)': '(4 envoyées)',
+      'LISTINGS': 'ANNONCES',
+      'Listing': 'Annonce',
+      'Property': 'Bien',
+      'Price': 'Prix',
+      'Listing updates': "Mises à jour des annonces",
+      'MaisonQuest newsletters': 'Newsletters MaisonQuest',
+      'Tips, guides and platform updates': 'Conseils, guides et mises à jour',
+      'View →': 'Voir →',
+      'View Listing': "Voir l'annonce",
+      'View Public Profile': 'Voir le profil public',
+      '✕ Close': '✕ Fermer',
+      'Helpful': 'Utile',
+      'New Inquiry Received': 'Nouvelle demande reçue',
+      'New Review Posted': 'Nouvel avis publié',
+      'Weekly Performance Summary': 'Résumé hebdomadaire des performances',
+      'Weekly digest of new properties in Douala': 'Résumé hebdomadaire nouvelles annonces',
+      'New messages': 'Nouveaux messages',
+      'CFA / month': 'CFA / mois',
+      'Mon–Sat, 8am – 6pm': 'Lun–Sam, 8h – 18h',
+      'French, English': 'Français, Anglais',
+      'Residential Rentals & Land': 'Locations résidentielles & terrains',
+      '30 days': '30 jours',
+      'Show actionable tips under each listing in the performance table — what to improve, boost, or highlight': "Afficher des conseils d'optimisation sous chaque annonce",
+      'Show the 💡 insight callout when you click a month on the chart': 'Afficher le conseil 💡 lors du clic sur un mois',
+      '3 yrs': '3 ans',
+      'Pro Agency — Verified Partner': 'Agence Pro — Partenaire Vérifié',
+      '38 reviews': '38 avis',
+      'Showing 3 of 38 reviews': '3 avis sur 38',
+      'About Immo Prestige Douala': "À propos d'Immo Prestige Douala",
+      'Listing Performance Breakdown': 'Détail de performance par annonce',
+      'All Listings — Performance Overview': 'Toutes les annonces — Aperçu',
+      // ABOUT PAGE
+      'A platform built on three simple promises': 'Une plateforme bâtie sur trois promesses simples',
+      'Built for Cameroon.': 'Construit pour le Cameroun.',
+      'By people who get it.': 'Par des gens qui comprennent.',
+      'Cities where you can search': 'Villes où vous pouvez chercher',
+      'Built for Cameroon — nationwide coverage': 'Construit pour le Cameroun — couverture nationale',
+      'Founded — growing fast': 'Fondé — en croissance rapide',
+      'The Origin': "L'Origine",
+      'The way people find homes in Cameroon': 'La façon de trouver un logement au Cameroun',
+      'needed to change': 'devait changer',
+      'What We Do': 'Ce que nous faisons',
+      'Verified Only': 'Vérifiés uniquement',
+      'Direct Contact': 'Contact direct',
+      'Full Transparency': 'Pleine transparence',
+      'Our Journey': 'Notre parcours',
+      'How we got here': 'Comment nous en sommes arrivés là',
+      'Early 2026': 'Début 2026',
+      'The problem becomes impossible to ignore': 'Le problème devient impossible à ignorer',
+      'Building the platform': 'Construction de la plateforme',
+      'Live and growing': 'En ligne et en croissance',
+      'Next': 'Ensuite',
+      'Every city in Cameroon': 'Chaque ville du Cameroun',
+      "Ready to find your next home?": 'Prêt à trouver votre prochain logement ?',
+      'Browse thousands of verified listings across Douala and Yaoundé.': "Parcourez des milliers d'annonces vérifiées partout au Cameroun.",
+      'Browse Listings →': 'Parcourir les annonces →',
+      'Contact Us': 'Nous contacter',
+      'Every property on MaisonQuest is listed by a licensed, verified real estate agency. No individuals, no scams, no mystery landlords.': "Chaque bien sur MaisonQuest est publié par une agence immobilière agréée et vérifiée. Pas de particuliers, pas d'arnaques.",
+      'One tap connects you to the agency on WhatsApp or through our platform. No gatekeepers, no middlemen taking a cut from both sides.': "Un appui connecte avec l'agence sur WhatsApp ou via notre plateforme. Sans intermédiaires.",
+      'Prices, photos, floor areas, lease terms — all shown upfront. What you see on MaisonQuest is what you find when you show up.': "Prix, photos, surfaces, conditions de bail — tout affiché clairement. Ce que vous voyez sur MaisonQuest est ce que vous trouvez.",
+      '🇨🇲 Our Story': '🇨🇲 Notre histoire',
+      // CONTACT PAGE
+      "We're here to help": 'Nous sommes là pour vous aider',
+      'Whether you are a renter with questions, an agency looking to partner, or just curious about MaisonQuest': "Que vous soyez locataire avec des questions, une agence souhaitant un partenariat, ou simplement curieux",
+      'Send us a message': 'Envoyez-nous un message',
+      'We typically reply within 1–2 business days': 'Nous répondons généralement sous 1 à 2 jours ouvrés',
+      'Reach us directly': 'Contactez-nous directement',
+      'For Agencies': 'Pour les agences',
+      'Quick links': 'Liens rapides',
+      'Chat on WhatsApp': 'Discuter sur WhatsApp',
+      'Create Agency Account →': 'Créer un compte agence →',
+      'Message sent!': 'Message envoyé !',
+      "Thanks for reaching out. We'll get back to you within 1–2 business days at the email you provided.": 'Merci de nous avoir contacté. Nous vous répondrons sous 1 à 2 jours ouvrés.',
+      'Based in': 'Basé à',
+      'Response Time': 'Délai de réponse',
+      'Mon–Fri, within 24 hours': 'Lun–Ven, sous 24 heures',
+    'total': 'total',
+  };
+
+  // Build reverse FR→EN map
+  var EN = {};
+  for (var k in FR) { EN[FR[k]] = k; }
+
+  function applyLang(lang) {
+    var dict = lang === 'FR' ? FR : EN;
+    function walk(node) {
+      if (node.nodeType === 3) {
+        var t = node.textContent.trim();
+        if (t && dict[t] !== undefined) {
+          node.textContent = node.textContent.replace(t, dict[t]);
+        }
+      } else if (node.nodeType === 1) {
+        var tag = node.tagName;
+        if (tag === 'SCRIPT' || tag === 'STYLE' || tag === 'NOSCRIPT' || tag === 'TEXTAREA') return;
+        // Translate placeholder and title attributes
+        if (node.placeholder && dict[node.placeholder]) node.placeholder = dict[node.placeholder];
+        if (node.title && dict[node.title]) node.title = dict[node.title];
+        for (var i = 0; i < node.childNodes.length; i++) walk(node.childNodes[i]);
+      }
+    }
+    walk(document.body);
+    // Update lang buttons
+    document.querySelectorAll('.lang-btn').forEach(function(b) {
+      b.classList.toggle('active', b.textContent.trim() === lang);
+    });
+  }
+
+  function setLang(lang) {
+    sessionStorage.setItem('mq_lang', lang);
+    if (lang === 'FR') {
+      applyLang('FR');
+      // Re-render the nav dropdown in French
+      if (window.MQ && MQ.initNav) MQ.initNav();
+    } else {
+      window.location.reload();
+    }
+    document.querySelectorAll('.lang-btn').forEach(function(b) {
+      b.classList.toggle('active', b.textContent.trim() === lang);
+    });
+  }
+
+  function init() {
+    // Wire buttons
+    document.querySelectorAll('.lang-btn').forEach(function(btn) {
+      btn.onclick = function() { setLang(btn.textContent.trim()); };
+    });
+    // Apply saved lang
+    var saved = sessionStorage.getItem('mq_lang') || 'EN';
+    if (saved === 'FR') applyLang('FR');
+    document.querySelectorAll('.lang-btn').forEach(function(b) {
+      b.classList.toggle('active', b.textContent.trim() === saved);
+    });
+  }
+
+  // Expose globally so nav rebuild after dropdown open can re-translate
+  window.MQLang = { setLang: setLang, applyLang: applyLang, init: init };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() { setTimeout(init, 80); });
+  } else {
+    setTimeout(init, 80);
+  }
+})();
+</script>
+</body>
+</html>

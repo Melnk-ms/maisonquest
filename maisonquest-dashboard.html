@@ -1,0 +1,2562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agency Dashboard - MaisonQuest</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --blue-deep:#0A2463; --blue-mid:#1B4FD8; --blue-light:#3D7EFF;
+  --blue-pale:#E8EFFF; --blue-tint:#F4F7FF; --gold:#E8A020;
+  --white:#fff; --gray-dark:#1A1A2E; --gray-mid:#4A5568;
+  --gray-light:#A0AEC0; --gray-bg:#F8FAFF; --border:#E2E8F0;
+  --green:#16a34a; --green-bg:#f0fdf4; --red:#dc2626; --red-bg:#fef2f2;
+  --sidebar-w:240px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--gray-bg);color:var(--gray-dark);display:flex;min-height:100vh;}
+
+/* SIDEBAR */
+.sidebar{width:var(--sidebar-w);background:var(--blue-deep);min-height:100vh;position:fixed;top:0;left:0;display:flex;flex-direction:column;z-index:50;transition:width 0.25s ease;overflow:hidden;}
+.sidebar.collapsed{width:64px;}
+.sidebar-logo{padding:22px 20px 18px;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;gap:10px;text-decoration:none;white-space:nowrap;}
+.sidebar-logo-icon{width:32px;height:32px;background:var(--blue-mid);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
+.sidebar-logo-text{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:white;transition:opacity 0.2s,width 0.25s;}
+.sidebar-logo-text span{color:#7da8ff;}
+.sidebar.collapsed .sidebar-logo-text{opacity:0;width:0;overflow:hidden;}
+.sidebar-agency{padding:16px 20px;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;gap:12px;white-space:nowrap;}
+.agency-avatar{width:40px;height:40px;background:rgba(255,255,255,0.1);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.agency-info-name{font-size:13px;font-weight:700;color:white;transition:opacity 0.2s;}
+.agency-info-plan{font-size:11px;color:var(--gold);font-weight:600;transition:opacity 0.2s;}
+.sidebar.collapsed .agency-info-name,.sidebar.collapsed .agency-info-plan{opacity:0;}
+.sidebar-nav{flex:1;padding:12px 10px;overflow:hidden;}
+.nav-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,0.3);padding:10px 10px 6px;white-space:nowrap;transition:opacity 0.2s;}
+.sidebar.collapsed .nav-label{opacity:0;}
+.nav-item{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:10px;color:rgba(255,255,255,0.6);font-size:14px;font-weight:500;cursor:pointer;transition:all 0.2s;margin-bottom:2px;border:none;background:transparent;width:100%;text-align:left;font-family:'DM Sans',sans-serif;text-decoration:none;white-space:nowrap;}
+.nav-item:hover{background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.9);}
+.nav-item.active{background:var(--blue-mid);color:white;font-weight:600;}
+.nav-icon{font-size:15px;width:20px;text-align:center;flex-shrink:0;}
+.nav-item-label{transition:opacity 0.2s;}
+.sidebar.collapsed .nav-item-label{opacity:0;}
+.nav-badge{margin-left:auto;background:var(--red);color:white;font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;transition:opacity 0.2s;flex-shrink:0;}
+.nav-badge.gold{background:var(--gold);color:var(--blue-deep);}
+.sidebar.collapsed .nav-badge{opacity:0;}
+.sidebar-bottom{padding:14px 10px;border-top:1px solid rgba(255,255,255,0.08);}
+/* Toggle button */
+.sidebar-toggle{position:absolute;top:20px;right:-13px;width:26px;height:26px;background:var(--blue-mid);border:2px solid var(--blue-deep);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:60;color:white;box-shadow:0 2px 8px rgba(0,0,0,0.25);transition:transform 0.25s,background 0.2s;font-size:11px;}
+.sidebar-toggle:hover{background:var(--blue-light);}
+.sidebar.collapsed .sidebar-toggle{transform:rotate(180deg);}
+
+/* MAIN */
+.main{margin-left:var(--sidebar-w);flex:1;display:flex;flex-direction:column;min-height:100vh;transition:margin-left 0.25s ease;}
+.main.wide{margin-left:64px;}
+
+/* TOPBAR */
+.topbar{background:white;border-bottom:1px solid var(--border);padding:0 32px;height:62px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:40;box-shadow:0 2px 12px rgba(10,36,99,0.05);}
+.topbar-left h1{font-size:18px;font-weight:700;color:var(--blue-deep);}
+.topbar-left p{font-size:12px;color:var(--gray-light);margin-top:1px;}
+.topbar-right{display:flex;align-items:center;gap:12px;}
+.topbar-btn{display:flex;align-items:center;gap:7px;padding:9px 18px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;border:none;}
+.btn-primary{background:var(--blue-mid);color:white;}
+.btn-primary:hover{background:var(--blue-deep);}
+.btn-ghost{background:var(--gray-bg);color:var(--gray-mid);border:1.5px solid var(--border)!important;}
+.btn-ghost:hover{border-color:var(--blue-mid)!important;color:var(--blue-mid);}
+.notif-btn{position:relative;width:38px;height:38px;background:var(--gray-bg);border:1.5px solid var(--border);border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+.notif-dot{position:absolute;top:6px;right:6px;width:8px;height:8px;background:var(--red);border-radius:50%;border:2px solid white;}
+
+/* BACK BAR */
+.back-bar{display:flex;align-items:center;gap:10px;padding:10px 32px;background:var(--blue-tint);border-bottom:1px solid var(--border);font-size:13px;}
+.back-bar.at-overview{display:none;}
+.back-btn{display:flex;align-items:center;gap:6px;background:white;border:1.5px solid var(--border);border-radius:8px;padding:6px 13px;font-size:13px;font-weight:600;color:var(--blue-mid);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
+.back-btn:hover{background:var(--blue-mid);color:white;border-color:var(--blue-mid);}
+.breadcrumb{display:flex;align-items:center;gap:6px;color:var(--gray-light);}
+.breadcrumb a{color:var(--blue-mid);cursor:pointer;font-weight:600;}
+.breadcrumb span{color:var(--gray-dark);font-weight:600;}
+
+/* PAGE */
+.page-content{padding:28px 32px;flex:1;}
+.tab-panel{display:none;}
+.mq-toggle{position:relative;display:inline-block;width:44px;height:24px;cursor:pointer;flex-shrink:0;}
+.mq-toggle input{opacity:0;width:0;height:0;position:absolute;}
+.mq-toggle-track{position:absolute;inset:0;background:#d1d5db;border-radius:24px;transition:background 0.25s;}
+.mq-toggle-thumb{position:absolute;top:3px;left:3px;width:18px;height:18px;background:white;border-radius:50%;transition:transform 0.25s;box-shadow:0 1px 4px rgba(0,0,0,0.18);}
+.mq-toggle input:checked + .mq-toggle-track{background:var(--blue-mid);}
+.mq-toggle input:checked + .mq-toggle-track .mq-toggle-thumb{transform:translateX(20px);}
+.insight-tip{display:flex;align-items:flex-start;gap:8px;padding:9px 14px;margin:0 22px 12px;background:var(--blue-tint);border-radius:9px;border-left:3px solid var(--blue-mid);font-size:12px;color:var(--gray-mid);line-height:1.55;}
+.insight-tip.warn{background:#fff7ed;border-left-color:#f97316;color:#92400e;}
+.insight-tip.danger{background:#fef2f2;border-left-color:#ef4444;color:#991b1b;}
+.insight-tip.good{background:#f0fdf4;border-left-color:#10b981;color:#065f46;}
+.tab-panel.active{display:block;}
+
+/* STAT CARDS */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:28px;}
+.stat-card{background:white;border-radius:16px;border:1px solid var(--border);padding:20px 22px;box-shadow:0 2px 10px rgba(10,36,99,0.04);position:relative;overflow:hidden;transition:transform 0.2s,box-shadow 0.2s;}
+.stat-card[onclick]:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(10,36,99,0.12);}
+.stat-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;}
+.stat-card.blue::after{background:var(--blue-mid);}
+.stat-card.green::after{background:var(--green);}
+.stat-card.gold::after{background:var(--gold);}
+.stat-card.purple::after{background:#7c3aed;}
+.stat-tag{font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;}
+.stat-tag.blue{color:var(--blue-mid);}
+.stat-tag.green{color:var(--green);}
+.stat-tag.gold{color:var(--gold);}
+.stat-tag.purple{color:#7c3aed;}
+.stat-value{font-family:'Playfair Display',serif;font-size:32px;font-weight:700;color:var(--blue-deep);line-height:1;margin-bottom:4px;}
+.stat-label{font-size:13px;color:var(--gray-light);font-weight:500;margin-bottom:10px;}
+.stat-change{font-size:12px;font-weight:700;}
+.stat-change.up{color:var(--green);}
+.stat-change.down{color:var(--red);}
+
+/* CHARTS */
+.charts-row{display:grid;grid-template-columns:2fr 1fr;gap:18px;margin-bottom:28px;}
+.chart-card{background:white;border-radius:16px;border:1px solid var(--border);padding:22px;box-shadow:0 2px 10px rgba(10,36,99,0.04);}
+.chart-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
+.chart-title{font-size:15px;font-weight:700;color:var(--blue-deep);}
+.chart-sub{font-size:12px;color:var(--gray-light);margin-top:2px;}
+.bar-chart{display:flex;align-items:flex-end;gap:8px;height:140px;}
+.bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;justify-content:flex-end;}
+.bar{width:100%;border-radius:6px 6px 0 0;background:var(--blue-pale);transition:background 0.2s;cursor:pointer;min-height:4px;}
+.bar:hover,.bar.highlighted{background:var(--blue-mid);}
+.bar-label{font-size:10px;color:var(--gray-light);font-weight:600;}
+.bar-val{font-size:10px;color:var(--gray-mid);font-weight:700;}
+
+/* DONUT */
+.donut-wrap{display:flex;flex-direction:column;align-items:center;}
+.donut{position:relative;width:130px;height:130px;margin:10px auto 16px;}
+.donut svg{transform:rotate(-90deg);}
+.donut-label{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;}
+.donut-label strong{font-family:'Playfair Display',serif;font-size:22px;color:var(--blue-deep);display:block;}
+.donut-label small{font-size:10px;color:var(--gray-light);}
+.donut-legend{width:100%;}
+.legend-item{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--gray-mid);margin-bottom:8px;}
+.legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.legend-val{margin-left:auto;font-weight:700;color:var(--blue-deep);}
+
+/* SECTION */
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.section-title{font-size:16px;font-weight:700;color:var(--blue-deep);}
+.see-all{font-size:13px;color:var(--blue-mid);font-weight:600;cursor:pointer;text-decoration:none;}
+
+/* TABLE */
+.data-table{background:white;border-radius:16px;border:1px solid var(--border);overflow-x:auto;box-shadow:0 2px 10px rgba(10,36,99,0.04);margin-bottom:28px;}
+.t-head{display:grid;background:var(--gray-bg);border-bottom:1px solid var(--border);}
+.t-row{display:grid;border-bottom:1px solid var(--border);align-items:center;transition:background 0.15s;cursor:default;}
+.t-row:last-child{border-bottom:none;}
+.t-row:hover{background:var(--blue-tint);}
+.th{padding:12px 16px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--gray-light);}
+.td{padding:14px 16px;font-size:13px;color:var(--gray-mid);}
+.td-name{font-weight:700;color:var(--blue-deep);font-size:14px;}
+.td-link{color:var(--blue-mid);font-weight:500;}
+
+/* PILLS */
+.status-pill{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700;}
+.s-new{background:#dbeafe;color:var(--blue-mid);}
+.s-replied{background:var(--green-bg);color:var(--green);}
+.s-closed{background:var(--gray-bg);color:var(--gray-light);}
+.via-pill{font-size:11px;font-weight:600;padding:3px 9px;border-radius:6px;}
+.via-wa{background:#dcfce7;color:#15803d;}
+.via-platform{background:var(--blue-pale);color:var(--blue-mid);}
+
+/* TOP LISTINGS */
+.top-listings{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:28px;}
+.top-card{background:white;border-radius:14px;border:1px solid var(--border);padding:16px;box-shadow:0 2px 8px rgba(10,36,99,0.04);position:relative;}
+.top-rank{position:absolute;top:14px;right:14px;width:26px;height:26px;background:var(--blue-deep);color:white;border-radius:50%;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;}
+.top-title{font-size:14px;font-weight:700;color:var(--blue-deep);margin-bottom:4px;padding-right:30px;line-height:1.3;}
+.top-loc{font-size:12px;color:var(--gray-light);margin-bottom:12px;}
+.top-stats{display:flex;gap:12px;}
+.mini-stat strong{display:block;font-size:16px;font-weight:700;color:var(--blue-deep);}
+.mini-stat span{font-size:10px;color:var(--gray-light);}
+
+/* LISTINGS TAB */
+.toolbar{display:flex;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap;}
+.toolbar-search{flex:1;min-width:200px;padding:10px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;background:white;}
+.toolbar-search:focus{border-color:var(--blue-light);}
+.toolbar-select{padding:10px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:13px;font-family:'DM Sans',sans-serif;color:var(--gray-mid);background:white;outline:none;cursor:pointer;}
+.lt-head{display:grid;grid-template-columns:2fr 0.8fr 1fr 0.8fr 260px;background:var(--gray-bg);border-bottom:1px solid var(--border);min-width:800px;}
+.lt-row{display:grid;grid-template-columns:2fr 0.8fr 1fr 0.8fr 260px;border-bottom:1px solid var(--border);align-items:center;transition:background 0.15s;min-width:800px;}
+.lt-row:last-child{border-bottom:none;}
+.lt-row:hover{background:var(--blue-tint);}
+.lt-img{width:44px;height:44px;border-radius:9px;background:linear-gradient(180deg,#e8edf5 0%,#1a2a5e 100%);flex-shrink:0;}
+.lt-info{display:flex;align-items:center;gap:12px;padding:14px 16px;}
+.lt-title{font-size:13px;font-weight:700;color:var(--blue-deep);margin-bottom:2px;}
+.lt-loc{font-size:11px;color:var(--gray-light);}
+.ls{display:inline-flex;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700;}
+.ls-active{background:var(--green-bg);color:var(--green);}
+.ls-paused{background:#fef9c3;color:#92400e;}
+.ls-expired{background:var(--red-bg);color:var(--red);}
+.action-dots{display:flex;gap:6px;padding:0 12px;flex-wrap:nowrap;align-items:center;}
+.dot-btn{height:30px;padding:0 8px;border-radius:7px;border:1.5px solid var(--border);background:white;font-size:12px;font-weight:600;font-family:'DM Sans',sans-serif;color:var(--gray-mid);cursor:pointer;display:flex;align-items:center;gap:4px;transition:all 0.2s;white-space:nowrap;}
+.dot-btn:hover{border-color:var(--blue-mid);color:var(--blue-mid);background:var(--blue-tint);}
+.dot-btn.pause-btn:hover{border-color:#d97706;color:#d97706;background:#fef9c3;}
+.dot-btn.del-btn:hover{border-color:var(--red);color:var(--red);background:var(--red-bg);}
+.dot-btn svg{flex-shrink:0;pointer-events:none;}
+
+/* INQUIRIES */
+.inq-filters{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;}
+.inq-filter{padding:7px 16px;border:1.5px solid var(--border);border-radius:20px;background:white;font-size:13px;font-weight:600;color:var(--gray-mid);cursor:pointer;transition:all 0.2s;font-family:'DM Sans',sans-serif;}
+.inq-filter:hover{border-color:var(--blue-mid);color:var(--blue-mid);}
+.inq-filter.active{background:var(--blue-mid);border-color:var(--blue-mid);color:white;}
+.inq-card{background:white;border-radius:14px;border:1px solid var(--border);padding:18px 20px;margin-bottom:12px;display:grid;grid-template-columns:1fr auto;gap:16px;align-items:start;box-shadow:0 2px 8px rgba(10,36,99,0.04);}
+.inq-card.unread{border-left:3px solid var(--blue-mid);}
+.inq-head{display:flex;align-items:center;gap:12px;margin-bottom:8px;}
+.inq-avatar{width:38px;height:38px;border-radius:50%;background:var(--blue-pale);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.inq-name{font-size:14px;font-weight:700;color:var(--blue-deep);}
+.inq-time{font-size:11px;color:var(--gray-light);}
+.inq-prop{font-size:12px;color:var(--blue-mid);font-weight:600;margin-bottom:8px;}
+.inq-msg{font-size:13px;color:var(--gray-mid);line-height:1.6;}
+.inq-actions{display:flex;flex-direction:column;gap:8px;align-items:flex-end;}
+.wa-btn{display:flex;align-items:center;gap:6px;background:#25D366;color:white;padding:9px 14px;border-radius:9px;font-size:12px;font-weight:700;text-decoration:none;white-space:nowrap;transition:background 0.2s;}
+.wa-btn:hover{background:#1ebc58;}
+.wa-btn svg{pointer-events:none;}
+.mark-btn{font-size:12px;color:var(--gray-light);background:none;border:1.5px solid var(--border);border-radius:8px;padding:7px 12px;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:600;transition:all 0.2s;}
+.mark-btn:hover{border-color:var(--blue-mid);color:var(--blue-mid);}
+
+/* SUBSCRIPTION */
+.plan-hero{background:linear-gradient(135deg,var(--blue-deep) 0%,var(--blue-mid) 100%);border-radius:18px;padding:28px 32px;display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:16px;}
+.plan-hero h2{font-family:'Playfair Display',serif;font-size:24px;color:white;font-weight:700;margin-bottom:6px;}
+.plan-hero p{color:rgba(255,255,255,0.7);font-size:14px;}
+.plan-renews{margin-top:10px;font-size:13px;color:rgba(255,255,255,0.6);}
+.plan-price-big strong{font-family:'Playfair Display',serif;font-size:42px;color:white;display:block;line-height:1;}
+.plan-price-big span{font-size:13px;color:rgba(255,255,255,0.6);}
+.plan-feats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px;}
+.plan-feat{padding:16px;background:white;border-radius:13px;border:1px solid var(--border);display:flex;align-items:center;gap:12px;}
+.pf-icon{font-size:20px;}
+.pf-text{font-size:13px;font-weight:600;color:var(--blue-deep);}
+.pf-sub{font-size:11px;color:var(--gray-light);margin-top:1px;}
+.upgrade-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.upgrade-card{background:white;border-radius:16px;border:2px solid var(--border);padding:24px;text-align:center;transition:border-color 0.2s,transform 0.2s;position:relative;overflow:hidden;}
+.upgrade-card:hover{border-color:var(--blue-mid);transform:translateY(-3px);}
+.upgrade-card.current{border-color:var(--blue-mid);}
+.upgrade-card.popular{border-color:var(--gold);}
+.popular-tag{position:absolute;top:0;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--blue-deep);font-size:10px;font-weight:800;padding:4px 14px;border-radius:0 0 8px 8px;text-transform:uppercase;}
+.up-name{font-size:16px;font-weight:700;color:var(--blue-deep);margin:10px 0 6px;}
+.up-price{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--blue-deep);margin-bottom:4px;}
+.up-price span{font-family:'DM Sans',sans-serif;font-size:13px;color:var(--gray-light);font-weight:400;}
+.up-feats{list-style:none;margin:16px 0;text-align:left;}
+.up-feats li{font-size:13px;color:var(--gray-mid);padding:4px 0;display:flex;align-items:center;gap:8px;}
+.up-feats li::before{content:'checkmark';display:none;}
+.up-feats li .chk{color:var(--green);font-weight:700;}
+.up-btn{width:100%;padding:11px;border-radius:10px;border:none;font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;margin-top:4px;}
+.up-btn.current-btn{background:var(--blue-pale);color:var(--blue-mid);}
+.up-btn.upgrade-btn{background:var(--blue-mid);color:white;}
+.up-btn.upgrade-btn:hover{background:var(--blue-deep);}
+
+/* TRASH */
+.trash-empty{text-align:center;padding:60px 20px;color:var(--gray-light);}
+.trash-empty-icon{font-size:48px;margin-bottom:12px;opacity:0.4;}
+.trash-item{background:white;border-radius:12px;border:1px solid var(--border);padding:14px 18px;margin-bottom:10px;display:flex;align-items:center;gap:14px;opacity:0.8;}
+.trash-img{width:40px;height:40px;border-radius:8px;background:linear-gradient(180deg,#e8edf5 0%,#1a2a5e 100%);flex-shrink:0;}
+.trash-info-text{flex:1;}
+.trash-item-title{font-size:13px;font-weight:700;color:var(--gray-dark);}
+.trash-item-meta{font-size:11px;color:var(--gray-light);margin-top:2px;}
+.trash-countdown{font-size:11px;font-weight:700;color:var(--red);margin-top:3px;}
+.trash-restore{padding:7px 14px;border:1.5px solid var(--border);border-radius:8px;background:white;font-size:12px;font-weight:700;color:var(--blue-mid);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;white-space:nowrap;}
+.trash-restore:hover{border-color:var(--blue-mid);background:var(--blue-tint);}
+.trash-perm-delete{padding:7px 14px;border:1.5px solid #fca5a5;border-radius:8px;background:white;font-size:12px;font-weight:700;color:var(--red);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;white-space:nowrap;margin-left:6px;}
+.trash-perm-delete:hover{background:var(--red-bg);}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(10,36,99,0.5);z-index:200;align-items:center;justify-content:center;padding:20px;}
+.modal-overlay.open{display:flex;}
+.modal{background:white;border-radius:20px;width:100%;max-width:600px;max-height:90vh;overflow-y:auto;box-shadow:0 32px 80px rgba(0,0,0,0.25);}
+.modal-header{padding:22px 24px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:white;z-index:1;border-radius:20px 20px 0 0;}
+.modal-title{font-size:18px;font-weight:700;color:var(--blue-deep);}
+.modal-close{width:34px;height:34px;background:var(--gray-bg);border:none;border-radius:8px;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--gray-mid);}
+.modal-close:hover{background:var(--border);}
+.modal-body{padding:22px 24px;}
+.modal-footer{padding:16px 24px;border-top:1px solid var(--border);display:flex;gap:10px;justify-content:flex-end;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px;}
+.form-group{margin-bottom:16px;}
+.form-label{display:block;font-size:12px;font-weight:700;color:var(--gray-mid);text-transform:uppercase;letter-spacing:0.6px;margin-bottom:7px;}
+.req{color:var(--red);margin-left:2px;}
+.form-input,.form-select,.form-textarea{width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;font-family:'DM Sans',sans-serif;color:var(--gray-dark);background:var(--gray-bg);outline:none;transition:border-color 0.2s;}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--blue-light);background:white;}
+.form-textarea{resize:vertical;min-height:90px;}
+.form-input.error,.form-select.error,.form-textarea.error{border-color:var(--red)!important;background:var(--red-bg)!important;}
+.field-error{font-size:11px;color:var(--red);font-weight:600;margin-top:5px;display:none;align-items:center;gap:4px;}
+.field-error.show{display:flex;}
+.val-banner{background:var(--red-bg);border:1.5px solid #fca5a5;border-radius:10px;padding:12px 16px;margin-bottom:16px;font-size:13px;color:var(--red);font-weight:600;display:none;align-items:center;gap:8px;}
+.val-banner.show{display:flex;}
+.success-banner{background:var(--green-bg);border:1.5px solid #86efac;border-radius:10px;padding:12px 16px;font-size:13px;color:var(--green);font-weight:600;display:none;align-items:center;gap:8px;margin-bottom:16px;}
+.success-banner.show{display:flex;}
+.upload-area{border:2px dashed var(--border);border-radius:12px;padding:28px;text-align:center;cursor:pointer;transition:border-color 0.2s,background 0.2s;}
+.upload-area:hover{border-color:var(--blue-mid);background:var(--blue-tint);}
+.upload-area.error{border-color:var(--red);background:var(--red-bg);}
+.upload-text{font-size:14px;color:var(--gray-mid);font-weight:500;}
+.upload-sub{font-size:12px;color:var(--gray-light);margin-top:4px;}
+
+/* EXISTING PHOTOS */
+.ep-wrap{margin-bottom:10px;display:none;}
+.ep-label{font-size:11px;font-weight:700;color:var(--gray-mid);text-transform:uppercase;letter-spacing:0.6px;margin-bottom:8px;}
+.ep-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;}
+.ep-item{position:relative;border-radius:9px;overflow:hidden;aspect-ratio:1;background:linear-gradient(180deg,#e8edf5 0%,#1a2a5e 100%);border:2px solid var(--border);}
+.ep-item.removed{opacity:0.3;}
+.ep-remove{position:absolute;top:4px;right:4px;width:20px;height:20px;background:rgba(220,38,38,0.85);border:none;border-radius:50%;color:white;font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:700;font-family:'DM Sans',sans-serif;}
+.ep-remove:hover{background:var(--red);}
+
+/* DELETE MODAL */
+.del-modal-overlay{display:none;position:fixed;inset:0;background:rgba(10,36,99,0.55);z-index:300;align-items:center;justify-content:center;padding:20px;}
+.del-modal-overlay.open{display:flex;}
+.del-modal{background:white;border-radius:18px;width:100%;max-width:440px;box-shadow:0 32px 80px rgba(0,0,0,0.25);overflow:hidden;}
+.del-header{background:var(--red-bg);padding:24px 24px 18px;display:flex;align-items:center;gap:14px;border-bottom:1px solid #fecaca;}
+.del-icon{width:46px;height:46px;background:#fca5a5;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.del-title{font-size:17px;font-weight:700;color:var(--red);}
+.del-sub{font-size:13px;color:#ef4444;margin-top:2px;}
+.del-body{padding:20px 24px;}
+.del-preview{background:var(--gray-bg);border:1px solid var(--border);border-radius:11px;padding:14px 16px;margin-bottom:16px;display:flex;align-items:center;gap:12px;}
+.del-preview-img{width:44px;height:44px;border-radius:9px;background:linear-gradient(180deg,#e8edf5 0%,#1a2a5e 100%);flex-shrink:0;}
+.del-preview-title{font-size:14px;font-weight:700;color:var(--blue-deep);}
+.del-preview-loc{font-size:12px;color:var(--gray-light);margin-top:2px;}
+.del-warning{font-size:13px;color:var(--gray-mid);line-height:1.65;margin-bottom:12px;}
+.del-info{display:flex;align-items:flex-start;gap:10px;background:#fef9c3;border:1px solid #fcd34d;border-radius:10px;padding:12px 14px;font-size:12px;color:#92400e;line-height:1.55;}
+.del-footer{padding:16px 24px;border-top:1px solid var(--border);display:flex;gap:10px;justify-content:flex-end;}
+.btn-cancel{background:white;color:var(--gray-mid);border:1.5px solid var(--border);padding:10px 20px;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
+.btn-cancel:hover{border-color:var(--gray-mid);}
+.btn-confirm-del{background:var(--red);color:white;border:none;padding:10px 20px;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background 0.2s;}
+.btn-confirm-del:hover{background:#b91c1c;}
+
+/* SVG ICONS in buttons - prevent click stealing */
+.dot-btn svg,.dot-btn svg *{pointer-events:none;}
+.back-btn *{pointer-events:none;}
+
+@media(max-width:1024px){.stats-grid{grid-template-columns:repeat(2,1fr);}.charts-row{grid-template-columns:1fr;}.top-listings{grid-template-columns:repeat(2,1fr);}.plan-feats{grid-template-columns:repeat(2,1fr);}.upgrade-grid{grid-template-columns:1fr;}}
+@media(max-width:768px){.main{margin-left:0;}.page-content{padding:16px;}.topbar{padding:0 16px;}.lt-head,.lt-row{grid-template-columns:1fr auto;}}
+</style>
+</head>
+<body>
+
+<aside class="sidebar" id="sidebar">
+  <button class="sidebar-toggle" onclick="toggleSidebar()" title="Collapse sidebar">&#10094;</button>
+  <a href="maisonquest.html" class="sidebar-logo">
+    <div class="sidebar-logo-icon">&#127968;</div>
+    <span class="sidebar-logo-text">Maison<span>Quest</span></span>
+  </a>
+  <div class="sidebar-agency">
+    <div class="agency-avatar">&#127970;</div>
+    <div>
+      <div class="agency-info-name">Immo Prestige Douala</div>
+      <div class="agency-info-plan">&#11088; Pro Plan</div>
+    </div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-label">Main</div>
+    <button class="nav-item active" onclick="showTab('overview',this)"><span class="nav-icon">&#9732;</span> <span class="nav-item-label">Overview</span></button>
+    <button class="nav-item" onclick="showTab('listings',this)"><span class="nav-icon">&#9742;</span> <span class="nav-item-label">My Listings</span> <span class="nav-badge gold">47</span></button>
+    <button class="nav-item" onclick="showTab('inquiries',this)"><span class="nav-icon">&#9671;</span> <span class="nav-item-label">Inquiries</span> <span class="nav-badge">5</span></button>
+    <button class="nav-item" onclick="showTab('stats',this)"><span class="nav-icon">&#8767;</span> <span class="nav-item-label">Analytics</span></button>
+    <button class="nav-item" onclick="showTab('trash',this)"><span class="nav-icon">&#8416;</span> <span class="nav-item-label">Trash</span> <span class="nav-badge" id="trash-badge" style="display:none;background:#fee2e2;color:var(--red);">0</span></button>
+    <div class="nav-label" style="margin-top:12px;">Account</div>
+    <button class="nav-item" onclick="showTab('subscription',this)"><span class="nav-icon">&#9671;</span> <span class="nav-item-label">Subscription</span></button>
+    <button class="nav-item" onclick="showTab('settings',this)"><span class="nav-icon">&#9883;</span> <span class="nav-item-label">Settings</span></button>
+    <a href="maisonquest-agency-profile.html" class="nav-item"><span class="nav-icon">&#8599;</span> <span class="nav-item-label">View Public Profile</span></a>
+  </nav>
+  <div class="sidebar-bottom">
+    <button class="nav-item" style="color:rgba(255,100,100,0.7);" onclick="logOut()"><span class="nav-icon">&#8592;</span> <span class="nav-item-label">Log Out</span></button>
+  </div>
+</aside>
+
+<div class="main">
+  <header class="topbar">
+    <div class="topbar-left">
+      <h1 id="page-title">Dashboard Overview</h1>
+      <p id="page-sub">Friday, 27 February 2026</p>
+    </div>
+    <div class="topbar-right">
+      <button class="topbar-btn btn-ghost" onclick="showToast('📊 Export coming soon — available with Supabase integration.','info')">&#8595; Export Report</button>
+      <button class="topbar-btn btn-primary" onclick="openModal()">+ Add Listing</button>
+      <div class="notif-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg><div class="notif-dot"></div></div>
+    </div>
+  </header>
+
+  <div class="back-bar at-overview" id="back-bar">
+    <button class="back-btn" onclick="goBack()">&#8592; Back</button>
+    <div class="breadcrumb">
+      <a onclick="showTab('overview')">Dashboard</a>
+      <span style="color:var(--border);">&#8250;</span>
+      <span id="bc-current">Overview</span>
+    </div>
+  </div>
+
+  <div class="page-content">
+
+    <!-- OVERVIEW -->
+    <div class="tab-panel active" id="tab-overview">
+      <div class="stats-grid">
+        <div class="stat-card blue" onclick="showTab('listings')" style="cursor:pointer;" title="View your listings"><div class="stat-tag blue">LISTINGS</div><div class="stat-value">47</div><div class="stat-label">Active Listings →</div><div class="stat-change up">&#8593; +3 this month</div></div>
+        <div class="stat-card green" onclick="showTab('stats')" style="cursor:pointer;" title="View analytics"><div class="stat-tag green">VIEWS</div><div class="stat-value">2,840</div><div class="stat-label">Total Views (30 days) →</div><div class="stat-change up">&#8593; +18% vs last month</div></div>
+        <div class="stat-card gold" onclick="showTab('inquiries')" style="cursor:pointer;" title="View inquiries"><div class="stat-tag gold">INQUIRIES</div><div class="stat-value">38</div><div class="stat-label">Inquiries This Month →</div><div class="stat-change up">&#8593; +12 vs last month</div></div>
+        <div class="stat-card purple" onclick="showTab('stats')" style="cursor:pointer;" title="View analytics"><div class="stat-tag purple">WHATSAPP</div><div class="stat-value">94</div><div class="stat-label">WhatsApp Taps (30 days) →</div><div class="stat-change down">&#8595; -4% vs last month</div></div>
+      </div>
+      <div class="charts-row">
+        <div class="chart-card">
+          <div class="chart-header"><div><div class="chart-title">Listing Views</div><div class="chart-sub">Daily views across all listings</div></div></div>
+          <div class="bar-chart" id="bar-chart"></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-header"><div><div class="chart-title">Inquiry Sources</div><div class="chart-sub">How renters contact you</div></div></div>
+          <div class="donut-wrap">
+            <div class="donut">
+              <svg width="130" height="130" viewBox="0 0 130 130">
+                <circle cx="65" cy="65" r="52" fill="none" stroke="#E2E8F0" stroke-width="18"/>
+                <circle cx="65" cy="65" r="52" fill="none" stroke="#25D366" stroke-width="18" stroke-dasharray="163 164" stroke-dashoffset="0"/>
+                <circle cx="65" cy="65" r="52" fill="none" stroke="#1B4FD8" stroke-width="18" stroke-dasharray="82 245" stroke-dashoffset="-163"/>
+                <circle cx="65" cy="65" r="52" fill="none" stroke="#E8A020" stroke-width="18" stroke-dasharray="82 245" stroke-dashoffset="-245"/>
+              </svg>
+              <div class="donut-label"><strong>94</strong><small>total</small></div>
+            </div>
+            <div class="donut-legend">
+              <div class="legend-item"><div class="legend-dot" style="background:#25D366;"></div>WhatsApp<span class="legend-val">50%</span></div>
+              <div class="legend-item"><div class="legend-dot" style="background:#1B4FD8;"></div>Platform<span class="legend-val">25%</span></div>
+              <div class="legend-item"><div class="legend-dot" style="background:#E8A020;"></div>Phone<span class="legend-val">25%</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="section-header"><div class="section-title">Recent Inquiries</div><a class="see-all" onclick="showTab('inquiries')">See all &#8594;</a></div>
+      <div class="data-table">
+        <div class="t-head" style="grid-template-columns:2fr 2fr 1fr 1fr 1fr;">
+          <div class="th">Renter</div><div class="th">Property</div><div class="th">Via</div><div class="th">Status</div><div class="th">Date</div>
+        </div>
+        <div class="t-row" style="grid-template-columns:2fr 2fr 1fr 1fr 1fr;cursor:pointer;" onclick="showTab('inquiries')" title="View inquiry"><div class="td td-name">Sandrine Mbah</div><div class="td td-link">3-Bed, Bonapriso</div><div class="td"><span class="via-pill via-wa">WhatsApp</span></div><div class="td"><span class="status-pill s-new">&#9679; New</span></div><div class="td">Today, 9:14am</div></div>
+        <div class="t-row" style="grid-template-columns:2fr 2fr 1fr 1fr 1fr;cursor:pointer;" onclick="showTab('inquiries')" title="View inquiry"><div class="td td-name">Jean-Pierre Kamga</div><div class="td td-link">Studio, Akwa</div><div class="td"><span class="via-pill via-platform">Platform</span></div><div class="td"><span class="status-pill s-new">&#9679; New</span></div><div class="td">Today, 7:02am</div></div>
+        <div class="t-row" style="grid-template-columns:2fr 2fr 1fr 1fr 1fr;cursor:pointer;" onclick="showTab('inquiries')" title="View inquiry"><div class="td td-name">Armelle Nguema</div><div class="td td-link">Guest House, Bonanjo</div><div class="td"><span class="via-pill via-wa">WhatsApp</span></div><div class="td"><span class="status-pill s-replied">&#10003; Replied</span></div><div class="td">Yesterday</div></div>
+        <div class="t-row" style="grid-template-columns:2fr 2fr 1fr 1fr 1fr;cursor:pointer;" onclick="showTab('inquiries')" title="View inquiry"><div class="td td-name">Paul Biya Jr.</div><div class="td td-link">2-Bed, Makepe</div><div class="td"><span class="via-pill via-platform">Platform</span></div><div class="td"><span class="status-pill s-replied">&#10003; Replied</span></div><div class="td">Feb 25</div></div>
+        <div class="t-row" style="grid-template-columns:2fr 2fr 1fr 1fr 1fr;cursor:pointer;" onclick="showTab('inquiries')" title="View inquiry"><div class="td td-name">Marie Fotso</div><div class="td td-link">Land, Logpom</div><div class="td"><span class="via-pill via-wa">WhatsApp</span></div><div class="td"><span class="status-pill s-closed">Closed</span></div><div class="td">Feb 23</div></div>
+      </div>
+      <div class="section-header"><div class="section-title">Top Performing Listings</div><a class="see-all" onclick="showTab('listings')">See all &#8594;</a></div>
+      <div class="top-listings">
+        <div class="top-card" onclick="showTab('listings')" style="cursor:pointer;transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 20px rgba(10,36,99,0.12)'" onmouseout="this.style.transform='';this.style.boxShadow=''" ><div class="top-rank">1</div><div class="top-title">Modern 3-Bed Apartment</div><div class="top-loc">&#128205; Bonapriso, Douala</div><div class="top-stats"><div class="mini-stat"><strong>842</strong><span>Views</span></div><div class="mini-stat"><strong>24</strong><span>Inquiries</span></div><div class="mini-stat"><strong>61</strong><span>WA taps</span></div></div></div>
+        <div class="top-card" onclick="showTab('listings')" style="cursor:pointer;transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 20px rgba(10,36,99,0.12)'" onmouseout="this.style.transform='';this.style.boxShadow=''"><div class="top-rank">2</div><div class="top-title">Executive Guest House</div><div class="top-loc">&#128205; Bonanjo, Douala</div><div class="top-stats"><div class="mini-stat"><strong>610</strong><span>Views</span></div><div class="mini-stat"><strong>18</strong><span>Inquiries</span></div><div class="mini-stat"><strong>44</strong><span>WA taps</span></div></div></div>
+        <div class="top-card" onclick="showTab('listings')" style="cursor:pointer;transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 20px rgba(10,36,99,0.12)'" onmouseout="this.style.transform='';this.style.boxShadow=''"><div class="top-rank">3</div><div class="top-title">Studio, Akwa</div><div class="top-loc">&#128205; Akwa, Douala</div><div class="top-stats"><div class="mini-stat"><strong>388</strong><span>Views</span></div><div class="mini-stat"><strong>11</strong><span>Inquiries</span></div><div class="mini-stat"><strong>29</strong><span>WA taps</span></div></div></div>
+      </div>
+    </div>
+
+    <!-- LISTINGS -->
+    <div class="tab-panel" id="tab-listings">
+      <div class="toolbar">
+        <input type="text" class="toolbar-search" id="listing-search" placeholder="Search listings..." oninput="filterListings()">
+        <select class="toolbar-select" id="filter-type" onchange="filterListings()"><option value="">All Types</option><option value="Apartment">Apartments</option><option value="Guest House">Guest Houses</option><option value="Room/Studio">Rooms</option><option value="Land">Land</option></select>
+        <select class="toolbar-select" id="filter-status" onchange="filterListings()"><option value="">All Status</option><option value="Active">Active</option><option value="Paused">Paused</option><option value="Expired">Expired</option></select>
+        <button class="topbar-btn btn-primary" onclick="openModal()">+ Add New Listing</button>
+      </div>
+      <div class="data-table">
+        <div class="lt-head"><div class="th">Property</div><div class="th">Type</div><div class="th">Price</div><div class="th">Status</div><div class="th">Actions</div></div>
+        <div class="lt-row"><div class="lt-info"><div class="lt-img"></div><div><div class="lt-title">Modern 3-Bed Apartment</div><div class="lt-loc">Bonapriso, Douala</div></div></div><div class="td">Apartment</div><div class="td" style="font-weight:700;">180,000 CFA</div><div class="td"><span class="ls ls-active">&#9679; Active</span></div><div class="action-dots"><button class="dot-btn" onclick="editListing('Modern 3-Bed Apartment')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Edit</button><button class="dot-btn pause-btn" onclick="pauseListing(this,'Modern 3-Bed Apartment')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg> Pause</button><button class="dot-btn del-btn" onclick="deleteListing('Modern 3-Bed Apartment','Bonapriso, Douala')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg> Delete</button></div></div>
+        <div class="lt-row"><div class="lt-info"><div class="lt-img"></div><div><div class="lt-title">Executive Guest House</div><div class="lt-loc">Bonanjo, Douala</div></div></div><div class="td">Guest House</div><div class="td" style="font-weight:700;">320,000 CFA</div><div class="td"><span class="ls ls-active">&#9679; Active</span></div><div class="action-dots"><button class="dot-btn" onclick="editListing('Executive Guest House')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Edit</button><button class="dot-btn pause-btn" onclick="pauseListing(this,'Executive Guest House')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg> Pause</button><button class="dot-btn del-btn" onclick="deleteListing('Executive Guest House','Bonanjo, Douala')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg> Delete</button></div></div>
+        <div class="lt-row"><div class="lt-info"><div class="lt-img"></div><div><div class="lt-title">Studio - Students Welcome</div><div class="lt-loc">Akwa, Douala</div></div></div><div class="td">Room/Studio</div><div class="td" style="font-weight:700;">40,000 CFA</div><div class="td"><span class="ls ls-active">&#9679; Active</span></div><div class="action-dots"><button class="dot-btn" onclick="editListing('Studio - Students Welcome')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Edit</button><button class="dot-btn pause-btn" onclick="pauseListing(this,'Studio - Students Welcome')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg> Pause</button><button class="dot-btn del-btn" onclick="deleteListing('Studio - Students Welcome','Akwa, Douala')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg> Delete</button></div></div>
+        <div class="lt-row"><div class="lt-info"><div class="lt-img"></div><div><div class="lt-title">600m2 Land Plot</div><div class="lt-loc">Logpom, Douala</div></div></div><div class="td">Land</div><div class="td" style="font-weight:700;">8,500,000 CFA</div><div class="td"><span class="ls ls-paused">&#9208; Paused</span></div><div class="action-dots"><button class="dot-btn" onclick="editListing('600m2 Land Plot')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Edit</button><button class="dot-btn" onclick="resumeListing(this,'600m2 Land Plot')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg> Resume</button><button class="dot-btn del-btn" onclick="deleteListing('600m2 Land Plot','Logpom, Douala')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg> Delete</button></div></div>
+        <div class="lt-row"><div class="lt-info"><div class="lt-img"></div><div><div class="lt-title">2-Bed, Secured Building</div><div class="lt-loc">Makepe, Douala</div></div></div><div class="td">Apartment</div><div class="td" style="font-weight:700;">95,000 CFA</div><div class="td"><span class="ls ls-expired">&#10005; Expired</span></div><div class="action-dots"><button class="dot-btn" onclick="renewListing(this,'2-Bed, Secured Building')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg> Renew</button><button class="dot-btn" onclick="editListing('2-Bed, Secured Building')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Edit</button><button class="dot-btn del-btn" onclick="deleteListing('2-Bed, Secured Building','Makepe, Douala')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg> Delete</button></div></div>
+      </div>
+    </div>
+
+    <!-- INQUIRIES -->
+    <div class="tab-panel" id="tab-inquiries">
+      <div class="inq-filters">
+        <button class="inq-filter active" data-filter="all" onclick="setInqFilter(this)">All (38)</button>
+        <button class="inq-filter" data-filter="new" onclick="setInqFilter(this)">New (5)</button>
+        <button class="inq-filter" data-filter="replied" onclick="setInqFilter(this)">Replied (28)</button>
+        <button class="inq-filter" data-filter="closed" onclick="setInqFilter(this)">Closed (5)</button>
+        <button class="inq-filter" data-filter="whatsapp" onclick="setInqFilter(this)"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle;margin-right:4px;pointer-events:none;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> WhatsApp</button>
+        <button class="inq-filter" data-filter="platform" onclick="setInqFilter(this)">Platform</button>
+      </div>
+      <div class="inq-card unread" data-status="new" data-via="whatsapp">
+        <div><div class="inq-head"><div class="inq-avatar">&#128100;</div><div><div class="inq-name">Sandrine Mbah</div><div class="inq-time">Today at 9:14am</div></div><span class="status-pill s-new" style="margin-left:auto;">&#9679; New</span></div><div class="inq-prop">Re: Modern 3-Bed Apartment - Bonapriso</div><div class="inq-msg">Hello, I am interested in the 3-bedroom apartment in Bonapriso. Is it still available? Can we schedule a visit this weekend? My budget is around 200,000 CFA per month.</div></div>
+        <div class="inq-actions"><a href="https://wa.me/237600000000" class="wa-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Reply on WhatsApp</a><button class="mark-btn" onclick="markInquiry(this,'replied')">Mark as Replied</button></div>
+      </div>
+      <div class="inq-card unread" data-status="new" data-via="platform">
+        <div><div class="inq-head"><div class="inq-avatar">&#128100;</div><div><div class="inq-name">Jean-Pierre Kamga</div><div class="inq-time">Today at 7:02am</div></div><span class="status-pill s-new" style="margin-left:auto;">&#9679; New</span></div><div class="inq-prop">Re: Studio - Students Welcome - Akwa</div><div class="inq-msg">Bonjour, je suis etudiant et je cherche un studio proche du campus. Est-ce que le studio est disponible pour le mois prochain?</div></div>
+        <div class="inq-actions"><a href="https://wa.me/237600000000" class="wa-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Reply on WhatsApp</a><button class="mark-btn" onclick="markInquiry(this,'replied')">Mark as Replied</button></div>
+      </div>
+      <div class="inq-card" data-status="replied" data-via="whatsapp">
+        <div><div class="inq-head"><div class="inq-avatar">&#128100;</div><div><div class="inq-name">Armelle Nguema</div><div class="inq-time">Yesterday at 3:45pm</div></div><span class="status-pill s-replied" style="margin-left:auto;">&#10003; Replied</span></div><div class="inq-prop">Re: Executive Guest House - Bonanjo</div><div class="inq-msg">Good afternoon, I would like to know if the guest house is available for a 6-month lease starting March 1st.</div></div>
+        <div class="inq-actions"><a href="https://wa.me/237600000000" class="wa-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Follow Up</a><button class="mark-btn" onclick="markInquiry(this,'closed')">Mark Closed</button></div>
+      </div>
+    </div>
+
+    <!-- ANALYTICS -->
+    <div class="tab-panel" id="tab-stats">
+
+      <!-- KPI ROW -->
+      <div class="stats-grid" style="margin-bottom:24px;">
+        <div class="stat-card blue"><div class="stat-tag blue">VIEWS</div><div class="stat-value">12,440</div><div class="stat-label">Total Views (All Time)</div><div class="stat-change up">&#8593; +18% vs last month</div></div>
+        <div class="stat-card green"><div class="stat-tag green">INQUIRIES</div><div class="stat-value">184</div><div class="stat-label">Total Inquiries (All Time)</div><div class="stat-change up">&#8593; +38 this month</div></div>
+        <div class="stat-card gold"><div class="stat-tag gold">WHATSAPP</div><div class="stat-value">420</div><div class="stat-label">WhatsApp Taps (All Time)</div><div class="stat-change down">&#8595; -4% vs last month</div></div>
+        <div class="stat-card purple"><div class="stat-tag purple">CONVERSION</div><div class="stat-value">3.2%</div><div class="stat-label">View → Inquiry Rate</div><div class="stat-change up">&#8593; Above platform avg</div></div>
+      </div>
+
+      <!-- MONTHLY CHART + LEGEND -->
+      <div class="chart-card" style="margin-bottom:24px;">
+        <div class="chart-header">
+          <div>
+            <div class="chart-title">Monthly Performance</div>
+            <div class="chart-sub">Click any month to see per-listing breakdown</div>
+          </div>
+          <div style="display:flex;gap:16px;align-items:center;">
+            <div style="display:flex;align-items:center;gap:5px;font-size:12px;color:var(--gray-mid);font-weight:600;"><span style="width:10px;height:10px;background:var(--blue-mid);border-radius:3px;display:inline-block;"></span> Views</div>
+            <div style="display:flex;align-items:center;gap:5px;font-size:12px;color:var(--gray-mid);font-weight:600;"><span style="width:10px;height:10px;background:var(--gold);border-radius:3px;display:inline-block;"></span> Inquiries</div>
+            <div style="display:flex;align-items:center;gap:5px;font-size:12px;color:var(--gray-mid);font-weight:600;"><span style="width:10px;height:10px;background:#10b981;border-radius:3px;display:inline-block;"></span> WA Taps</div>
+          </div>
+        </div>
+        <div id="monthly-chart" style="display:flex;align-items:flex-end;gap:6px;height:180px;padding-bottom:28px;position:relative;border-bottom:2px solid var(--border);"></div>
+      </div>
+
+      <!-- DRILL-DOWN PANEL (hidden by default) -->
+      <div id="month-drilldown" style="display:none;margin-bottom:24px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+          <div>
+            <div id="drilldown-title" style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--blue-deep);"></div>
+            <div id="drilldown-sub" style="font-size:13px;color:var(--gray-light);margin-top:2px;"></div>
+          </div>
+          <button onclick="closeDrilldown()" style="padding:8px 16px;background:var(--gray-bg);color:var(--gray-mid);border:1.5px solid var(--border);border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;">✕ Close</button>
+        </div>
+
+        <!-- Drilldown KPIs -->
+        <div id="drilldown-kpis" style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px;"></div>
+
+        <!-- Per-listing table -->
+        <div style="background:white;border-radius:16px;border:1px solid var(--border);overflow:hidden;box-shadow:0 2px 10px rgba(10,36,99,0.05);">
+          <div style="padding:16px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;">
+            <div style="font-size:15px;font-weight:700;color:var(--blue-deep);">Listing Performance Breakdown</div>
+            <div style="font-size:12px;color:var(--gray-light);">Sorted by views</div>
+          </div>
+          <table style="width:100%;border-collapse:collapse;" id="drilldown-table">
+            <thead>
+              <tr style="background:var(--blue-tint);">
+                <th style="padding:11px 22px;text-align:left;font-size:12px;font-weight:700;color:var(--blue-deep);text-transform:uppercase;letter-spacing:0.5px;">Listing</th>
+                <th style="padding:11px 16px;text-align:right;font-size:12px;font-weight:700;color:var(--blue-deep);text-transform:uppercase;letter-spacing:0.5px;">Views</th>
+                <th style="padding:11px 16px;text-align:right;font-size:12px;font-weight:700;color:var(--blue-deep);text-transform:uppercase;letter-spacing:0.5px;">Inquiries</th>
+                <th style="padding:11px 16px;text-align:right;font-size:12px;font-weight:700;color:var(--blue-deep);text-transform:uppercase;letter-spacing:0.5px;">WA Taps</th>
+                <th style="padding:11px 16px;text-align:right;font-size:12px;font-weight:700;color:var(--blue-deep);text-transform:uppercase;letter-spacing:0.5px;">Conv. Rate</th>
+                <th style="padding:11px 22px;text-align:left;font-size:12px;font-weight:700;color:var(--blue-deep);text-transform:uppercase;letter-spacing:0.5px;">Trend</th>
+                <th style="padding:11px 16px;text-align:center;font-size:12px;font-weight:700;color:var(--blue-deep);text-transform:uppercase;letter-spacing:0.5px;">Health</th>
+              </tr>
+            </thead>
+            <tbody id="drilldown-tbody"></tbody>
+          </table>
+        </div>
+
+        <!-- Insight callout -->
+        <div id="drilldown-insight" style="margin-top:16px;padding:16px 20px;background:linear-gradient(135deg,var(--blue-tint),var(--blue-pale));border-radius:14px;border-left:4px solid var(--blue-mid);display:flex;gap:14px;align-items:flex-start;"></div>
+      </div>
+
+      <!-- ALL-TIME LISTING PERFORMANCE TABLE -->
+      <div style="background:white;border-radius:16px;border:1px solid var(--border);overflow:hidden;box-shadow:0 2px 10px rgba(10,36,99,0.05);">
+        <div style="padding:18px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+          <div>
+            <div style="font-size:15px;font-weight:700;color:var(--blue-deep);">All Listings — Performance Overview</div>
+            <div style="font-size:12px;color:var(--gray-light);margin-top:2px;" id="sort-description">Showing your most viewed listings first</div>
+          </div>
+          <div style="display:flex;gap:8px;">
+            <button onclick="sortListingsBy('most-viewed')" id="sort-most-viewed" style="padding:7px 14px;background:var(--blue-mid);color:white;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;">📊 Most Viewed</button>
+            <button onclick="sortListingsBy('needs-attention')" id="sort-needs-attention" style="padding:7px 14px;background:var(--gray-bg);color:var(--gray-mid);border:1.5px solid var(--border);border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;">⚠️ Needs Attention</button>
+            <button onclick="sortListingsBy('best-converting')" id="sort-best-converting" style="padding:7px 14px;background:var(--gray-bg);color:var(--gray-mid);border:1.5px solid var(--border);border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;">🏆 Best Converting</button>
+          </div>
+        </div>
+        <table style="width:100%;border-collapse:collapse;" id="perf-table">
+          <thead>
+            <tr style="background:var(--blue-tint);">
+              <th style="padding:11px 22px;text-align:left;font-size:12px;font-weight:700;color:var(--blue-deep);text-transform:uppercase;letter-spacing:0.5px;">Listing</th>
+              <th style="padding:11px 16px;text-align:right;font-size:12px;font-weight:700;color:var(--blue-deep);text-transform:uppercase;letter-spacing:0.5px;">Views</th>
+              <th style="padding:11px 16px;text-align:right;font-size:12px;font-weight:700;color:var(--blue-deep);text-transform:uppercase;letter-spacing:0.5px;">Inquiries</th>
+              <th style="padding:11px 16px;text-align:right;font-size:12px;font-weight:700;color:var(--blue-deep);text-transform:uppercase;letter-spacing:0.5px;">WA Taps</th>
+              <th style="padding:11px 16px;text-align:right;font-size:12px;font-weight:700;color:var(--blue-deep);text-transform:uppercase;letter-spacing:0.5px;">Conv. Rate</th>
+              <th style="padding:11px 22px;text-align:left;font-size:12px;font-weight:700;color:var(--blue-deep);text-transform:uppercase;letter-spacing:0.5px;">Reach Bar</th>
+              <th style="padding:11px 16px;text-align:center;font-size:12px;font-weight:700;color:var(--blue-deep);text-transform:uppercase;letter-spacing:0.5px;">Status</th>
+            </tr>
+          </thead>
+          <tbody id="perf-tbody"></tbody>
+        </table>
+      </div>
+
+    </div>
+
+
+    <!-- REVIEWS TAB -->
+    <div class="tab-panel" id="tab-reviews">
+      <!-- Summary bar -->
+      <div style="display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:24px;background:white;border-radius:16px;border:1px solid var(--border);padding:24px;margin-bottom:24px;box-shadow:0 2px 8px rgba(10,36,99,0.04);">
+        <div style="text-align:center;">
+          <div style="font-family:'Playfair Display',serif;font-size:52px;font-weight:700;color:var(--blue-deep);line-height:1;">4.8</div>
+          <div style="font-size:22px;margin:4px 0;">⭐⭐⭐⭐⭐</div>
+          <div style="font-size:13px;color:var(--gray-light);">38 reviews</div>
+        </div>
+        <div style="max-width:320px;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;"><span style="font-size:12px;color:var(--gray-mid);font-weight:600;width:24px;text-align:right;">5★</span><div style="flex:1;height:7px;background:var(--border);border-radius:4px;overflow:hidden;"><div style="width:78%;height:100%;background:var(--gold);border-radius:4px;"></div></div><span style="font-size:12px;color:var(--gray-light);width:20px;">30</span></div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;"><span style="font-size:12px;color:var(--gray-mid);font-weight:600;width:24px;text-align:right;">4★</span><div style="flex:1;height:7px;background:var(--border);border-radius:4px;overflow:hidden;"><div style="width:15%;height:100%;background:var(--gold);border-radius:4px;"></div></div><span style="font-size:12px;color:var(--gray-light);width:20px;">6</span></div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;"><span style="font-size:12px;color:var(--gray-mid);font-weight:600;width:24px;text-align:right;">3★</span><div style="flex:1;height:7px;background:var(--border);border-radius:4px;overflow:hidden;"><div style="width:5%;height:100%;background:var(--gold);border-radius:4px;"></div></div><span style="font-size:12px;color:var(--gray-light);width:20px;">2</span></div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;"><span style="font-size:12px;color:var(--gray-mid);font-weight:600;width:24px;text-align:right;">2★</span><div style="flex:1;height:7px;background:var(--border);border-radius:4px;overflow:hidden;"><div style="width:0%;height:100%;background:var(--gold);border-radius:4px;"></div></div><span style="font-size:12px;color:var(--gray-light);width:20px;">0</span></div>
+          <div style="display:flex;align-items:center;gap:10px;"><span style="font-size:12px;color:var(--gray-mid);font-weight:600;width:24px;text-align:right;">1★</span><div style="flex:1;height:7px;background:var(--border);border-radius:4px;overflow:hidden;"><div style="width:0%;height:100%;background:var(--gold);border-radius:4px;"></div></div><span style="font-size:12px;color:var(--gray-light);width:20px;">0</span></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px;text-align:center;">
+          <div style="padding:14px 20px;background:var(--green-bg);border-radius:12px;">
+            <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.5px;color:var(--green);font-weight:700;">Response Rate</div>
+            <div style="font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--green);">96%</div>
+          </div>
+          <div style="padding:14px 20px;background:var(--blue-pale);border-radius:12px;">
+            <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.5px;color:var(--blue-mid);font-weight:700;">Recommend Rate</div>
+            <div style="font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--blue-mid);">94%</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filter row -->
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap;">
+        <select style="padding:8px 14px;border:1.5px solid var(--border);border-radius:9px;font-size:13px;font-family:'DM Sans',sans-serif;outline:none;color:var(--gray-dark);background:white;" onchange="filterAgencyReviews(this.value)">
+          <option value="">All Ratings</option>
+          <option value="5">5 Stars only</option>
+          <option value="4">4 Stars only</option>
+          <option value="3">3 Stars & below</option>
+        </select>
+        <select style="padding:8px 14px;border:1.5px solid var(--border);border-radius:9px;font-size:13px;font-family:'DM Sans',sans-serif;outline:none;color:var(--gray-dark);background:white;">
+          <option>Most Recent</option>
+          <option>Highest Rated</option>
+          <option>Lowest Rated</option>
+        </select>
+        <span style="margin-left:auto;font-size:13px;color:var(--gray-light);">Showing 3 of 38 reviews</span>
+      </div>
+
+      <!-- Review cards -->
+      <div style="display:flex;flex-direction:column;gap:14px;" id="agency-reviews-list">
+
+        <div class="review-item" data-stars="5" style="background:white;border-radius:14px;border:1px solid var(--border);padding:20px 24px;box-shadow:0 2px 8px rgba(10,36,99,0.04);">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:12px;">
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--blue-mid),var(--blue-light));display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:white;flex-shrink:0;">SM</div>
+              <div>
+                <div style="font-size:14px;font-weight:700;color:var(--blue-deep);">Sandrine M. <span style="background:var(--green-bg);color:var(--green);font-size:10px;font-weight:700;padding:2px 7px;border-radius:5px;margin-left:4px;">Verified Renter</span></div>
+                <div style="font-size:12px;color:var(--gray-light);">January 2026</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <button onclick="replyToReview(this)" style="padding:6px 14px;background:var(--blue-pale);color:var(--blue-mid);border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;">↩ Reply</button>
+              <button onclick="flagReview(this)" style="padding:6px 14px;background:var(--gray-bg);color:var(--gray-light);border:1.5px solid var(--border);border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;">🚩 Flag</button>
+            </div>
+          </div>
+          <div style="font-size:18px;margin-bottom:8px;">⭐⭐⭐⭐⭐</div>
+          <div style="font-size:14px;color:var(--gray-mid);line-height:1.65;margin-bottom:10px;">Excellent service from start to finish. The agent was professional, responded quickly on WhatsApp, and the apartment was exactly as described. No hidden fees, no surprises. I would recommend Immo Prestige to anyone looking for property in Douala.</div>
+          <div style="font-size:12px;color:var(--blue-mid);font-weight:600;">Property: 3-Bed Apartment, Bonapriso</div>
+        </div>
+
+        <div class="review-item" data-stars="5" style="background:white;border-radius:14px;border:1px solid var(--border);padding:20px 24px;box-shadow:0 2px 8px rgba(10,36,99,0.04);">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:12px;">
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#a78bfa);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:white;flex-shrink:0;">JP</div>
+              <div>
+                <div style="font-size:14px;font-weight:700;color:var(--blue-deep);">Jean-Pierre K. <span style="background:var(--green-bg);color:var(--green);font-size:10px;font-weight:700;padding:2px 7px;border-radius:5px;margin-left:4px;">Verified Renter</span></div>
+                <div style="font-size:12px;color:var(--gray-light);">November 2025</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <button onclick="replyToReview(this)" style="padding:6px 14px;background:var(--blue-pale);color:var(--blue-mid);border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;">↩ Reply</button>
+              <button onclick="flagReview(this)" style="padding:6px 14px;background:var(--gray-bg);color:var(--gray-light);border:1.5px solid var(--border);border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;">🚩 Flag</button>
+            </div>
+          </div>
+          <div style="font-size:18px;margin-bottom:8px;">⭐⭐⭐⭐⭐</div>
+          <div style="font-size:14px;color:var(--gray-mid);line-height:1.65;margin-bottom:10px;">I was searching from France and they helped me find an apartment for my mother in Douala. Everything was handled professionally over WhatsApp. The photos were accurate and the lease was properly drafted. Very trustworthy agency.</div>
+          <div style="font-size:12px;color:var(--blue-mid);font-weight:600;">Property: 2-Bed Apartment, Makepe</div>
+        </div>
+
+        <div class="review-item" data-stars="4" style="background:white;border-radius:14px;border:1px solid var(--border);padding:20px 24px;box-shadow:0 2px 8px rgba(10,36,99,0.04);">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:12px;">
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#f59e0b);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:white;flex-shrink:0;">AN</div>
+              <div>
+                <div style="font-size:14px;font-weight:700;color:var(--blue-deep);">Armelle N. <span style="background:var(--green-bg);color:var(--green);font-size:10px;font-weight:700;padding:2px 7px;border-radius:5px;margin-left:4px;">Verified Renter</span></div>
+                <div style="font-size:12px;color:var(--gray-light);">September 2025</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <button onclick="replyToReview(this)" style="padding:6px 14px;background:var(--blue-pale);color:var(--blue-mid);border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;">↩ Reply</button>
+              <button onclick="flagReview(this)" style="padding:6px 14px;background:var(--gray-bg);color:var(--gray-light);border:1.5px solid var(--border);border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;">🚩 Flag</button>
+            </div>
+          </div>
+          <div style="font-size:18px;margin-bottom:8px;">⭐⭐⭐⭐</div>
+          <div style="font-size:14px;color:var(--gray-mid);line-height:1.65;margin-bottom:10px;">Good agency overall. Response time was fast and the agent showed us 4 different options before we decided. Took a little longer than expected to get the lease signed but everything worked out well in the end.</div>
+          <div style="font-size:12px;color:var(--blue-mid);font-weight:600;">Property: Guest House, Bonanjo</div>
+        </div>
+
+      </div>
+    </div>
+    <!-- TRASH -->
+    <div class="tab-panel" id="tab-trash">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px;">
+        <div style="font-size:13px;color:var(--gray-light);">Deleted listings are kept here for 30 days before permanent deletion.</div>
+        <button class="topbar-btn btn-ghost" style="color:var(--red);border-color:#fca5a5!important;" onclick="emptyTrash()">Empty Trash</button>
+      </div>
+      <div id="trash-list"></div>
+    </div>
+
+    <!-- SUBSCRIPTION -->
+    <div class="tab-panel" id="tab-subscription">
+      <div class="plan-hero">
+        <div class="plan-info"><h2>&#11088; Pro Plan - Active</h2><p>You have full access to all Pro features on MaisonQuest</p><div class="plan-renews">&#8635; Renews March 27, 2026 - Billed via MTN Mobile Money</div></div>
+        <div class="plan-price-big"><strong>12,000</strong><span>CFA / month</span></div>
+      </div>
+      <div class="plan-feats">
+        <div class="plan-feat"><div class="pf-icon">&#127968;</div><div><div class="pf-text">Unlimited Listings</div><div class="pf-sub">No cap on active properties</div></div></div>
+        <div class="plan-feat"><div class="pf-icon">&#11088;</div><div><div class="pf-text">Featured Placement</div><div class="pf-sub">Priority in search results</div></div></div>
+        <div class="plan-feat"><div class="pf-icon">&#128202;</div><div><div class="pf-text">Full Analytics</div><div class="pf-sub">Views, clicks, WhatsApp taps</div></div></div>
+        <div class="plan-feat"><div class="pf-icon">&#10003;</div><div><div class="pf-text">Verified Badge</div><div class="pf-sub">Trust signal on your profile</div></div></div>
+        <div class="plan-feat"><div class="pf-icon">&#128172;</div><div><div class="pf-text">Inquiry Management</div><div class="pf-sub">Full inbox with reply tracking</div></div></div>
+        <div class="plan-feat"><div class="pf-icon">&#127919;</div><div><div class="pf-text">Listing Boosts</div><div class="pf-sub">2 free boosts per month</div></div></div>
+      </div>
+      <div class="section-header" style="margin-bottom:16px;"><div class="section-title">Compare Plans</div></div>
+      <div class="upgrade-grid">
+        <div class="upgrade-card"><div class="up-name">Starter</div><div class="up-price">Free<span> / month</span></div><ul class="up-feats"><li><span class="chk">&#10003;</span> Up to 5 listings</li><li><span class="chk">&#10003;</span> Basic profile page</li><li><span class="chk">&#10003;</span> WhatsApp button</li><li style="opacity:0.4;text-decoration:line-through;"><span>-</span> Analytics</li><li style="opacity:0.4;text-decoration:line-through;"><span>-</span> Featured placement</li></ul><button class="up-btn upgrade-btn" onclick="showToast('To downgrade your plan, please contact support.','info')">Downgrade</button></div>
+        <div class="upgrade-card popular current"><div class="popular-tag">Current Plan</div><div class="up-name">Pro</div><div class="up-price">12,000<span> CFA/mo</span></div><ul class="up-feats"><li><span class="chk">&#10003;</span> Unlimited listings</li><li><span class="chk">&#10003;</span> Featured placement</li><li><span class="chk">&#10003;</span> Full analytics</li><li><span class="chk">&#10003;</span> Verified badge</li><li><span class="chk">&#10003;</span> 2 free boosts/month</li></ul><button class="up-btn current-btn" style="opacity:0.7;cursor:default;">&#10003; Current Plan</button></div>
+        <div class="upgrade-card"><div class="up-name">Elite</div><div class="up-price">25,000<span> CFA/mo</span></div><ul class="up-feats"><li><span class="chk">&#10003;</span> Everything in Pro</li><li><span class="chk">&#10003;</span> Homepage feature slot</li><li><span class="chk">&#10003;</span> 5 free boosts/month</li><li><span class="chk">&#10003;</span> Priority support</li><li><span class="chk">&#10003;</span> Account manager</li></ul><button class="up-btn upgrade-btn" onclick="showToast('Upgrade to Elite — payment integration coming soon!','info')">Upgrade to Elite</button></div>
+      </div>
+    </div>
+
+    <!-- SETTINGS TAB -->
+    <div class="tab-panel" id="tab-settings">
+      <div style="max-width:680px;display:flex;flex-direction:column;gap:20px;">
+
+        <!-- Agency Info -->
+        <div style="background:white;border-radius:16px;border:1px solid var(--border);padding:26px;box-shadow:0 2px 8px rgba(10,36,99,0.04);">
+          <div style="font-size:15px;font-weight:700;color:var(--blue-deep);margin-bottom:18px;">Agency Information</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+            <div><label style="font-size:12px;font-weight:700;color:var(--gray-mid);text-transform:uppercase;letter-spacing:0.4px;display:block;margin-bottom:6px;">Agency Name</label><input type="text" value="Immo Prestige Douala" style="width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:9px;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;color:var(--gray-dark);" onfocus="this.style.borderColor='var(--blue-mid)'" onblur="this.style.borderColor='var(--border)'"/></div>
+            <div><label style="font-size:12px;font-weight:700;color:var(--gray-mid);text-transform:uppercase;letter-spacing:0.4px;display:block;margin-bottom:6px;">WhatsApp Number</label><input type="text" value="+237 699 000 111" style="width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:9px;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;color:var(--gray-dark);" onfocus="this.style.borderColor='var(--blue-mid)'" onblur="this.style.borderColor='var(--border)'"/></div>
+            <div><label style="font-size:12px;font-weight:700;color:var(--gray-mid);text-transform:uppercase;letter-spacing:0.4px;display:block;margin-bottom:6px;">Email Address</label><input type="email" value="contact@immoprestige.cm" style="width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:9px;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;color:var(--gray-dark);" onfocus="this.style.borderColor='var(--blue-mid)'" onblur="this.style.borderColor='var(--border)'"/></div>
+            <div><label style="font-size:12px;font-weight:700;color:var(--gray-mid);text-transform:uppercase;letter-spacing:0.4px;display:block;margin-bottom:6px;">City</label><select style="width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:9px;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;color:var(--gray-dark);background:white;"><option selected>Douala</option><option>Yaoundé</option><option>Both</option></select></div>
+          </div>
+          <button onclick="showToast('Agency info saved!','success')" style="margin-top:18px;padding:10px 24px;background:var(--blue-mid);color:white;border:none;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;">Save Changes</button>
+        </div>
+
+        <!-- Password & Security -->
+        <div style="background:white;border-radius:16px;border:1px solid var(--border);padding:26px;box-shadow:0 2px 8px rgba(10,36,99,0.04);">
+          <div style="font-size:15px;font-weight:700;color:var(--blue-deep);margin-bottom:6px;">Password &amp; Security</div>
+          <div style="font-size:13px;color:var(--gray-light);margin-bottom:18px;">Update your password. We recommend using a strong, unique password.</div>
+          <div style="display:flex;flex-direction:column;gap:14px;" id="pw-form">
+            <div>
+              <label style="font-size:12px;font-weight:700;color:var(--gray-mid);text-transform:uppercase;letter-spacing:0.4px;display:block;margin-bottom:6px;">Current Password</label>
+              <input type="password" id="pw-current" placeholder="Enter your current password" style="width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:9px;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;color:var(--gray-dark);" onfocus="this.style.borderColor='var(--blue-mid)'" onblur="this.style.borderColor='var(--border)'"/>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+              <div>
+                <label style="font-size:12px;font-weight:700;color:var(--gray-mid);text-transform:uppercase;letter-spacing:0.4px;display:block;margin-bottom:6px;">New Password</label>
+                <input type="password" id="pw-new" placeholder="Min. 8 characters" oninput="checkPwStrength(this.value)" style="width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:9px;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;color:var(--gray-dark);" onfocus="this.style.borderColor='var(--blue-mid)'" onblur="this.style.borderColor='var(--border)'"/>
+                <div id="pw-strength-bar" style="margin-top:7px;height:4px;border-radius:4px;background:var(--border);overflow:hidden;"><div id="pw-strength-fill" style="height:100%;width:0%;border-radius:4px;transition:width 0.3s,background 0.3s;"></div></div>
+                <div id="pw-strength-label" style="font-size:11px;margin-top:4px;color:var(--gray-light);font-weight:600;"></div>
+              </div>
+              <div>
+                <label style="font-size:12px;font-weight:700;color:var(--gray-mid);text-transform:uppercase;letter-spacing:0.4px;display:block;margin-bottom:6px;">Confirm New Password</label>
+                <input type="password" id="pw-confirm" placeholder="Repeat new password" oninput="checkPwMatch()" style="width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:9px;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;color:var(--gray-dark);" onfocus="this.style.borderColor='var(--blue-mid)'" onblur="this.style.borderColor='var(--border)'"/>
+                <div id="pw-match-label" style="font-size:11px;margin-top:4px;font-weight:600;"></div>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top:18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+            <button onclick="submitPasswordChange()" style="padding:10px 24px;background:var(--blue-mid);color:white;border:none;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;">Update Password</button>
+            <span style="font-size:12px;color:var(--gray-light);">Forgot your current password? <a href="maisonquest-auth.html" style="color:var(--blue-mid);font-weight:700;text-decoration:none;">Reset via email →</a></span>
+          </div>
+        </div>
+
+        <!-- Notifications -->
+        <div style="background:white;border-radius:16px;border:1px solid var(--border);padding:26px;box-shadow:0 2px 8px rgba(10,36,99,0.04);">
+          <div style="font-size:15px;font-weight:700;color:var(--blue-deep);margin-bottom:6px;">Notifications</div>
+          <div style="font-size:13px;color:var(--gray-light);margin-bottom:18px;">Choose what alerts you receive</div>
+          <div style="display:flex;flex-direction:column;gap:16px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:20px;">
+              <div><div style="font-size:14px;font-weight:600;color:var(--gray-dark);">New Inquiry Received</div><div style="font-size:12px;color:var(--gray-light);margin-top:2px;">Get notified when a renter sends an inquiry</div></div>
+              <label class="mq-toggle"><input type="checkbox" checked onchange="showToast('Preference saved','info')"><span class="mq-toggle-track"><span class="mq-toggle-thumb"></span></span></label>
+            </div>
+            <div style="height:1px;background:var(--border);"></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:20px;">
+              <div><div style="font-size:14px;font-weight:600;color:var(--gray-dark);">New Review Posted</div><div style="font-size:12px;color:var(--gray-light);margin-top:2px;">Get notified when a renter leaves a review</div></div>
+              <label class="mq-toggle"><input type="checkbox" checked onchange="showToast('Preference saved','info')"><span class="mq-toggle-track"><span class="mq-toggle-thumb"></span></span></label>
+            </div>
+            <div style="height:1px;background:var(--border);"></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:20px;">
+              <div><div style="font-size:14px;font-weight:600;color:var(--gray-dark);">Weekly Performance Summary</div><div style="font-size:12px;color:var(--gray-light);margin-top:2px;">A weekly digest of your views, inquiries and top listings</div></div>
+              <label class="mq-toggle"><input type="checkbox" checked onchange="showToast('Preference saved','info')"><span class="mq-toggle-track"><span class="mq-toggle-thumb"></span></span></label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Analytics Insights Toggle -->
+        <div style="background:white;border-radius:16px;border:1px solid var(--border);padding:26px;box-shadow:0 2px 8px rgba(10,36,99,0.04);">
+          <div style="font-size:15px;font-weight:700;color:var(--blue-deep);margin-bottom:6px;">Analytics &amp; Insights</div>
+          <div style="font-size:13px;color:var(--gray-light);margin-bottom:18px;">Control what appears in your Analytics tab</div>
+          <div style="display:flex;flex-direction:column;gap:16px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:20px;">
+              <div>
+                <div style="font-size:14px;font-weight:600;color:var(--gray-dark);">Listing Insight Tips</div>
+                <div style="font-size:12px;color:var(--gray-light);margin-top:2px;">Show actionable tips under each listing in the performance table — what to improve, boost, or highlight</div>
+              </div>
+              <label class="mq-toggle"><input type="checkbox" id="toggle-insight-tips" checked onchange="toggleInsightTips(this.checked)"><span class="mq-toggle-track"><span class="mq-toggle-thumb"></span></span></label>
+            </div>
+            <div style="height:1px;background:var(--border);"></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:20px;">
+              <div>
+                <div style="font-size:14px;font-weight:600;color:var(--gray-dark);">Monthly Drill-down Insights</div>
+                <div style="font-size:12px;color:var(--gray-light);margin-top:2px;">Show the 💡 insight callout when you click a month on the chart</div>
+              </div>
+              <label class="mq-toggle"><input type="checkbox" id="toggle-drilldown-insight" checked onchange="toggleDrilldownInsight(this.checked)"><span class="mq-toggle-track"><span class="mq-toggle-thumb"></span></span></label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Danger Zone -->
+        <div style="background:white;border-radius:16px;border:1.5px solid #fecaca;padding:26px;">
+          <div style="font-size:15px;font-weight:700;color:#dc2626;margin-bottom:6px;">Danger Zone</div>
+          <div style="font-size:13px;color:var(--gray-light);margin-bottom:18px;">These actions are permanent and cannot be undone</div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <button onclick="showToast('Export coming soon — available with Supabase integration.','info')" style="padding:10px 20px;background:white;color:var(--gray-mid);border:1.5px solid var(--border);border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;">Export My Data</button>
+            <button onclick="if(confirm('Are you sure you want to delete your agency account? This cannot be undone.')){showToast('Account deletion request submitted.','info')}" style="padding:10px 20px;background:#fef2f2;color:#dc2626;border:1.5px solid #fecaca;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;">Delete Account</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ADD/EDIT LISTING MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-title">+ Add New Listing</div>
+      <button class="modal-close" onclick="closeModal()">&#10005;</button>
+    </div>
+    <div class="modal-body">
+      <div class="val-banner" id="val-banner">&#9888; Please fix the highlighted fields before publishing.</div>
+      <div class="success-banner" id="success-banner">&#10003; Listing published successfully!</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Property Title <span class="req">*</span></label>
+          <input type="text" class="form-input" id="f-title" placeholder="e.g. Modern 3-Bed Apartment">
+          <div class="field-error" id="err-title">&#9888; Please enter a property title</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Property Type <span class="req">*</span></label>
+          <select class="form-select" id="f-type"><option>Apartment</option><option>Guest House</option><option>Room / Studio</option><option>Land</option></select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">City</label>
+          <select class="form-select" id="modal-city" onchange="updateNeighborhoods()"><option>Douala</option><option>Yaounde</option><option>Bafoussam</option><option>Buea</option><option>Limbe</option><option>Bamenda</option></select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Neighborhood</label>
+          <select class="form-select" id="modal-neighborhood"></select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Price (CFA) <span class="req">*</span></label>
+          <input type="text" class="form-input" id="f-price" placeholder="e.g. 180,000" oninput="formatPrice(this)" inputmode="numeric">
+          <div class="field-error" id="err-price">&#9888; Please enter a price</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Listing For</label>
+          <select class="form-select" id="f-for"><option>Rent / Monthly</option><option>Sale</option><option>Short Stay</option></select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Bedrooms</label>
+          <select class="form-select" id="bed-select" onchange="toggleBedCustom(this)"><option value="studio">Studio</option><option value="1">1 Bedroom</option><option value="2">2 Bedrooms</option><option value="3">3 Bedrooms</option><option value="4">4 Bedrooms</option><option value="5">5 Bedrooms</option><option value="1+office">1 Bed + Office</option><option value="2+office">2 Bed + Office</option><option value="3+office">3 Bed + Office</option><option value="2+den">2 Bed + Den</option><option value="3+den">3 Bed + Den</option><option value="custom">Custom...</option></select>
+          <input type="text" class="form-input" id="bed-custom" placeholder="e.g. 4 bed + study + office" style="display:none;margin-top:8px;">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Bathrooms</label>
+          <select class="form-select" id="bath-select" onchange="toggleBathCustom(this)"><option value="1">1 Full Bath</option><option value="1.5">1.5 (1 full + 1 half)</option><option value="2">2 Full Baths</option><option value="2.5">2.5 (2 full + 1 half)</option><option value="3">3 Full Baths</option><option value="3.5">3.5 (3 full + 1 half)</option><option value="4">4 Full Baths</option><option value="custom">Custom...</option></select>
+          <input type="text" class="form-input" id="bath-custom" placeholder="e.g. 2 full + 2 half" style="display:none;margin-top:8px;">
+          <div id="bath-hint" style="display:none;font-size:11px;color:var(--gray-light);margin-top:5px;">Half bath = toilet only, no shower/tub</div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Size (m2) <span class="req">*</span></label>
+          <input type="number" class="form-input" id="f-size" placeholder="e.g. 120">
+          <div class="field-error" id="err-size">&#9888; Please enter the property size</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Floor</label>
+          <input type="text" class="form-input" placeholder="e.g. Ground, 1st, 3rd">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Description <span class="req">*</span></label>
+        <textarea class="form-textarea" id="f-desc" placeholder="Describe the property - location highlights, features, nearby amenities..."></textarea>
+        <div class="field-error" id="err-desc">&#9888; Please add a description (min 30 characters)</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Photos <span class="req">*</span></label>
+        <div class="ep-wrap" id="ep-wrap">
+          <div class="ep-label">Current Photos - click x to remove</div>
+          <div class="ep-grid" id="ep-grid"></div>
+          <div style="margin-top:6px;font-size:11px;color:var(--gray-light);">Removed photos will be deleted when you save.</div>
+        </div>
+        <div class="upload-area" id="f-photos-area" onclick="document.getElementById('f-photos').click()">
+          <div class="upload-text" id="upload-text">Click to upload photos</div>
+          <div class="upload-sub">JPG, PNG - up to 10 photos, 5MB each</div>
+          <input type="file" id="f-photos" multiple accept="image/*" style="display:none;" onchange="handlePhotos(this)">
+          <div id="photo-count" style="margin-top:8px;font-size:12px;color:var(--green);font-weight:700;display:none;"></div>
+        </div>
+        <div class="field-error" id="err-photos">&#9888; Please upload at least 1 photo</div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="topbar-btn btn-ghost" onclick="closeModal()">Cancel</button>
+      <button class="topbar-btn btn-ghost" onclick="saveDraft()">Save as Draft</button>
+      <button class="topbar-btn btn-primary" id="modal-submit" onclick="submitListing()">Publish Listing</button>
+    </div>
+  </div>
+</div>
+
+<!-- DELETE CONFIRMATION MODAL -->
+<div class="del-modal-overlay" id="del-modal">
+  <div class="del-modal">
+    <div class="del-header">
+      <div class="del-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg></div>
+      <div><div class="del-title">Delete Listing?</div><div class="del-sub">This listing will be moved to Trash</div></div>
+    </div>
+    <div class="del-body">
+      <div class="del-preview"><div class="del-preview-img"></div><div><div class="del-preview-title" id="del-preview-title">Listing Title</div><div class="del-preview-loc" id="del-preview-loc">Location</div></div></div>
+      <p class="del-warning">Are you sure you want to delete this listing? It will be immediately removed from public search results.</p>
+      <div class="del-info"><span style="font-size:18px;">&#128465;</span><div>The listing will be kept in your <strong>Trash</strong> for <strong>30 days</strong>, after which it is permanently deleted. You can restore it any time before then.</div></div>
+    </div>
+    <div class="del-footer">
+      <button class="btn-cancel" onclick="event.stopPropagation();closeDelModal()">Cancel - Keep Listing</button>
+      <button class="btn-confirm-del" onclick="event.stopPropagation();confirmDelete()">Yes, Move to Trash</button>
+    </div>
+  </div>
+</div>
+
+<script>
+var uploadedPhotos=0,existingPhotos=[],pendingDeleteRow=null,trashItems=[],trashId=0;
+var tabHistory=['overview'];
+
+var pageTitles={
+  overview:['Dashboard Overview','Welcome back, Immo Prestige Douala'],
+  listings:['My Listings','Manage and update your property listings'],
+  inquiries:['Inquiries','Messages from renters and buyers'],
+  stats:['Analytics','Track your listing performance'],
+  trash:['Trash','Deleted listings - restored within 30 days'],
+  subscription:['Subscription','Manage your MaisonQuest plan']
+};
+
+function showTab(name,btn){
+  if(tabHistory[tabHistory.length-1]!==name) tabHistory.push(name);
+  document.querySelectorAll('.tab-panel').forEach(function(p){p.classList.remove('active');});
+  document.getElementById('tab-'+name).classList.add('active');
+  if(name==='trash') renderTrash();
+  document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active');});
+  var items=document.querySelectorAll('.nav-item');
+  for(var i=0;i<items.length;i++){
+    var oc=items[i].getAttribute('onclick');
+    if(oc&&oc.indexOf("'"+name+"'")!==-1){items[i].classList.add('active');break;}
+  }
+  var t=pageTitles[name]||['Dashboard',''];
+  document.getElementById('page-title').textContent=t[0];
+  document.getElementById('page-sub').textContent=t[1];
+  var bb=document.getElementById('back-bar');
+  if(name==='overview'){bb.classList.add('at-overview');tabHistory=['overview'];}
+  else{bb.classList.remove('at-overview');document.getElementById('bc-current').textContent=t[0];}
+  // Re-apply language after tab renders
+  if(window.MQLang && sessionStorage.getItem('mq_lang')==='FR'){
+    setTimeout(function(){ MQLang.applyLang('FR'); }, 30);
+  }
+}
+
+function goBack(){
+  if(tabHistory.length>1){tabHistory.pop();showTab(tabHistory[tabHistory.length-1]);}
+}
+
+function drawBarChart(id,data){
+  var el=document.getElementById(id);
+  if(!el)return;
+  var max=0;
+  for(var i=0;i<data.length;i++) if(data[i].val>max) max=data[i].val;
+  var html='';
+  for(var i=0;i<data.length;i++){
+    var h=Math.round((data[i].val/max)*120);
+    var hi=i===data.length-1?'highlighted':'';
+    html+='<div class="bar-col"><div class="bar-val">'+data[i].val+'</div><div class="bar '+hi+'" style="height:'+h+'px;"></div><div class="bar-label">'+data[i].label+'</div></div>';
+  }
+  el.innerHTML=html;
+}
+drawBarChart('bar-chart',[{label:'Mon',val:320},{label:'Tue',val:410},{label:'Wed',val:280},{label:'Thu',val:520},{label:'Fri',val:490},{label:'Sat',val:380},{label:'Sun',val:440}]);
+drawBarChart('bar-chart',[{label:'Mon',val:320},{label:'Tue',val:410},{label:'Wed',val:280},{label:'Thu',val:520},{label:'Fri',val:490},{label:'Sat',val:380},{label:'Sun',val:440}]);
+
+// ── ANALYTICS ENGINE ──
+var LISTINGS_DATA = [
+  {id:1, name:'Modern 3-Bed Apartment', loc:'Bonapriso, Douala', type:'apartment', status:'active',
+   views:3820, inquiries:89, waTaps:201, color:'#1B4FD8'},
+  {id:2, name:'Executive Guest House', loc:'Bonanjo, Douala', type:'guesthouse', status:'active',
+   views:2610, inquiries:54, waTaps:143, color:'#7c3aed'},
+  {id:3, name:'Studio — Students Welcome', loc:'Akwa, Douala', type:'room', status:'active',
+   views:1980, inquiries:31, waTaps:98, color:'#E8A020'},
+  {id:4, name:'600m² Land Plot', loc:'Logpom, Douala', type:'land', status:'active',
+   views:980, inquiries:7, waTaps:34, color:'#10b981'},
+  {id:5, name:'2-Bed Apartment', loc:'Makepe, Douala', type:'apartment', status:'paused',
+   views:720, inquiries:3, waTaps:18, color:'#ef4444'},
+  {id:6, name:'3-Bed Villa', loc:'Bastos, Yaoundé', type:'apartment', status:'active',
+   views:330, inquiries:0, waTaps:6, color:'#f97316'}
+];
+
+var MONTHLY_DATA = {
+  'Sep 2025': {views:1120, inquiries:18, waTaps:54,
+    listings:[
+      {id:1,views:480,inquiries:9,waTaps:26},{id:2,views:290,inquiries:5,waTaps:14},
+      {id:3,views:200,inquiries:3,waTaps:10},{id:4,views:90,inquiries:1,waTaps:3},
+      {id:5,views:60,inquiries:0,waTaps:1},{id:6,views:0,inquiries:0,waTaps:0}
+    ]},
+  'Oct 2025': {views:1480,inquiries:24,waTaps:71,
+    listings:[
+      {id:1,views:620,inquiries:11,waTaps:32},{id:2,views:380,inquiries:7,waTaps:18},
+      {id:3,views:250,inquiries:4,waTaps:12},{id:4,views:130,inquiries:2,waTaps:5},
+      {id:5,views:100,inquiries:0,waTaps:4},{id:6,views:0,inquiries:0,waTaps:0}
+    ]},
+  'Nov 2025': {views:1240,inquiries:20,waTaps:61,
+    listings:[
+      {id:1,views:510,inquiries:9,waTaps:28},{id:2,views:330,inquiries:6,waTaps:15},
+      {id:3,views:210,inquiries:3,waTaps:11},{id:4,views:110,inquiries:1,waTaps:4},
+      {id:5,views:80,inquiries:1,waTaps:3},{id:6,views:0,inquiries:0,waTaps:0}
+    ]},
+  'Dec 2025': {views:1720,inquiries:29,waTaps:86,
+    listings:[
+      {id:1,views:720,inquiries:14,waTaps:38},{id:2,views:430,inquiries:8,waTaps:22},
+      {id:3,views:290,inquiries:5,waTaps:14},{id:4,views:150,inquiries:2,waTaps:6},
+      {id:5,views:130,inquiries:0,waTaps:6},{id:6,views:0,inquiries:0,waTaps:0}
+    ]},
+  'Jan 2026': {views:2100,inquiries:38,waTaps:98,
+    listings:[
+      {id:1,views:880,inquiries:17,waTaps:43},{id:2,views:530,inquiries:11,waTaps:26},
+      {id:3,views:350,inquiries:6,waTaps:16},{id:4,views:180,inquiries:2,waTaps:7},
+      {id:5,views:120,inquiries:2,waTaps:6},{id:6,views:40,inquiries:0,waTaps:0}
+    ]},
+  'Feb 2026': {views:2840,inquiries:55,waTaps:130,
+    listings:[
+      {id:1,views:1180,inquiries:24,waTaps:56},{id:2,views:680,inquiries:13,waTaps:32},
+      {id:3,views:490,inquiries:8,waTaps:22},{id:4,views:230,inquiries:2,waTaps:9},
+      {id:5,views:190,inquiries:0,waTaps:5},{id:6,views:70,inquiries:0,waTaps:1}
+    ]}
+};
+
+var currentSort = 'views';
+
+function getHealth(views, conv) {
+  if (views < 100 && conv < 1) return {label:'Underperforming', color:'#ef4444', bg:'#fef2f2', icon:'⚠️'};
+  if (views < 400 || conv < 1.5) return {label:'Needs Attention', color:'#f97316', bg:'#fff7ed', icon:'📉'};
+  if (conv >= 3) return {label:'Top Performer', color:'#10b981', bg:'#f0fdf4', icon:'🏆'};
+  return {label:'On Track', color:'#1B4FD8', bg:'#EFF6FF', icon:'✅'};
+}
+
+function miniSparkline(monthlyVals, color) {
+  var max = Math.max.apply(null, monthlyVals) || 1;
+  var w = 60, h = 24;
+  var pts = monthlyVals.map(function(v,i){
+    return [(i/(monthlyVals.length-1))*w, h - (v/max)*h].join(',');
+  }).join(' ');
+  return '<svg width="'+w+'" height="'+h+'" viewBox="0 0 '+w+' '+h+'" style="display:block;">' +
+    '<polyline points="'+pts+'" fill="none" stroke="'+color+'" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>' +
+    '</svg>';
+}
+
+function drawMonthlyChart() {
+  var el = document.getElementById('monthly-chart');
+  if (!el) return;
+  var months = Object.keys(MONTHLY_DATA);
+  var maxViews = Math.max.apply(null, months.map(function(m){return MONTHLY_DATA[m].views;}));
+  var html = '';
+  months.forEach(function(month, i) {
+    var d = MONTHLY_DATA[month];
+    var heightViews = Math.round((d.views / maxViews) * 140);
+    var heightInq = Math.round((d.inquiries / maxViews) * 140 * 6);
+    var heightWA = Math.round((d.waTaps / maxViews) * 140 * 2.5);
+    var shortMonth = month.split(' ')[0];
+    html += '<div onclick="openDrilldown(\''+month+'\')" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;border-radius:8px;padding:4px 2px;transition:background 0.15s;" ' +
+      'onmouseover="this.style.background=\'var(--blue-tint)\'" onmouseout="this.style.background=\'\'">' +
+      '<div style="display:flex;align-items:flex-end;gap:2px;height:140px;">' +
+        '<div style="width:14px;height:'+heightViews+'px;background:var(--blue-mid);border-radius:4px 4px 0 0;transition:opacity 0.15s;" title="'+d.views+' views"></div>' +
+        '<div style="width:10px;height:'+heightInq+'px;background:var(--gold);border-radius:4px 4px 0 0;transition:opacity 0.15s;" title="'+d.inquiries+' inquiries"></div>' +
+        '<div style="width:10px;height:'+heightWA+'px;background:#10b981;border-radius:4px 4px 0 0;transition:opacity 0.15s;" title="'+d.waTaps+' WA taps"></div>' +
+      '</div>' +
+      '<div style="font-size:11px;font-weight:700;color:var(--gray-mid);position:absolute;bottom:4px;transform:none;">'+shortMonth+'</div>' +
+    '</div>';
+  });
+  el.innerHTML = html;
+}
+
+function openDrilldown(month) {
+  var d = MONTHLY_DATA[month];
+  if (!d) return;
+  var panel = document.getElementById('month-drilldown');
+  panel.style.display = 'block';
+  panel.scrollIntoView({behavior:'smooth', block:'start'});
+
+  document.getElementById('drilldown-title').textContent = month + ' — Detailed Breakdown';
+  document.getElementById('drilldown-sub').textContent =
+    d.views.toLocaleString() + ' total views · ' + d.inquiries + ' inquiries · ' + d.waTaps + ' WhatsApp taps';
+
+  // KPI cards
+  var prevMonths = Object.keys(MONTHLY_DATA);
+  var idx = prevMonths.indexOf(month);
+  var prev = idx > 0 ? MONTHLY_DATA[prevMonths[idx-1]] : null;
+  function delta(curr, prevVal) {
+    if (!prev || prevVal === 0) return '';
+    var pct = Math.round(((curr - prevVal) / prevVal) * 100);
+    return pct >= 0
+      ? '<span style="color:#10b981;font-size:11px;font-weight:700;">&#8593; +'+pct+'%</span>'
+      : '<span style="color:#ef4444;font-size:11px;font-weight:700;">&#8595; '+pct+'%</span>';
+  }
+  var kpiData = [
+    {label:'Total Views', val:d.views.toLocaleString(), delta:delta(d.views, prev&&prev.views), bg:'var(--blue-pale)', color:'var(--blue-mid)'},
+    {label:'Inquiries', val:d.inquiries, delta:delta(d.inquiries, prev&&prev.inquiries), bg:'#f0fdf4', color:'#10b981'},
+    {label:'WhatsApp Taps', val:d.waTaps, delta:delta(d.waTaps, prev&&prev.waTaps), bg:'#fffbeb', color:' var(--gold)'},
+    {label:'Conv. Rate', val:(d.inquiries/d.views*100).toFixed(1)+'%', delta:'', bg:'var(--blue-tint)', color:'var(--blue-deep)'}
+  ];
+  document.getElementById('drilldown-kpis').innerHTML = kpiData.map(function(k){
+    return '<div style="background:'+k.bg+';border-radius:12px;padding:14px 16px;">' +
+      '<div style="font-size:11px;text-transform:uppercase;letter-spacing:0.5px;color:'+k.color+';font-weight:700;margin-bottom:4px;">'+k.label+'</div>' +
+      '<div style="font-family:\'Playfair Display\',serif;font-size:26px;font-weight:700;color:var(--blue-deep);">'+k.val+'</div>' +
+      (k.delta ? '<div style="margin-top:3px;">'+k.delta+' vs prior month</div>' : '') +
+    '</div>';
+  }).join('');
+
+  // Per-listing rows
+  var rows = d.listings.map(function(row) {
+    var listing = LISTINGS_DATA.find(function(l){return l.id===row.id;});
+    if (!listing) return '';
+    var conv = row.views > 0 ? (row.inquiries/row.views*100).toFixed(1) : '0.0';
+    var health = getHealth(row.views, parseFloat(conv));
+    var barW = Math.round((row.views / d.views) * 100);
+    return '<tr style="border-top:1px solid var(--border);transition:background 0.15s;" onmouseover="this.style.background=\'var(--blue-tint)\'" onmouseout="this.style.background=\'\'">' +
+      '<td style="padding:13px 22px;">' +
+        '<div style="font-size:13px;font-weight:700;color:var(--blue-deep);">'+listing.name+'</div>' +
+        '<div style="font-size:11px;color:var(--gray-light);margin-top:1px;">📍 '+listing.loc+'</div>' +
+      '</td>' +
+      '<td style="padding:13px 16px;text-align:right;font-size:14px;font-weight:700;color:var(--blue-deep);">'+row.views.toLocaleString()+'</td>' +
+      '<td style="padding:13px 16px;text-align:right;font-size:14px;font-weight:700;color:var(--gray-dark);">'+row.inquiries+'</td>' +
+      '<td style="padding:13px 16px;text-align:right;font-size:14px;font-weight:700;color:var(--gray-dark);">'+row.waTaps+'</td>' +
+      '<td style="padding:13px 16px;text-align:right;font-size:13px;font-weight:700;color:'+(parseFloat(conv)>=3?'#10b981':parseFloat(conv)>=1.5?'var(--blue-mid)':'#ef4444')+';">'+conv+'%</td>' +
+      '<td style="padding:13px 22px;"><div style="height:7px;background:var(--border);border-radius:4px;overflow:hidden;min-width:80px;"><div style="width:'+barW+'%;height:100%;background:'+listing.color+';border-radius:4px;"></div></div></td>' +
+      '<td style="padding:13px 16px;text-align:center;"><span style="background:'+health.bg+';color:'+health.color+';font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;white-space:nowrap;">'+health.icon+' '+health.label+'</span></td>' +
+    '</tr>';
+  });
+  document.getElementById('drilldown-tbody').innerHTML = rows.join('');
+
+  // Insight callout — find worst performer
+  var worst = d.listings.slice().sort(function(a,b){return a.views-b.views;})[0];
+  var worstListing = LISTINGS_DATA.find(function(l){return l.id===worst.id;});
+  var best = d.listings.slice().sort(function(a,b){return b.views-a.views;})[0];
+  var bestListing = LISTINGS_DATA.find(function(l){return l.id===best.id;});
+  var fr = window.MQLang && sessionStorage.getItem('mq_lang')==='FR';
+  document.getElementById('drilldown-insight').innerHTML =
+    '<div style="font-size:20px;flex-shrink:0;">💡</div>' +
+    '<div>' +
+      '<div style="font-size:13px;font-weight:700;color:var(--blue-deep);margin-bottom:4px;">'+(fr ? 'Analyse pour ' : 'Insight for ')+month+'</div>' +
+      '<div style="font-size:13px;color:var(--gray-mid);line-height:1.6;">' +
+        '<strong style="color:#10b981;">'+bestListing.name+'</strong> '+(fr ? 'en tête avec ' : 'led with ')+'<strong>'+best.views.toLocaleString()+(fr ? ' vues' : ' views')+'</strong>'+(fr ? ' ce mois-ci. ' : ' this month. ') +
+        (worst.views < 200 ?
+          '<strong style="color:#ef4444;">'+worstListing.name+'</strong> '+(fr ? "n'a eu que " : 'had only ')+'<strong>'+worst.views+(fr ? ' vues' : ' views')+'</strong>'+(fr ? ' — actualisez les photos, le prix, ou boostez cette annonce pour améliorer la portée.' : ' — consider refreshing photos, updating the price, or boosting this listing to improve reach.') :
+          (fr ? 'Toutes les annonces ont une portée raisonnable. Pensez à booster vos meilleures annonces pour de meilleurs résultats.' : 'All listings are getting reasonable reach. Consider boosting your top performers for even better results.')) +
+      '</div>' +
+    '</div>';
+  document.getElementById('drilldown-insight').style.display = showDrilldownInsight ? 'flex' : 'none';
+}
+
+function closeDrilldown() {
+  document.getElementById('month-drilldown').style.display = 'none';
+}
+
+var showInsightTips = true;
+var showDrilldownInsight = true;
+
+function checkPwStrength(val) {
+  var fill = document.getElementById('pw-strength-fill');
+  var label = document.getElementById('pw-strength-label');
+  if (!fill || !label) return;
+  var score = 0;
+  if (val.length >= 8) score++;
+  if (/[A-Z]/.test(val)) score++;
+  if (/[0-9]/.test(val)) score++;
+  if (/[^A-Za-z0-9]/.test(val)) score++;
+  var levels = [
+    {w:'0%', bg:'var(--border)', txt:''},
+    {w:'25%', bg:'#ef4444', txt:'Weak'},
+    {w:'50%', bg:'#f97316', txt:'Fair'},
+    {w:'75%', bg:'#E8A020', txt:'Good'},
+    {w:'100%', bg:'#10b981', txt:'Strong'}
+  ];
+  var lvl = levels[score] || levels[0];
+  fill.style.width = lvl.w;
+  fill.style.background = lvl.bg;
+  label.textContent = lvl.txt;
+  label.style.color = lvl.bg;
+  // Check match live
+  var confirm = document.getElementById('pw-confirm');
+  if (confirm && confirm.value) checkPwMatch();
+}
+
+function checkPwMatch() {
+  var n = document.getElementById('pw-new');
+  var c = document.getElementById('pw-confirm');
+  var lbl = document.getElementById('pw-match-label');
+  if (!n || !c || !lbl) return;
+  if (!c.value) { lbl.textContent = ''; return; }
+  if (n.value === c.value) {
+    lbl.textContent = '✓ Passwords match';
+    lbl.style.color = '#10b981';
+    c.style.borderColor = '#10b981';
+  } else {
+    lbl.textContent = '✗ Passwords do not match';
+    lbl.style.color = '#ef4444';
+    c.style.borderColor = '#ef4444';
+  }
+}
+
+function submitPasswordChange() {
+  var current = document.getElementById('pw-current');
+  var newPw = document.getElementById('pw-new');
+  var confirm = document.getElementById('pw-confirm');
+  if (!current.value) { current.style.borderColor='#ef4444'; showToast('Please enter your current password.','error'); return; }
+  if (!newPw.value || newPw.value.length < 8) { newPw.style.borderColor='#ef4444'; showToast('New password must be at least 8 characters.','error'); return; }
+  if (newPw.value !== confirm.value) { confirm.style.borderColor='#ef4444'; showToast('Passwords do not match.','error'); return; }
+  // Placeholder — will connect to Supabase auth
+  showToast('✓ Password updated successfully!','success');
+  current.value = ''; newPw.value = ''; confirm.value = '';
+  document.getElementById('pw-strength-fill').style.width = '0%';
+  document.getElementById('pw-strength-label').textContent = '';
+  document.getElementById('pw-match-label').textContent = '';
+  current.style.borderColor = 'var(--border)';
+  newPw.style.borderColor = 'var(--border)';
+  confirm.style.borderColor = 'var(--border)';
+}
+
+function toggleInsightTips(on) {
+  showInsightTips = on;
+  buildPerfTable(currentSort);
+  showToast(on ? '💡 Insight tips turned on' : 'Insight tips hidden', 'info');
+}
+
+function toggleDrilldownInsight(on) {
+  showDrilldownInsight = on;
+  var el = document.getElementById('drilldown-insight');
+  if (el) el.style.display = on ? 'flex' : 'none';
+  showToast(on ? '💡 Drill-down insights turned on' : 'Drill-down insights hidden', 'info');
+}
+
+function getInsightTip(listing, conv) {
+  var c = parseFloat(conv);
+  var fr = window.MQLang && sessionStorage.getItem('mq_lang')==='FR';
+  if (listing.status === 'paused') return {cls:'warn', icon:'⏸️', text: fr ? 'Annonce en pause. Réactivez-la pour recommencer à obtenir des vues.' : 'This listing is paused. Reactivate it to start getting views again.'};
+  if (listing.views < 100) return {cls:'danger', icon:'🔴', text: fr ? 'Visibilité très faible. Actualisez les photos, la description, ou utilisez un boost pour gagner en visibilité.' : 'Very low visibility. Try refreshing the photos, updating the description, or using a listing boost to get more eyes on it.'};
+  if (listing.views < 400 && c < 1) return {cls:'warn', icon:'⚠️', text: fr ? 'Portée et conversion faibles. Ajustez le prix ou ajoutez des photos — les locataires ne cliquent pas.' : 'Low reach and low conversion. Consider adjusting the price or adding more photos — renters may not be clicking through.'};
+  if (listing.views >= 400 && c < 1) return {cls:'warn', icon:'📉', text: fr ? 'Bon trafic mais peu de demandes. Le prix ou les détails découragent peut-être les locataires.' : 'Good traffic but few inquiries. The price or listing details may be putting renters off — review what similar listings charge.'};
+  if (listing.views < 400 && c >= 2) return {cls:'', icon:'🚀', text: fr ? 'Excellent taux de conversion malgré peu de vues. Un boost amplifierait significativement la portée de cette annonce.' : "Strong conversion rate despite low views. A boost would amplify this listing's reach significantly."};
+  if (c >= 3 && listing.views >= 800) return {cls:'good', icon:'🏆', text: fr ? 'Votre meilleure annonce. Mettez-la en avant sur votre profil et utilisez-la comme modèle.' : 'This is your top performer. Highlight it on your profile and use it as a template for your other listings.'};
+  if (c >= 2) return {cls:'good', icon:'✅', text: fr ? 'Bonne performance. Gardez l\'annonce fraîche avec des photos mises à jour ou une tarification saisonnière.' : 'Healthy performance. Keep the listing fresh with updated photos or seasonal pricing to maintain momentum.'};
+  return {cls:'', icon:'📊', text: fr ? 'En bonne voie. Surveillez les tendances mensuelles pour détecter et réagir rapidement aux baisses.' : 'On track. Monitor monthly trends to catch any dips early and respond quickly.'};
+}
+
+function buildPerfTable(sortKey) {
+  var tbody = document.getElementById('perf-tbody');
+  if (!tbody) return;
+  var sorted = LISTINGS_DATA.slice().sort(function(a,b){
+    if (sortKey === 'needs-attention') return a.views - b.views; // lowest views first
+    if (sortKey === 'best-converting') return (b.inquiries/Math.max(b.views,1)) - (a.inquiries/Math.max(a.views,1));
+    return b.views - a.views; // most-viewed default
+  });
+  var maxViews = LISTINGS_DATA[0].views;
+
+  // get monthly views for sparkline
+  var monthKeys = Object.keys(MONTHLY_DATA);
+
+  tbody.innerHTML = sorted.map(function(l) {
+    var conv = l.views > 0 ? (l.inquiries/l.views*100).toFixed(1) : '0.0';
+    var health = getHealth(l.views, parseFloat(conv));
+    var barW = Math.round((l.views / LISTINGS_DATA[0].views) * 100);
+    var sparkData = monthKeys.map(function(m){
+      var row = MONTHLY_DATA[m].listings.find(function(r){return r.id===l.id;});
+      return row ? row.views : 0;
+    });
+    return '<tr style="border-top:1px solid var(--border);transition:background 0.15s;cursor:pointer;" onmouseover="this.style.background=\'var(--blue-tint)\'" onmouseout="this.style.background=\'\'">' +
+      '<td style="padding:14px 22px;">' +
+        '<div style="display:flex;align-items:center;gap:10px;">' +
+          '<div style="width:8px;height:8px;border-radius:50%;background:'+l.color+';flex-shrink:0;"></div>' +
+          '<div>' +
+            '<div style="font-size:13px;font-weight:700;color:var(--blue-deep);">'+l.name+'</div>' +
+            '<div style="font-size:11px;color:var(--gray-light);margin-top:1px;">📍 '+l.loc+'</div>' +
+          '</div>' +
+        '</div>' +
+      '</td>' +
+      '<td style="padding:14px 16px;text-align:right;font-size:14px;font-weight:700;color:var(--blue-deep);">'+l.views.toLocaleString()+'</td>' +
+      '<td style="padding:14px 16px;text-align:right;font-size:14px;font-weight:700;color:var(--gray-dark);">'+l.inquiries+'</td>' +
+      '<td style="padding:14px 16px;text-align:right;font-size:14px;font-weight:700;color:var(--gray-dark);">'+l.waTaps+'</td>' +
+      '<td style="padding:14px 16px;text-align:right;font-size:13px;font-weight:700;color:'+(parseFloat(conv)>=3?'#10b981':parseFloat(conv)>=1.5?'var(--blue-mid)':'#ef4444')+';">'+conv+'%</td>' +
+      '<td style="padding:14px 22px;min-width:140px;">' +
+        '<div style="height:6px;background:var(--border);border-radius:4px;overflow:hidden;margin-bottom:6px;"><div style="width:'+barW+'%;height:100%;background:'+l.color+';border-radius:4px;"></div></div>' +
+        miniSparkline(sparkData, l.color) +
+      '</td>' +
+      '<td style="padding:14px 16px;text-align:center;"><span style="background:'+health.bg+';color:'+health.color+';font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;white-space:nowrap;">'+health.icon+' '+health.label+'</span></td>' +
+    '</tr>' +
+    (showInsightTips ? (function(){
+      var tip = getInsightTip(l, conv);
+      return '<tr class="insight-tip-row"><td colspan="7" style="padding:0;"><div class="insight-tip '+tip.cls+'"><span style="flex-shrink:0;font-size:14px;">'+tip.icon+'</span><span>'+tip.text+'</span></div></td></tr>';
+    })() : '');
+  }).join('');
+
+  // Re-apply FR after table rebuild
+  if(window.MQLang && sessionStorage.getItem('mq_lang')==='FR') setTimeout(function(){ MQLang.applyLang('FR'); },20);
+}
+function sortListingsBy(mode) {
+  currentSort = mode;
+  var descriptions = {
+    'most-viewed':     'Showing your most viewed listings first',
+    'needs-attention': 'Showing listings with lowest reach first — these need your focus',
+    'best-converting': 'Showing listings that turn views into inquiries most effectively'
+  };
+  var desc = document.getElementById('sort-description');
+  if (desc) desc.textContent = descriptions[mode] || '';
+
+  var sortKeys = ['most-viewed','needs-attention','best-converting'];
+  sortKeys.forEach(function(k) {
+    var btn = document.getElementById('sort-'+k);
+    if (!btn) return;
+    if (k === mode) {
+      btn.style.background = 'var(--blue-mid)'; btn.style.color = 'white'; btn.style.border = 'none';
+    } else {
+      btn.style.background = 'var(--gray-bg)'; btn.style.color = 'var(--gray-mid)'; btn.style.border = '1.5px solid var(--border)';
+    }
+  });
+  buildPerfTable(mode);
+}
+sortListingsBy('most-viewed');
+
+// Init analytics when tab becomes visible
+var _origShowTab = showTab;
+showTab = function(tabId, el) {
+  _origShowTab(tabId, el);
+  if (tabId === 'stats') {
+    drawMonthlyChart();
+    buildPerfTable(currentSort);
+  }
+};
+// Also init if stats tab is default visible on load
+if (document.getElementById('tab-stats') && document.getElementById('tab-stats').style.display !== 'none') {
+  drawMonthlyChart(); buildPerfTable(currentSort);
+}
+
+// Handle URL params — tab navigation + add-listing action
+(function(){
+  var params = new URLSearchParams(window.location.search);
+  var tab = params.get('tab');
+  var action = params.get('action');
+  if (tab) {
+    setTimeout(function(){ showTab(tab); }, 100);
+  }
+  if (action === 'add-listing') {
+    setTimeout(function(){ openModal(); }, 400);
+  }
+  if (tab || action) {
+    history.replaceState(null, '', 'maisonquest-dashboard.html');
+  }
+})();
+
+var listingData={
+  'Modern 3-Bed Apartment':{type:'Apartment',city:'Douala',neighborhood:'Bonapriso',price:180000,beds:'3',baths:'2',size:120,listingFor:'Rent / Monthly',photoCount:5,desc:'Modern and spacious 3-bedroom apartment in the heart of Bonapriso with parking and 24/7 security.'},
+  'Executive Guest House':{type:'Guest House',city:'Douala',neighborhood:'Bonanjo',price:320000,beds:'4',baths:'3',size:200,listingFor:'Rent / Monthly',photoCount:4,desc:'Executive guest house with pool and garden in prestigious Bonanjo.'},
+  'Studio - Students Welcome':{type:'Room / Studio',city:'Douala',neighborhood:'Akwa',price:40000,beds:'studio',baths:'1',size:32,listingFor:'Rent / Monthly',photoCount:3,desc:'Affordable studio ideal for students, close to the university.'},
+  '600m2 Land Plot':{type:'Land',city:'Douala',neighborhood:'Logpom',price:8500000,beds:null,baths:null,size:600,listingFor:'Sale',photoCount:2,desc:'Prime 600m2 land plot in Logpom with Titre Foncier and road access.'},
+  '2-Bed, Secured Building':{type:'Apartment',city:'Douala',neighborhood:'Makepe',price:95000,beds:'2',baths:'1',size:80,listingFor:'Rent / Monthly',photoCount:3,desc:'Bright 2-bedroom apartment in a secured building in Makepe.'}
+};
+
+function setSelectVal(id,text){
+  var s=document.getElementById(id);
+  if(!s||!text)return;
+  for(var i=0;i<s.options.length;i++){
+    if(s.options[i].text===text||s.options[i].value===text){s.selectedIndex=i;return;}
+  }
+}
+
+function editListing(title){
+  var data=listingData[title];
+  document.getElementById('f-title').value=title;
+  document.getElementById('f-price').value=data?data.price:'';
+  document.getElementById('f-size').value=data?data.size:'';
+  document.getElementById('f-desc').value=data?data.desc:'';
+  if(data){
+    setSelectVal('f-type',data.type);
+    setSelectVal('f-for',data.listingFor);
+    document.getElementById('modal-city').value=data.city;
+    updateNeighborhoods();
+renderTrash();
+updateListingCount();
+    setTimeout(function(){document.getElementById('modal-neighborhood').value=data.neighborhood;},60);
+    if(data.beds){var b=document.getElementById('bed-select');b.value=data.beds;toggleBedCustom(b);}
+    if(data.baths){var b=document.getElementById('bath-select');b.value=data.baths;toggleBathCustom(b);}
+    existingPhotos=[];
+    for(var i=0;i<(data.photoCount||3);i++) existingPhotos.push({id:i,removed:false});
+    renderExistingPhotos();
+    document.getElementById('ep-wrap').style.display='block';
+    document.getElementById('upload-text').textContent='Add more photos (optional)';
+  }
+  uploadedPhotos=0;
+  document.getElementById('photo-count').style.display='none';
+  document.getElementById('modal-title').textContent='Edit Listing';
+  document.getElementById('modal-submit').textContent='Save Changes';
+  openModal();
+}
+
+function renderExistingPhotos(){
+  var grid=document.getElementById('ep-grid');
+  if(!grid)return;
+  var html='';
+  for(var i=0;i<existingPhotos.length;i++){
+    var p=existingPhotos[i];
+    html+='<div class="ep-item'+(p.removed?' removed':'')+'"><button class="ep-remove" onclick="removePhoto('+p.id+')">'+(p.removed?'undo':'x')+'</button></div>';
+  }
+  grid.innerHTML=html;
+}
+
+function removePhoto(id){
+  for(var i=0;i<existingPhotos.length;i++){
+    if(existingPhotos[i].id===id){existingPhotos[i].removed=!existingPhotos[i].removed;break;}
+  }
+  renderExistingPhotos();
+}
+
+var PAUSE_ICON='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="pointer-events:none;"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>';
+var RESUME_ICON='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="pointer-events:none;"><polygon points="5 3 19 12 5 21 5 3"/></svg>';
+
+function pauseListing(btn,title){
+  var row=btn.closest('.lt-row');
+  if(!row) return;
+  row.querySelector('.ls').className='ls ls-paused';
+  row.querySelector('.ls').textContent='Paused';
+  btn.classList.remove('pause-btn');
+  btn.onclick=function(){resumeListing(btn,title);};
+  btn.innerHTML=RESUME_ICON+' Resume';
+}
+
+function resumeListing(btn,title){
+  var row=btn.closest('.lt-row');
+  if(!row){alert('Error finding listing row');return;}
+  row.querySelector('.ls').className='ls ls-active';
+  row.querySelector('.ls').textContent='Active';
+  btn.classList.add('pause-btn');
+  btn.onclick=function(){pauseListing(btn,title);};
+  btn.innerHTML=PAUSE_ICON+' Pause';
+}
+
+function renewListing(btn,title){
+  var row=btn.closest('.lt-row');
+  if(!row) return;
+  // Update status pill to Active
+  row.querySelector('.ls').className='ls ls-active';
+  row.querySelector('.ls').textContent='Active';
+  // Replace Renew button with a Pause button (listing is now live)
+  var pauseBtn=document.createElement('button');
+  pauseBtn.className='dot-btn pause-btn';
+  pauseBtn.innerHTML=PAUSE_ICON+' Pause';
+  pauseBtn.onclick=function(){pauseListing(pauseBtn,title);};
+  btn.parentNode.replaceChild(pauseBtn,btn);
+}
+
+function deleteListing(title,loc){
+  pendingDeleteRow=null;
+  var rows=document.querySelectorAll('.lt-row');
+  for(var i=0;i<rows.length;i++){
+    var el=rows[i].querySelector('.lt-title');
+    if(el&&el.textContent.trim()===title){pendingDeleteRow=rows[i];break;}
+  }
+  document.getElementById('del-preview-title').textContent=title;
+  document.getElementById('del-preview-loc').textContent=loc||'';
+  document.getElementById('del-modal').classList.add('open');
+}
+
+function closeDelModal(){
+  document.getElementById('del-modal').classList.remove('open');
+  pendingDeleteRow=null;
+}
+
+function confirmDelete(){
+  if(!pendingDeleteRow) return;
+  var row=pendingDeleteRow;
+  var title=row.querySelector('.lt-title').textContent.trim();
+  var loc=row.querySelector('.lt-loc').textContent.trim();
+  document.getElementById('del-modal').classList.remove('open');
+  pendingDeleteRow=null;
+  row.style.transition='opacity 0.3s';
+  row.style.opacity='0';
+  setTimeout(function(){row.remove();updateListingCount();},310);
+  // Add to trash and write DIRECTLY to the trash-list div right now
+  var id=++trashId;
+  trashItems.push({id:id,title:title,loc:loc,deletedAt:Date.now(),timeoutId:null,expiresMs:30*24*60*60*1000});
+  // Write directly - no function call
+  var list=document.getElementById('trash-list');
+  if(list){
+    var div=document.createElement('div');
+    div.className='trash-item';
+    div.id='trash-item-'+id;
+    div.innerHTML='<div class="trash-img"></div><div class="trash-info-text"><div class="trash-item-title">'+title+'</div><div class="trash-item-meta">'+loc+'</div><div class="trash-countdown">29 days remaining</div></div><button class="trash-restore" onclick="restoreListing('+id+')">Restore</button><button class="trash-perm-delete" onclick="permanentlyDelete('+id+')">Delete Forever</button>';
+    // Clear empty state first
+    list.innerHTML='';
+    list.appendChild(div);
+  }
+  updateTrashBadge();
+  // Toast
+  var n=document.createElement('div');
+  n.style.cssText='position:fixed;top:80px;right:24px;background:#1e293b;color:white;border-radius:12px;padding:12px 18px;font-size:13px;font-weight:600;z-index:9999;box-shadow:0 4px 16px rgba(0,0,0,0.2);display:flex;align-items:center;gap:10px;';
+  n.innerHTML='&#128465; "'+title+'" moved to Trash';
+  var link=document.createElement('span');
+  link.textContent=' View Trash';
+  link.style.cssText='color:#7da8ff;cursor:pointer;text-decoration:underline;font-weight:700;margin-left:8px;';
+  link.onclick=function(){showTab('trash');};
+  n.appendChild(link);
+  document.body.appendChild(n);
+  setTimeout(function(){n.remove();},4000);
+}
+
+function renderTrash(){
+  var list=document.getElementById('trash-list');
+  if(!list)return;
+  if(trashItems.length===0){
+    list.innerHTML='<div class="trash-empty"><div class="trash-empty-icon">&#128465;</div><div style="font-size:16px;font-weight:700;color:var(--gray-mid);margin-bottom:6px;">Trash is empty</div><div style="font-size:13px;">Deleted listings appear here for 30 days.</div></div>';
+    return;
+  }
+  var now=Date.now();
+  var trashHTML='';
+  for(var i=0;i<trashItems.length;i++){
+    var item=trashItems[i];
+    var rem=Math.max(0,item.expiresMs-(now-item.deletedAt));
+    var days=Math.floor(rem/86400000);
+    var hrs=Math.floor((rem%86400000)/3600000);
+    var label=days>0?days+' day'+(days!==1?'s':''):hrs+' hour'+(hrs!==1?'s':'');
+    trashHTML+='<div class="trash-item" id="trash-item-'+item.id+'">';
+    trashHTML+='<div class="trash-img"></div>';
+    trashHTML+='<div class="trash-info-text">';
+    trashHTML+='<div class="trash-item-title">'+item.title+'</div>';
+    trashHTML+='<div class="trash-item-meta">'+item.loc+'</div>';
+    trashHTML+='<div class="trash-countdown">'+label+' remaining before permanent deletion</div>';
+    trashHTML+='</div>';
+    trashHTML+='<button class="trash-restore" onclick="restoreListing('+item.id+')">Restore</button>';
+    trashHTML+='<button class="trash-perm-delete" onclick="permanentlyDelete('+item.id+')">Delete Forever</button>';
+    trashHTML+='</div>';
+  }
+  list.innerHTML=trashHTML;
+}
+
+function updateTrashBadge(){
+  var b=document.getElementById('trash-badge');
+  if(!b)return;
+  b.textContent=trashItems.length;
+  b.style.display=trashItems.length>0?'inline-flex':'none';
+}
+
+function restoreListing(id){
+  var item=null;
+  for(var i=0;i<trashItems.length;i++) if(trashItems[i].id===id){item=trashItems[i];break;}
+  if(!item)return;
+  clearTimeout(item.timeoutId);
+  var newArr=[];
+  for(var i=0;i<trashItems.length;i++) if(trashItems[i].id!==id) newArr.push(trashItems[i]);
+  trashItems=newArr;
+  renderTrash();
+  updateTrashBadge();
+  // Rebuild the row and add back to listings table
+  var table=document.querySelector('#tab-listings .data-table');
+  if(table){
+    var title=item.title;
+    var loc=item.loc;
+    var row=document.createElement('div');
+    row.className='lt-row';
+    // Info cell
+    var info=document.createElement('div');
+    info.className='lt-info';
+    info.innerHTML='<div class="lt-img"></div><div><div class="lt-title">'+title+'</div><div class="lt-loc">'+loc+'</div></div>';
+    row.appendChild(info);
+    // Type cell
+    var tdType=document.createElement('div');
+    tdType.className='td';
+    tdType.textContent='Listing';
+    row.appendChild(tdType);
+    // Price cell
+    var tdPrice=document.createElement('div');
+    tdPrice.className='td';
+    tdPrice.style.fontWeight='700';
+    tdPrice.textContent='-';
+    row.appendChild(tdPrice);
+    // Status cell
+    var tdStatus=document.createElement('div');
+    tdStatus.className='td';
+    tdStatus.innerHTML='<span class="ls ls-active">&#9679; Active</span>';
+    row.appendChild(tdStatus);
+    // Actions cell
+    var actions=document.createElement('div');
+    actions.className='action-dots';
+    // Edit btn
+    var editBtn=document.createElement('button');
+    editBtn.className='dot-btn';
+    editBtn.innerHTML='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Edit';
+    editBtn.onclick=function(){editListing(title);};
+    actions.appendChild(editBtn);
+    // Pause btn
+    var pauseBtn=document.createElement('button');
+    pauseBtn.className='dot-btn pause-btn';
+    pauseBtn.innerHTML=PAUSE_ICON+' Pause';
+    pauseBtn.onclick=function(){pauseListing(pauseBtn,title);};
+    actions.appendChild(pauseBtn);
+    // Delete btn
+    var delBtn=document.createElement('button');
+    delBtn.className='dot-btn del-btn';
+    delBtn.innerHTML='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg> Delete';
+    delBtn.onclick=function(){deleteListing(title,loc);};
+    actions.appendChild(delBtn);
+    row.appendChild(actions);
+    table.appendChild(row);
+    updateListingCount();
+  }
+  // Toast
+  var n=document.createElement('div');
+  n.style.cssText='position:fixed;top:80px;right:24px;background:#f0fdf4;border:1.5px solid #86efac;border-radius:12px;padding:12px 18px;font-size:13px;font-weight:700;color:#15803d;z-index:9999;box-shadow:0 4px 16px rgba(0,0,0,0.12);';
+  n.textContent='"'+item.title+'" restored to My Listings.';
+  document.body.appendChild(n);
+  setTimeout(function(){n.remove();},3000);
+}
+
+
+function permanentlyDelete(id){
+  var item=null;
+  for(var i=0;i<trashItems.length;i++) if(trashItems[i].id===id){item=trashItems[i];break;}
+  if(!item)return;
+  clearTimeout(item.timeoutId);
+  var newArr=[];
+  for(var i=0;i<trashItems.length;i++) if(trashItems[i].id!==id) newArr.push(trashItems[i]);
+  trashItems=newArr;
+  var el=document.getElementById('trash-item-'+id);
+  if(el){el.style.transition='opacity 0.3s';el.style.opacity='0';setTimeout(function(){renderTrash();},350);}
+  else renderTrash();
+  updateTrashBadge();
+}
+
+function emptyTrash(){
+  if(!trashItems.length)return;
+  if(!confirm('Permanently delete all '+trashItems.length+' item(s)? This cannot be undone.'))return;
+  for(var i=0;i<trashItems.length;i++) clearTimeout(trashItems[i].timeoutId);
+  trashItems=[];
+  renderTrash();
+  updateTrashBadge();
+}
+
+document.getElementById('del-modal').addEventListener('click',function(e){
+  if(e.target===this) closeDelModal();
+});
+document.querySelector('.del-modal').addEventListener('click',function(e){
+  e.stopPropagation();
+});
+
+function setInqFilter(btn){
+  var filters=document.querySelectorAll('.inq-filter');
+  for(var i=0;i<filters.length;i++) filters[i].classList.remove('active');
+  btn.classList.add('active');
+  var f=btn.getAttribute('data-filter')||'all';
+  var cards=document.querySelectorAll('.inq-card');
+  var visible=0;
+  cards.forEach(function(card){
+    var status=card.getAttribute('data-status')||'';
+    var via=card.getAttribute('data-via')||'';
+    var show=false;
+    if(f==='all') show=true;
+    else if(f==='new') show=status==='new';
+    else if(f==='replied') show=status==='replied';
+    else if(f==='closed') show=status==='closed';
+    else if(f==='whatsapp') show=via==='whatsapp';
+    else if(f==='platform') show=via==='platform';
+    card.style.display=show?'':'none';
+    if(show) visible++;
+  });
+  // No results message
+  var noInq=document.getElementById('no-inq-msg');
+  if(visible===0){
+    if(!noInq){
+      noInq=document.createElement('div');
+      noInq.id='no-inq-msg';
+      noInq.style.cssText='padding:40px;text-align:center;font-size:14px;color:var(--gray-light);font-weight:500;background:white;border-radius:14px;border:1px solid var(--border);';
+      noInq.textContent='No inquiries in this category.';
+      document.querySelector('.inq-filters').parentNode.appendChild(noInq);
+    }
+    noInq.style.display='';
+  } else {
+    if(noInq) noInq.style.display='none';
+  }
+}
+
+function markInquiry(btn,newStatus){
+  var card=btn.closest('.inq-card');
+  if(!card) return;
+  var pill=card.querySelector('.status-pill');
+  card.setAttribute('data-status',newStatus);
+  card.classList.remove('unread');
+  if(newStatus==='replied'){
+    if(pill){ pill.className='status-pill s-replied'; pill.textContent='Replied'; }
+    btn.textContent='Mark Closed';
+    btn.onclick=function(){markInquiry(btn,'closed');};
+  } else if(newStatus==='closed'){
+    if(pill){ pill.className='status-pill s-closed'; pill.textContent='Closed'; }
+    btn.textContent='Reopen';
+    btn.onclick=function(){markInquiry(btn,'replied');};
+  } else if(newStatus==='replied'){
+    if(pill){ pill.className='status-pill s-replied'; pill.textContent='Replied'; }
+  }
+}
+
+function openModal(){
+  document.getElementById('modal').classList.add('open');
+  updateNeighborhoods();
+renderTrash();
+updateListingCount();
+}
+
+function closeModal(){
+  document.getElementById('modal').classList.remove('open');
+  existingPhotos=[];
+  uploadedPhotos=0;
+  document.getElementById('ep-wrap').style.display='none';
+  document.getElementById('upload-text').textContent='Click to upload photos';
+  document.getElementById('photo-count').style.display='none';
+  document.getElementById('modal-title').textContent='+ Add New Listing';
+  document.getElementById('modal-submit').textContent='Publish Listing';
+  document.getElementById('val-banner').classList.remove('show');
+  document.getElementById('success-banner').classList.remove('show');
+  var errs=document.querySelectorAll('.field-error');
+  for(var i=0;i<errs.length;i++) errs[i].classList.remove('show');
+  var fields=['f-title','f-price','f-size','f-desc','f-photos-area'];
+  for(var i=0;i<fields.length;i++){var el=document.getElementById(fields[i]);if(el)el.classList.remove('error');}
+}
+
+document.getElementById('modal').addEventListener('click',function(e){if(e.target===this)closeModal();});
+
+function handlePhotos(input){
+  uploadedPhotos=input.files.length;
+  var c=document.getElementById('photo-count');
+  if(uploadedPhotos>0){
+    c.textContent=uploadedPhotos+' photo'+(uploadedPhotos>1?'s':'')+' selected';
+    c.style.display='block';
+    document.getElementById('f-photos-area').classList.remove('error');
+    document.getElementById('err-photos').classList.remove('show');
+  }
+}
+
+function markErr(fid,eid){
+  var f=document.getElementById(fid);if(f)f.classList.add('error');
+  var e=document.getElementById(eid);if(e)e.classList.add('show');
+}
+
+function submitListing(){
+  var fields=['f-title','f-price','f-size','f-desc','f-photos-area'];
+  for(var i=0;i<fields.length;i++){var el=document.getElementById(fields[i]);if(el)el.classList.remove('error');}
+  var errs=document.querySelectorAll('.field-error');
+  for(var i=0;i<errs.length;i++) errs[i].classList.remove('show');
+  document.getElementById('val-banner').classList.remove('show');
+  document.getElementById('success-banner').classList.remove('show');
+  var valid=true;
+  if(!document.getElementById('f-title').value.trim()){markErr('f-title','err-title');valid=false;}
+  var priceRaw=document.getElementById('f-price').value.replace(/,/g,'');
+  if(!priceRaw||parseInt(priceRaw)<=0||isNaN(parseInt(priceRaw))){markErr('f-price','err-price');valid=false;}
+  var size=document.getElementById('f-size').value;
+  if(!size||parseInt(size)<=0){markErr('f-size','err-size');valid=false;}
+  if(document.getElementById('f-desc').value.trim().length<30){markErr('f-desc','err-desc');valid=false;}
+  var kept=0;
+  for(var i=0;i<existingPhotos.length;i++) if(!existingPhotos[i].removed) kept++;
+  if(uploadedPhotos===0&&kept===0){markErr('f-photos-area','err-photos');valid=false;}
+  if(document.getElementById('bed-select').value==='custom'&&!document.getElementById('bed-custom').value.trim()){document.getElementById('bed-custom').classList.add('error');valid=false;}
+  if(document.getElementById('bath-select').value==='custom'&&!document.getElementById('bath-custom').value.trim()){document.getElementById('bath-custom').classList.add('error');valid=false;}
+  if(!valid){document.getElementById('val-banner').classList.add('show');document.querySelector('.modal-body').scrollTo({top:0,behavior:'smooth'});return;}
+  document.getElementById('success-banner').classList.add('show');
+  document.querySelector('.modal-body').scrollTo({top:0,behavior:'smooth'});
+  setTimeout(function(){closeModal();},2200);
+}
+
+var neighborhoods={
+  Douala:['Bonanjo','Bonapriso','Akwa','Makepe','Logpom','Deido','Bassa','Kotto','Ndokotti','Bonamoussadi'],
+  Yaounde:['Bastos','Nlongkak','Omnisport','Mvan','Biyem-Assi','Mendong','Nkoldongo','Essos','Centre Ville'],
+  Bafoussam:['Centre Ville','Banengo','Djeleng','Kamkop','Kouoptamo'],
+  Buea:['Molyko','Great Soppo','Bonduma','Mile 16','Clerks Quarter'],
+  Limbe:['Down Beach','New Town','Bota','Mile 4','Limbe Town'],
+  Bamenda:['Up Station','Commercial Avenue','Nkwen','Ntarikon','Mile 2']
+};
+
+function filterListings(){
+  var search=document.getElementById('listing-search').value.toLowerCase();
+  var type=document.getElementById('filter-type').value;
+  var status=document.getElementById('filter-status').value;
+  var rows=document.querySelectorAll('.lt-row');
+  var visible=0;
+  rows.forEach(function(row){
+    var title=row.querySelector('.lt-title');
+    var td=row.querySelectorAll('.td');
+    var rowType=td[0]?td[0].textContent.trim():'';
+    var rowStatus=row.querySelector('.ls')?row.querySelector('.ls').textContent.trim():'';
+    var matchSearch=!search||( title&&title.textContent.toLowerCase().includes(search));
+    var matchType=!type||rowType===type;
+    var matchStatus=!status||rowStatus.includes(status);
+    if(matchSearch&&matchType&&matchStatus){
+      row.style.display='';
+      visible++;
+    } else {
+      row.style.display='none';
+    }
+  });
+  // Show no-results message
+  var noResults=document.getElementById('no-results-row');
+  if(visible===0){
+    if(!noResults){
+      noResults=document.createElement('div');
+      noResults.id='no-results-row';
+      noResults.style.cssText='padding:32px;text-align:center;font-size:14px;color:var(--gray-light);font-weight:500;';
+      noResults.textContent='No listings match your filters.';
+      document.querySelector('.lt-head').parentNode.appendChild(noResults);
+    }
+    noResults.style.display='';
+  } else {
+    if(noResults) noResults.style.display='none';
+  }
+}
+
+function formatPrice(input){
+  // Strip everything except digits and one decimal point
+  var raw=input.value.replace(/[^0-9.]/g,'');
+  // Split on decimal
+  var parts=raw.split('.');
+  // Add commas to integer part
+  parts[0]=parts[0].replace(/\B(?=(\d{3})+(?!\d))/g,',');
+  // Max 2 decimal places
+  if(parts.length>1) parts[1]=parts[1].substring(0,2);
+  input.value=parts.join('.');
+}
+
+
+function showToast(msg, type) {
+  var n = document.createElement('div');
+  var bg = type === 'info' ? '#1e293b' : '#15803d';
+  n.style.cssText = 'position:fixed;top:80px;right:24px;background:' + bg + ';color:white;border-radius:12px;padding:12px 18px;font-size:13px;font-weight:600;z-index:9999;box-shadow:0 4px 16px rgba(0,0,0,0.2);max-width:320px;line-height:1.5;';
+  n.textContent = msg;
+  document.body.appendChild(n);
+  setTimeout(function(){n.style.transition='opacity 0.3s';n.style.opacity='0';setTimeout(function(){n.remove();},300);}, 3500);
+}
+
+function saveDraft() {
+  showToast('✓ Draft saved successfully.', 'success');
+}
+
+function updateListingCount(){
+  var count=document.querySelectorAll('.lt-row').length;
+  // Update sidebar badge
+  var badge=document.querySelector('.nav-badge.gold');
+  if(badge) badge.textContent=count;
+  // Update overview stat card
+  var statVal=document.querySelector('.stat-card.blue .stat-value');
+  if(statVal) statVal.textContent=count;
+}
+function updateNeighborhoods(){
+  var city=document.getElementById('modal-city').value;
+  var sel=document.getElementById('modal-neighborhood');
+  var list=neighborhoods[city]||neighborhoods['Douala'];
+  var html='';
+  for(var i=0;i<list.length;i++) html+='<option>'+list[i]+'</option>';
+  sel.innerHTML=html;
+}
+
+function toggleBedCustom(sel){
+  var c=document.getElementById('bed-custom');
+  c.style.display=sel.value==='custom'?'block':'none';
+  if(sel.value==='custom')c.focus();
+}
+
+function toggleBathCustom(sel){
+  var c=document.getElementById('bath-custom');
+  var h=document.getElementById('bath-hint');
+  var isHalf=sel.value.indexOf('.5')!==-1;
+  var isCustom=sel.value==='custom';
+  c.style.display=isCustom?'block':'none';
+  h.style.display=(isHalf||isCustom)?'block':'none';
+  if(isCustom)c.focus();
+}
+
+updateNeighborhoods();
+renderTrash();
+updateListingCount();
+
+function toggleSidebar(){
+  var sb=document.getElementById('sidebar');
+  var main=document.querySelector('.main');
+  sb.classList.toggle('collapsed');
+  main.classList.toggle('wide');
+}
+
+function filterAgencyReviews(stars) {
+  document.querySelectorAll('.review-item').forEach(function(el) {
+    if (!stars || el.getAttribute('data-stars') === stars) {
+      el.style.display = '';
+    } else {
+      el.style.display = 'none';
+    }
+  });
+}
+
+function replyToReview(btn) {
+  var card = btn.closest('.review-item');
+  if (card.querySelector('.reply-area')) return;
+  var wrap = document.createElement('div');
+  wrap.className = 'reply-area';
+  wrap.style.cssText = 'margin-top:14px;padding-top:14px;border-top:1px solid var(--border);';
+  wrap.innerHTML =
+    '<div style="font-size:12px;font-weight:700;color:var(--blue-deep);margin-bottom:8px;">Your Reply</div>' +
+    '<textarea style="width:100%;padding:10px;border:1.5px solid var(--border);border-radius:9px;font-size:13px;font-family:DM Sans,sans-serif;min-height:70px;outline:none;resize:vertical;" placeholder="Write a professional reply..."></textarea>' +
+    '<div style="display:flex;gap:8px;justify-content:flex-end;margin-top:8px;">' +
+      '<button onclick="cancelReply(this)" style="padding:7px 14px;background:var(--gray-bg);color:var(--gray-mid);border:1.5px solid var(--border);border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:DM Sans,sans-serif;">Cancel</button>' +
+      '<button onclick="publishReply(this)" style="padding:7px 14px;background:var(--blue-mid);color:white;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:DM Sans,sans-serif;">Post Reply</button>' +
+    '</div>';
+  card.appendChild(wrap);
+  btn.textContent = '↩ Replied';
+  btn.disabled = true;
+}
+
+function publishReply(btn) {
+  var ta = btn.closest('.reply-area').querySelector('textarea');
+  var text = ta.value.trim();
+  if (!text) return;
+  var replyDiv = document.createElement('div');
+  replyDiv.style.cssText = 'margin-top:14px;padding:12px 16px;background:var(--blue-tint);border-radius:10px;border-left:3px solid var(--blue-mid);';
+  replyDiv.innerHTML =
+    '<div style="font-size:12px;font-weight:700;color:var(--blue-deep);margin-bottom:4px;">Immo Prestige Douala (Agency Response)</div>' +
+    '<div style="font-size:13px;color:var(--gray-mid);line-height:1.6;">' + text + '</div>';
+  btn.closest('.reply-area').replaceWith(replyDiv);
+  showToast('✓ Reply posted successfully.', 'success');
+}
+
+function cancelReply(btn) { btn.closest(".reply-area").remove(); }
+
+function flagReview(btn) {
+  btn.textContent = '🚩 Flagged';
+  btn.style.background = 'var(--red-bg)';
+  btn.style.color = 'var(--red)';
+  btn.disabled = true;
+  showToast('Review flagged for moderation.', 'info');
+}
+
+
+var MQ = {
+  SESSION_KEY: 'mq_session',
+  clear: function() { sessionStorage.removeItem(MQ.SESSION_KEY); sessionStorage.removeItem('mq_user_type'); },
+  logout: function() { MQ.clear(); window.location.href = 'maisonquest-auth.html'; },
+  touch: function() {
+    try {
+      var raw = sessionStorage.getItem(MQ.SESSION_KEY);
+      if (!raw) return;
+      var s = JSON.parse(raw);
+      s.lastActive = Date.now();
+      sessionStorage.setItem(MQ.SESSION_KEY, JSON.stringify(s));
+    } catch(e) {}
+  }
+};
+
+function logOut() { MQ.logout(); }
+</script>
+<script id="mq-lang-script">
+(function() {
+  var LANG_KEY = 'mq_lang';
+
+  var FR = {
+    // NAV
+    'Apartments / Appartements': 'Appartements',
+    'Guest Houses': "Maisons d'hôtes",
+    'Land / Terrains': 'Terrains',
+    'Agencies / Agences': 'Agences',
+    'List a Property →': 'Publier une annonce →',
+    'Sign In': 'Se connecter',
+    // HERO
+    "🇨🇲 Cameroon's #1 Real Estate Platform \u00a0·\u00a0": '🇨🇲 Plateforme Immobilière N°1 au Cameroun \u00a0·\u00a0',
+    'Now Live': 'En ligne',
+    'Find Your Perfect': 'Trouvez Votre',
+    'Home in Cameroon': 'Maison au Cameroun',
+    'Browse verified apartments, guest houses, rooms and land from trusted real estate companies across Douala, Yaoundé and beyond.': "Parcourez des appartements, maisons d'hôtes, chambres et terrains vérifiés auprès d'agences de confiance à Douala, Yaoundé et au-delà.",
+    // SEARCH TABS
+    '🏢 Rent / Louer': '🏢 Louer',
+    '🏡 Guest House': "🏡 Maison d'hôtes",
+    '🌍 Buy Land / Acheter Terrain': '🌍 Acheter un Terrain',
+    // SEARCH FIELDS
+    'CITY / VILLE': 'VILLE',
+    'NEIGHBORHOOD / QUARTIER': 'QUARTIER',
+    'BUDGET RANGE': 'BUDGET',
+    'All Cities': 'Toutes les villes',
+    'All Areas': 'Tous les quartiers',
+    'All Budgets': 'Tous les budgets',
+    '🔍 Search': '🔍 Rechercher',
+    // STATS BAR
+    'Active Listings': 'Annonces actives',
+    'Partner Agencies': 'Agences partenaires',
+    'Cities Covered': 'Villes couvertes',
+    'Verified Companies': 'Entreprises vérifiées',
+    // HOMEPAGE SECTIONS
+    'Browse By Type': 'Parcourir par type',
+    "Find exactly what you're looking for": 'Trouvez exactement ce que vous cherchez',
+    'Apartments': 'Appartements',
+    'Rooms & Studios': 'Chambres & Studios',
+    'Land & Plots': 'Terrains & Parcelles',
+    'View all apartments →': 'Voir tous les appartements →',
+    'View all rooms →': 'Voir toutes les chambres →',
+    'View all guest houses →': "Voir toutes les maisons d'hôtes →",
+    'View all land →': 'Voir tous les terrains →',
+    'Featured Listings': 'Annonces vedettes',
+    'Verified properties from trusted agencies': 'Propriétés vérifiées par des agences de confiance',
+    'View All Listings →': 'Voir toutes les annonces →',
+    'Trusted Partner Agencies Across Cameroon': 'Agences Partenaires de Confiance au Cameroun',
+    'Trusted real estate companies on MaisonQuest': 'Agences immobilières de confiance sur MaisonQuest',
+    'View Agency Profile →': 'Voir le profil →',
+    'View All Agencies →': 'Voir toutes les agences →',
+    'Hand-Picked For You': 'Sélectionnés Pour Vous',
+    'How MaisonQuest Works': 'Comment fonctionne MaisonQuest',
+    'Simple Process': 'Processus Simple',
+    'Direct Communication': 'Communication Directe',
+    'Verified Agencies': 'Agences Vérifiées',
+    'Verified Listings': 'Annonces Vérifiées',
+    'Happy Renters': 'Locataires Satisfaits',
+    'Are You a Real Estate Agency?': 'Vous êtes une Agence Immobilière ?',
+    "Join MaisonQuest — it's free to get started": "Rejoignez MaisonQuest — c'est gratuit",
+    'List Your Properties →': 'Publier vos Biens →',
+    "Connect with verified agencies, browse thousands of listings, and secure your next home — all in one place.": "Connectez-vous avec des agences vérifiées, parcourez des milliers d'annonces et trouvez votre prochain logement — en un seul endroit.",
+    'Built for Cameroon 🇨🇲': 'Conçu pour le Cameroun 🇨🇲',
+    '© 2025 MaisonQuest. Cameroon 🇨🇲': '© 2025 MaisonQuest. Cameroun 🇨🇲',
+    // LISTING CARDS
+    'View Details': 'Voir détails',
+    'New': 'Nouveau',
+    'Active': 'Actif',
+    'Paused': 'En pause',
+    'Expired': 'Expiré',
+    'Published': 'Publié',
+    '/ month': '/ mois',
+    'CFA/mo': 'CFA/mois',
+    '← Back to Home': '← Retour à l\'accueil',
+    '← Back': '← Retour',
+    // LISTINGS PAGE
+    'Find Your Next Home': 'Trouvez Votre Prochain Logement',
+    'What Are You': 'Que cherchez-vous',
+    "Looking For?": 'à louer ou acheter ?',
+    'Filters': 'Filtres',
+    '🎛 Filters': '🎛 Filtres',
+    'Property Type': 'Type de bien',
+    'Budget Range': 'Fourchette de prix',
+    'Bedrooms': 'Chambres',
+    'Bathrooms': 'Salles de bain',
+    'Any': 'Indifférent',
+    'Apply Filters': 'Appliquer',
+    'Reset': 'Réinitialiser',
+    'Sort: Newest First': 'Trier : Plus récents',
+    'Most Recent': 'Plus récents',
+    'Most Relevant': 'Plus pertinents',
+    'Price: Low to High': 'Prix croissant',
+    'Price: High to Low': 'Prix décroissant',
+    'Most Popular': 'Plus populaires',
+    'Highest Rated': 'Mieux notés',
+    'Lowest Rated': 'Moins bien notés',
+    'Newest First': 'Plus récents',
+    'listings found': 'annonces trouvées',
+    'Load More Listings': 'Charger plus d\'annonces',
+    'No properties found': 'Aucune annonce trouvée',
+    'Try adjusting your filters or expanding your budget range.': 'Essayez de modifier vos filtres ou d\'élargir votre budget.',
+    '✕ Clear': '✕ Effacer',
+    'Clear all': 'Tout effacer',
+    'All Types': 'Tous les types',
+    'All Status': 'Tous les statuts',
+    'All Ratings': 'Toutes les notes',
+    // LISTING DETAIL
+    'About this Property': 'À propos de ce bien',
+    'Property Details': 'Détails du bien',
+    'Rental Details': 'Détails de location',
+    'Amenities & Features': 'Équipements & caractéristiques',
+    'Location': 'Localisation',
+    'Similar Properties in Douala': 'Propriétés similaires à Douala',
+    'View all listings →': 'Voir toutes les annonces →',
+    'Save Listing': 'Sauvegarder',
+    'Share': 'Partager',
+    'Contact': 'Contacter',
+    '📞 Call Agency': '📞 Appeler l\'agence',
+    'WhatsApp Agency': 'WhatsApp Agence',
+    'Contact via WhatsApp': 'Contacter via WhatsApp',
+    'Message on WhatsApp': 'Message WhatsApp',
+    'Send Inquiry': 'Envoyer une demande',
+    '✉️ Send Message': '✉️ Envoyer un message',
+    'View Profile': 'Voir le profil',
+    'View Agency Details': 'Voir l\'agence',
+    'View all listings from this agency →': 'Voir toutes les annonces de cette agence →',
+    'per month': 'par mois',
+    'For Sale': 'À vendre',
+    'For Rent': 'À louer',
+    'Floor Area': 'Surface',
+    'Floor': 'Étage',
+    'Minimum Lease': 'Durée minimale',
+    'Available From': 'Disponible à partir du',
+    'Security Deposit': 'Caution',
+    'Listing For': 'Type de location',
+    'Move In': 'Emménagement',
+    'Furnished': 'Meublé',
+    '🪑 Furnished': '🪑 Meublé',
+    '⚠️ Safety Reminder': '⚠️ Rappel de sécurité',
+    'Never pay before visiting the property.': 'Ne payez jamais avant d\'avoir visité le bien.',
+    '🛡️ Always contact through MaisonQuest.': '🛡️ Contactez toujours via MaisonQuest.',
+    // AGENCY PROFILE
+    'Listings': 'Annonces',
+    'Reviews': 'Avis',
+    'About': 'À propos',
+    'ℹ️ About': 'ℹ️ À propos',
+    '⭐ Reviews': '⭐ Avis',
+    '✏️ Write a Review': '✏️ Laisser un avis',
+    '✏️ Write Review': '✏️ Laisser un avis',
+    'Write a Review': 'Laisser un avis',
+    'Verified Agency': 'Agence vérifiée',
+    '✅ Verified Agency': '✅ Agence vérifiée',
+    'Response Rate': 'Taux de réponse',
+    'Response rate': 'Taux de réponse',
+    'Response Time': 'Délai de réponse',
+    'Avg. response time': 'Délai de réponse moyen',
+    'Usually within 2 hours': 'Généralement en moins de 2 heures',
+    'Active listings': 'Annonces actives',
+    'Active Listings →': 'Annonces actives →',
+    'Deals Closed': 'Ventes conclues',
+    'Deals closed': 'Ventes conclues',
+    'Member since': 'Membre depuis',
+    'Office Hours': 'Heures de bureau',
+    'Office Address': 'Adresse du bureau',
+    'Languages': 'Langues',
+    'Speciality': 'Spécialité',
+    'Areas Covered': 'Zones couvertes',
+    'Founded': 'Fondée en',
+    'License Number': 'Numéro de licence',
+    '🔔 Follow Agency': '🔔 Suivre l\'agence',
+    'Showing 3 of 38 reviews': 'Affichage de 3 avis sur 38',
+    'Verified Renter': 'Locataire vérifié',
+    '👍 Helpful': '👍 Utile',
+    '🚩 Flag': '🚩 Signaler',
+    '🚩 Flagged': '🚩 Signalé',
+    'Read more ↓': 'Lire la suite ↓',
+    'Overall Rating': 'Note globale',
+    'Recommend Rate': 'Taux de recommandation',
+    'Share your experience with Immo Prestige Douala': 'Partagez votre expérience avec Immo Prestige Douala',
+    'Submit Review': 'Soumettre l\'avis',
+    'Your Review': 'Votre avis',
+    'Which listing did you inquire about? (optional)': 'Pour quelle annonce ? (facultatif)',
+    '— Select a listing —': '— Sélectionner une annonce —',
+    'Cancel': 'Annuler',
+    // AUTH PAGE
+    'Welcome back': 'Bon retour',
+    'Sign in to your MaisonQuest account': 'Connectez-vous à votre compte MaisonQuest',
+    'Create your account': 'Créer votre compte',
+    'Email Address': 'Adresse e-mail',
+    'Email address': 'Adresse e-mail',
+    'Email': 'E-mail',
+    'Password': 'Mot de passe',
+    'Forgot password?': 'Mot de passe oublié ?',
+    "Don't have an account?": 'Pas encore de compte ?',
+    'Already have an account?': 'Déjà un compte ?',
+    'Sign Up': "S'inscrire",
+    'Sign in': 'Se connecter',
+    'Create Account': 'Créer un compte',
+    'Create one free': 'Créer un compte gratuit',
+    'Renter': 'Locataire',
+    'Agency / Agence': 'Agence',
+    'I am a...': 'Je suis...',
+    'First Name': 'Prénom',
+    'Last Name': 'Nom',
+    'Agency Name': 'Nom de l\'agence',
+    'Phone Number': 'Numéro de téléphone',
+    'By creating an account you agree to our': 'En créant un compte, vous acceptez nos',
+    'Terms of Service': 'Conditions d\'utilisation',
+    'Privacy Policy': 'Politique de confidentialité',
+    'and': 'et',
+    'Reset password': 'Réinitialiser le mot de passe',
+    'Back to Sign In': 'Retour à la connexion',
+    "Enter your email and we'll send a reset link": 'Entrez votre e-mail et nous vous enverrons un lien',
+    'Send Reset Link': 'Envoyer le lien',
+    'Looking for a home': 'Cherche un logement',
+    'Renter account': 'Compte locataire',
+    // DASHBOARD COMMON
+    'Dashboard': 'Tableau de bord',
+    'Overview': 'Aperçu',
+    'My Listings': 'Mes annonces',
+    'Inquiries': 'Demandes',
+    'Analytics': 'Statistiques',
+    'Settings': 'Paramètres',
+    'Log Out': 'Se déconnecter',
+    'Sign Out': 'Se déconnecter',
+    '+ Add Listing': '+ Ajouter une annonce',
+    '+ Add New Listing': '+ Nouvelle annonce',
+    'Dashboard Overview': 'Aperçu du tableau de bord',
+    'Recent Activity': 'Activité récente',
+    'Recent Inquiries': 'Demandes récentes',
+    'Listing Views': 'Vues des annonces',
+    'Agency Stats': 'Statistiques de l\'agence',
+    'Top Performing Listings': 'Meilleures annonces',
+    // AGENCY DASHBOARD STATS
+    'Total Views (30 days) →': 'Vues totales (30 jours) →',
+    'Inquiries This Month →': 'Demandes ce mois →',
+    'WhatsApp Taps (30 days) →': 'Contacts WhatsApp (30 jours) →',
+    'Active Listings →': 'Annonces actives →',
+    // LISTING MANAGEMENT
+    'Edit': 'Modifier',
+    '✏️ Edit': '✏️ Modifier',
+    'Delete': 'Supprimer',
+    '🗑 Delete': '🗑 Supprimer',
+    'Pause': 'Mettre en pause',
+    'Resume': 'Reprendre',
+    'Publish Listing': 'Publier l\'annonce',
+    'Save as Draft': 'Enregistrer en brouillon',
+    'Save Changes': 'Enregistrer les modifications',
+    'Save': 'Enregistrer',
+    'Add Listing': 'Ajouter une annonce',
+    'Listing Title': 'Titre de l\'annonce',
+    'Property Title': 'Titre du bien',
+    'Description': 'Description',
+    'Price (CFA)': 'Prix (CFA)',
+    'Property Type': 'Type de bien',
+    'City': 'Ville',
+    'Neighborhood': 'Quartier',
+    'Size (m2)': 'Surface (m²)',
+    'Photos': 'Photos',
+    'Mark Closed': 'Marquer comme conclu',
+    'Mark as Replied': 'Marquer comme répondu',
+    'Follow Up': 'Relancer',
+    'Reply on WhatsApp': 'Répondre sur WhatsApp',
+    'Delete Listing?': 'Supprimer l\'annonce ?',
+    'Yes, Move to Trash': 'Oui, mettre à la corbeille',
+    'Cancel - Keep Listing': 'Annuler - Conserver',
+    'Trash': 'Corbeille',
+    'Empty Trash': 'Vider la corbeille',
+    // INQUIRIES
+    'Awaiting reply': 'En attente de réponse',
+    'Replied': 'Répondu',
+    'Closed': 'Fermé',
+    'New': 'Nouveau',
+    'Actions': 'Actions',
+    'Date': 'Date',
+    'Status': 'Statut',
+    'Type': 'Type',
+    'Via': 'Via',
+    'On Platform': 'Sur la plateforme',
+    'On MaisonQuest': 'Sur MaisonQuest',
+    // MESSAGES
+    'Messages': 'Messages',
+    'Conversations': 'Conversations',
+    'Unread Messages': 'Messages non lus',
+    '↩ Reply': '↩ Répondre',
+    // ANALYTICS
+    'Monthly Performance': 'Performance mensuelle',
+    'Click any month to see per-listing breakdown': 'Cliquez sur un mois pour voir le détail par annonce',
+    'All Listings — Performance Overview': 'Toutes les annonces — Aperçu des performances',
+    'Sorted by views': 'Trié par vues',
+    'Listing Performance Breakdown': 'Détail de performance par annonce',
+    '📊 Most Viewed': '📊 Plus vues',
+    '🏆 Best Converting': '🏆 Meilleures conversions',
+    '⚠️ Needs Attention': '⚠️ À améliorer',
+    'Views': 'Vues',
+    'WA Taps': 'Contacts WA',
+    'WA taps': 'Contacts WA',
+    'Conv. Rate': 'Taux de conv.',
+    'Health': 'Santé',
+    'Trend': 'Tendance',
+    'Reach Bar': 'Portée',
+    'VIEWS': 'VUES',
+    'INQUIRIES': 'DEMANDES',
+    'WHATSAPP': 'WHATSAPP',
+    'CONVERSION': 'CONVERSION',
+    '↗ Export Report': '↗ Exporter',
+    // SETTINGS
+    'Agency Information': 'Informations de l\'agence',
+    'Password & Security': 'Mot de passe & sécurité',
+    'Change Password': 'Changer le mot de passe',
+    'Current Password': 'Mot de passe actuel',
+    'New Password': 'Nouveau mot de passe',
+    'Confirm New Password': 'Confirmer le nouveau mot de passe',
+    'Update Password': 'Mettre à jour le mot de passe',
+    'Update your password. We recommend using a strong, unique password.': 'Mettez à jour votre mot de passe. Utilisez un mot de passe fort et unique.',
+    'Notification Preferences': 'Préférences de notifications',
+    'Notifications': 'Notifications',
+    'New Inquiry Received': 'Nouvelle demande reçue',
+    'New Review Posted': 'Nouvel avis publié',
+    'Weekly Performance Summary': 'Résumé hebdomadaire des performances',
+    'Listing Insight Tips': 'Conseils d\'optimisation',
+    'Monthly Drill-down Insights': 'Analyse mensuelle détaillée',
+    'Danger Zone': 'Zone de danger',
+    'Export My Data': 'Exporter mes données',
+    'Delete Account': 'Supprimer le compte',
+    'Delete My Account': 'Supprimer mon compte',
+    'Subscription': 'Abonnement',
+    'Current Plan': 'Forfait actuel',
+    'Upgrade to Elite': 'Passer à Elite',
+    'Downgrade': 'Rétrograder',
+    'Renew': 'Renouveler',
+    // RENTER DASHBOARD
+    'My Inquiries': 'Mes demandes',
+    'Saved Listings': 'Annonces sauvegardées',
+    'My Reviews': 'Mes avis',
+    'Personal Information': 'Informations personnelles',
+    'Inquiries Sent': 'Demandes envoyées',
+    'Replies Received': 'Réponses reçues',
+    'Agencies contacted →': 'Agences contactées →',
+    'Agencies responded →': 'Agences ayant répondu →',
+    'Your Saved Listings': 'Vos annonces sauvegardées',
+    "Agencies You Haven't Reviewed Yet": 'Agences que vous n\'avez pas encore évaluées',
+    'Properties you love →': 'Vos biens favoris →',
+    'Price changes or status updates on saved listings': 'Changements de prix ou de statut des annonces sauvegardées',
+    'New listings in your area': 'Nouvelles annonces dans votre zone',
+    'New messages': 'Nouveaux messages',
+    'Account': 'Compte',
+    'Phone': 'Téléphone',
+    'Remove': 'Retirer',
+    '+ Find a Home': '+ Trouver un logement',
+    '🏠 Listings': '🏠 Annonces',
+    // NAV DROPDOWN
+    'Public Profile': 'Profil public',
+    'Account Settings': 'Paramètres du compte',
+    // MISC
+    'Learn More': 'En savoir plus',
+    'See all →': 'Voir tout →',
+    'Back': 'Retour',
+    'Menu': 'Menu',
+    'Home': 'Accueil',
+    'Search Listings': 'Rechercher des annonces',
+    '🔍 Update': '🔍 Mettre à jour',
+    'Loading...': 'Chargement...',
+    'Report': 'Signaler',
+    'Required': 'Requis',
+    'for': 'pour',
+      'Overview': 'Aperçu',
+      'Dashboard Overview': 'Aperçu général',
+      'Total Inquiries (All Time)': 'Total demandes (tout temps)',
+      'Total Views (All Time)': 'Total vues (tout temps)',
+      'WhatsApp Taps (All Time)': 'Contacts WhatsApp (tout temps)',
+      "Listing Boosts": "Boosts d'annonces",
+      'Inquiry Management': 'Gestion des demandes',
+      'Inquiry Sources': 'Sources des demandes',
+      'How renters contact you': 'Comment les locataires vous contactent',
+      'Daily views across all listings': 'Vues quotidiennes sur toutes les annonces',
+      'Views, clicks, WhatsApp taps': 'Vues, clics, contacts WhatsApp',
+      'Showing your most viewed listings first': 'Vos annonces les plus vues en premier',
+      'Click to upload photos': 'Cliquer pour ajouter des photos',
+      'JPG, PNG - up to 10 photos, 5MB each': 'JPG, PNG — max 10 photos, 5 Mo chacune',
+      'Current Photos - click x to remove': 'Photos actuelles — cliquer × pour supprimer',
+      'Removed photos will be deleted when you save.': 'Les photos supprimées seront effacées à la sauvegarde.',
+      'Rent / Monthly': 'Location / Mensuel',
+      'Short Stay': 'Courte durée',
+      'Sale': 'Vente',
+      'Both': 'Les deux',
+      'Room / Studio': 'Chambre / Studio',
+      'Room/Studio': 'Chambre/Studio',
+      'Land': 'Terrain',
+      'Apartment': 'Appartement',
+      'Studio': 'Studio',
+      'Rooms': 'Chambres',
+      'Floor': 'Étage',
+      'Main': 'Principal',
+      '/ 500 characters': '/ 500 caractères',
+      'Half bath = toilet only, no shower/tub': 'Demi-bain = toilettes uniquement',
+      'This listing will be moved to Trash': 'Cette annonce sera déplacée dans la corbeille',
+      'The listing will be kept in your': "L'annonce sera conservée dans votre",
+      ', after which it is permanently deleted. You can restore it any time before then.': ', puis supprimée définitivement.',
+      'Deleted listings are kept here for 30 days before permanent deletion.': 'Annonces conservées 30 jours avant suppression définitive.',
+      'These actions are permanent and cannot be undone': 'Ces actions sont permanentes et irréversibles',
+      'Awaiting your reply →': 'En attente de votre réponse →',
+      'Replied (28)': 'Répondu (28)',
+      'Closed (5)': 'Fermé (5)',
+      'New (5)': 'Nouveau (5)',
+      'All (38)': 'Tous (38)',
+      'All (47)': 'Tous (47)',
+      'Yesterday': 'Hier',
+      'Yesterday ›': 'Hier ›',
+      'Yesterday at 3:45pm': 'Hier à 15h45',
+      "Today, 7:02am": "Aujourd'hui, 7h02",
+      "Today, 9:14am": "Aujourd'hui, 9h14",
+      "Today at 7:02am": "Aujourd'hui à 7h02",
+      "Today at 9:14am": "Aujourd'hui à 9h14",
+      '2 hours ago': 'Il y a 2 heures',
+      '3 days ago': 'Il y a 3 jours',
+      '3 days ago ›': 'Il y a 3 j ›',
+      'Starter': 'Débutant',
+      'Elite': 'Élite',
+      'Free': 'Gratuit',
+      'Compare Plans': 'Comparer les forfaits',
+      'Basic profile page': 'Page de profil basique',
+      'Up to 5 listings': "Jusqu'à 5 annonces",
+      'No cap on active properties': "Aucune limite d'annonces actives",
+      'Unlimited Listings': 'Annonces illimitées',
+      'Unlimited listings': 'Annonces illimitées',
+      'Featured Placement': 'Mise en avant',
+      'Featured placement': 'Mise en avant',
+      'Homepage feature slot': "Emplacement page d'accueil",
+      'Priority in search results': 'Priorité dans les résultats',
+      'Priority support': 'Support prioritaire',
+      'Full Analytics': 'Statistiques complètes',
+      'Full analytics': 'Statistiques complètes',
+      'Full inbox with reply tracking': 'Boîte de réception avec suivi',
+      'Account manager': 'Gestionnaire de compte',
+      'Trust signal on your profile': 'Signal de confiance sur votre profil',
+      'Verified Badge': 'Badge vérifié',
+      'Verified badge': 'Badge vérifié',
+      '2 free boosts per month': '2 boosts gratuits par mois',
+      '2 free boosts/month': '2 boosts gratuits/mois',
+      '5 free boosts/month': '5 boosts gratuits/mois',
+      'Everything in Pro': 'Tout inclus dans Pro',
+      'Platform': 'Plateforme',
+      'WhatsApp button': 'Bouton WhatsApp',
+      'Top-tier listing visibility on MaisonQuest': 'Visibilité maximale sur MaisonQuest',
+      'Contact Information': 'Coordonnées',
+      'Forgot your current password?': 'Mot de passe actuel oublié ?',
+      'Reset via email →': 'Réinitialiser par e-mail →',
+      'Choose what alerts you receive': 'Choisissez vos alertes',
+      'Control what appears in your Analytics tab': "Contrôlez l'onglet Statistiques",
+      'A weekly digest of your views, inquiries and top listings': 'Résumé hebdomadaire vues, demandes et meilleures annonces',
+      'Get notified when a renter sends an inquiry': 'Notifié quand un locataire envoie une demande',
+      'Get notified when a renter leaves a review': 'Notifié quand un locataire laisse un avis',
+      'Permanently delete your account and all saved data. This cannot be undone.': 'Supprimer définitivement votre compte et données. Irréversible.',
+      'Download a copy of all your data including saved listings and messages.': 'Télécharger vos données incluant annonces et messages.',
+      'Request Export': "Demander l'export",
+      'Welcome back, Jean': 'Bon retour, Jean',
+      'Welcome to MaisonQuest!': 'Bienvenue sur MaisonQuest !',
+      'Account created successfully': 'Compte créé avec succès',
+      'You sent an inquiry': 'Vous avez envoyé une demande',
+      'You saved a new listing': 'Vous avez sauvegardé une annonce',
+      'Immo Prestige replied to your inquiry': 'Immo Prestige a répondu à votre demande',
+      "Agencies You Haven't Reviewed Yet": "Agences non encore évaluées",
+      'Get notified when an agency replies': "Notifié quand une agence répond",
+      'New listings in your area': 'Nouvelles annonces dans votre zone',
+      '(2 written)': '(2 rédigés)',
+      '(3 properties)': '(3 biens)',
+      '(4 sent)': '(4 envoyées)',
+      'LISTINGS': 'ANNONCES',
+      'Listing': 'Annonce',
+      'Property': 'Bien',
+      'Price': 'Prix',
+      'Listing updates': "Mises à jour des annonces",
+      'MaisonQuest newsletters': 'Newsletters MaisonQuest',
+      'Tips, guides and platform updates': 'Conseils, guides et mises à jour',
+      'View →': 'Voir →',
+      'View Listing': "Voir l'annonce",
+      'View Public Profile': 'Voir le profil public',
+      '✕ Close': '✕ Fermer',
+      'Helpful': 'Utile',
+      'New Inquiry Received': 'Nouvelle demande reçue',
+      'New Review Posted': 'Nouvel avis publié',
+      'Weekly Performance Summary': 'Résumé hebdomadaire des performances',
+      'Weekly digest of new properties in Douala': 'Résumé hebdomadaire nouvelles annonces',
+      'New messages': 'Nouveaux messages',
+      'CFA / month': 'CFA / mois',
+      'Mon–Sat, 8am – 6pm': 'Lun–Sam, 8h – 18h',
+      'French, English': 'Français, Anglais',
+      'Residential Rentals & Land': 'Locations résidentielles & terrains',
+      '30 days': '30 jours',
+      'Show actionable tips under each listing in the performance table — what to improve, boost, or highlight': "Afficher des conseils d'optimisation sous chaque annonce",
+      'Show the 💡 insight callout when you click a month on the chart': 'Afficher le conseil 💡 lors du clic sur un mois',
+      '3 yrs': '3 ans',
+      'Pro Agency — Verified Partner': 'Agence Pro — Partenaire Vérifié',
+      '38 reviews': '38 avis',
+      'Showing 3 of 38 reviews': '3 avis sur 38',
+      'About Immo Prestige Douala': "À propos d'Immo Prestige Douala",
+      'Listing Performance Breakdown': 'Détail de performance par annonce',
+      'All Listings — Performance Overview': 'Toutes les annonces — Aperçu',
+    'total': 'total',
+  };
+
+  // Build reverse FR→EN map
+  var EN = {};
+  for (var k in FR) { EN[FR[k]] = k; }
+
+  function applyLang(lang) {
+    var dict = lang === 'FR' ? FR : EN;
+    function walk(node) {
+      if (node.nodeType === 3) {
+        var t = node.textContent.trim();
+        if (t && dict[t] !== undefined) {
+          node.textContent = node.textContent.replace(t, dict[t]);
+        }
+      } else if (node.nodeType === 1) {
+        var tag = node.tagName;
+        if (tag === 'SCRIPT' || tag === 'STYLE' || tag === 'NOSCRIPT' || tag === 'TEXTAREA') return;
+        // Translate placeholder and title attributes
+        if (node.placeholder && dict[node.placeholder]) node.placeholder = dict[node.placeholder];
+        if (node.title && dict[node.title]) node.title = dict[node.title];
+        for (var i = 0; i < node.childNodes.length; i++) walk(node.childNodes[i]);
+      }
+    }
+    walk(document.body);
+    // Update lang buttons
+    document.querySelectorAll('.lang-btn').forEach(function(b) {
+      b.classList.toggle('active', b.textContent.trim() === lang);
+    });
+  }
+
+  function setLang(lang) {
+    sessionStorage.setItem('mq_lang', lang);
+    if (lang === 'FR') {
+      applyLang('FR');
+      // Re-render the nav dropdown in French
+      if (window.MQ && MQ.initNav) MQ.initNav();
+    } else {
+      window.location.reload();
+    }
+    document.querySelectorAll('.lang-btn').forEach(function(b) {
+      b.classList.toggle('active', b.textContent.trim() === lang);
+    });
+  }
+
+  function init() {
+    // Wire buttons
+    document.querySelectorAll('.lang-btn').forEach(function(btn) {
+      btn.onclick = function() { setLang(btn.textContent.trim()); };
+    });
+    // Apply saved lang
+    var saved = sessionStorage.getItem('mq_lang') || 'EN';
+    if (saved === 'FR') applyLang('FR');
+    document.querySelectorAll('.lang-btn').forEach(function(b) {
+      b.classList.toggle('active', b.textContent.trim() === saved);
+    });
+  }
+
+  // Expose globally so nav rebuild after dropdown open can re-translate
+  window.MQLang = { setLang: setLang, applyLang: applyLang, init: init };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() { setTimeout(init, 80); });
+  } else {
+    setTimeout(init, 80);
+  }
+})();
+</script>
+
+
+<!-- PRIVACY / TERMS MODAL -->
+<div id="policy-modal-overlay" style="display:none;position:fixed;inset:0;background:rgba(10,36,99,0.55);z-index:99999;align-items:center;justify-content:center;padding:20px;" onclick="closePolicyModal()">
+  <div style="background:white;border-radius:20px;max-width:680px;width:100%;max-height:80vh;overflow:hidden;display:flex;flex-direction:column;" onclick="event.stopPropagation()">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:24px 28px;border-bottom:1px solid #E2E8F0;">
+      <h2 id="policy-modal-title" style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#0A2463;"></h2>
+      <button onclick="closePolicyModal()" style="background:none;border:none;font-size:22px;cursor:pointer;color:#A0AEC0;line-height:1;">&#10005;</button>
+    </div>
+    <div id="policy-modal-body" style="padding:28px;overflow-y:auto;font-size:14px;line-height:1.8;color:#4A5568;"></div>
+  </div>
+</div>
+<script>
+var PRIVACY_CONTENT = '<h3 style="color:#0A2463;font-size:16px;font-weight:700;margin:0 0 12px;">1. Information We Collect</h3><p>MaisonQuest collects information you provide when creating an account (name, email, phone), when submitting inquiries, and when interacting with listings. We also collect basic usage data such as pages visited and search filters used.</p><br><h3 style="color:#0A2463;font-size:16px;font-weight:700;margin:0 0 12px;">2. How We Use Your Information</h3><p>Your information is used to provide and improve the MaisonQuest service, connect you with verified agencies, send relevant notifications, and ensure platform security. We do not sell your personal data to third parties.</p><br><h3 style="color:#0A2463;font-size:16px;font-weight:700;margin:0 0 12px;">3. Data Sharing</h3><p>We share your contact information with agencies only when you initiate an inquiry or send a message. Agency partners are contractually obligated to keep your data confidential.</p><br><h3 style="color:#0A2463;font-size:16px;font-weight:700;margin:0 0 12px;">4. Cookies</h3><p>MaisonQuest uses session storage to remember your language and currency preferences. We do not use third-party tracking cookies.</p><br><h3 style="color:#0A2463;font-size:16px;font-weight:700;margin:0 0 12px;">5. Your Rights</h3><p>You may request access to, correction of, or deletion of your personal data at any time by contacting us at privacy@maisonquest.cm. We will respond within 30 days.</p><br><h3 style="color:#0A2463;font-size:16px;font-weight:700;margin:0 0 12px;">6. Updates</h3><p>This policy may be updated periodically. Continued use of MaisonQuest after changes constitutes acceptance of the updated policy. Last updated: January 2026.</p>';
+var TERMS_CONTENT = '<h3 style="color:#0A2463;font-size:16px;font-weight:700;margin:0 0 12px;">1. Acceptance of Terms</h3><p>By using MaisonQuest, you agree to these Terms of Service. These terms apply to all users — renters, agencies, and visitors.</p><br><h3 style="color:#0A2463;font-size:16px;font-weight:700;margin:0 0 12px;">2. Platform Purpose</h3><p>MaisonQuest is a property listing marketplace connecting renters with verified real estate agencies in Cameroon. We do not participate in transactions, collect payments, or act as a party to any rental agreement.</p><br><h3 style="color:#0A2463;font-size:16px;font-weight:700;margin:0 0 12px;">3. Agency Responsibilities</h3><p>Agencies are responsible for the accuracy of their listings. Fraudulent listings will result in immediate account suspension.</p><br><h3 style="color:#0A2463;font-size:16px;font-weight:700;margin:0 0 12px;">4. Renter Responsibilities</h3><p>Renters agree to use the platform in good faith. Abuse of the messaging system or harassment of agencies is prohibited.</p><br><h3 style="color:#0A2463;font-size:16px;font-weight:700;margin:0 0 12px;">5. Safety</h3><p>Never transfer money before physically visiting a property and signing a lease. Report suspicious listings using the flag feature.</p><br><h3 style="color:#0A2463;font-size:16px;font-weight:700;margin:0 0 12px;">6. Reviews</h3><p>Reviews must be honest and based on real experiences. Fake reviews are prohibited and will be removed.</p><br><h3 style="color:#0A2463;font-size:16px;font-weight:700;margin:0 0 12px;">7. Limitation of Liability</h3><p>MaisonQuest is not liable for disputes between renters and agencies, or for any loss from transactions outside our platform.</p><br><h3 style="color:#0A2463;font-size:16px;font-weight:700;margin:0 0 12px;">8. Changes</h3><p>Terms may be updated at any time. Last updated: January 2026.</p>';
+function openPolicyModal(type) {
+  var o = document.getElementById('policy-modal-overlay');
+  document.getElementById('policy-modal-title').textContent = type==='privacy' ? 'Privacy Policy' : 'Terms of Service';
+  document.getElementById('policy-modal-body').innerHTML = type==='privacy' ? PRIVACY_CONTENT : TERMS_CONTENT;
+  o.style.display='flex'; document.body.style.overflow='hidden';
+}
+function closePolicyModal() {
+  document.getElementById('policy-modal-overlay').style.display='none';
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown', function(e){ if(e.key==='Escape') closePolicyModal(); });
+</script>
+</body>
+</html>
