@@ -1,5 +1,5 @@
 # 🏠 MaisonQuest
-A bilingual real estate marketplace connecting property seekers with verified agencies across Cameroon — bridging the gap between local listings and the global Cameroonian diaspora.
+A bilingual real estate marketplace connecting property seekers with verified agencies across Cameroon bridging the gap between local listings and the global Cameroonian diaspora.
 
 ## The Problem
 Finding housing or land in Cameroon currently means scrolling through fragmented WhatsApp broadcasts and Facebook groups with no central platform, no verification, and no guarantee the listing is legitimate. For Cameroonians abroad, the challenge is even greater: searching for property back home without being physically present leaves them especially vulnerable to fraud.
