@@ -192,8 +192,114 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .nav-user-menu-item.danger { color: #dc2626; }
 .nav-user-menu-item.danger:hover { background: #fef2f2; }
 .nav-user-menu-divider { height: 1px; background: var(--border, #E2E8F0); margin: 4px 0; }
+
+/* ============================================
+   MAISONQUEST — SHARED MOBILE STYLES
+   Injected into all pages before </style>
+<style>
+============================================ */
+
+/* ── HAMBURGER BUTTON ── */
+.mob-menu-btn {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 40px; height: 40px;
+  background: none;
+  border: 1.5px solid var(--border, #E2E8F0);
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 8px;
+  flex-shrink: 0;
+}
+.mob-menu-btn span {
+  display: block;
+  height: 2px;
+  background: var(--blue-deep, #0A2463);
+  border-radius: 2px;
+  transition: all 0.25s;
+}
+.mob-menu-btn.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.mob-menu-btn.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.mob-menu-btn.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ── MOBILE NAV DRAWER ── */
+.mob-nav-drawer {
+  display: none;
+  position: fixed;
+  top: 70px; left: 0; right: 0;
+  background: white;
+  border-bottom: 1px solid var(--border, #E2E8F0);
+  box-shadow: 0 8px 32px rgba(10,36,99,0.12);
+  z-index: 99;
+  padding: 16px 20px 24px;
+  flex-direction: column;
+  gap: 4px;
+  max-height: calc(100vh - 70px);
+  overflow-y: auto;
+}
+.mob-nav-drawer.open { display: flex; }
+.mob-nav-drawer a, .mob-nav-drawer button {
+  display: block;
+  padding: 13px 16px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--gray-dark, #1A1A2E);
+  text-decoration: none;
+  border-radius: 10px;
+  border: none;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: background 0.15s;
+  width: 100%;
+}
+.mob-nav-drawer a:hover, .mob-nav-drawer button:hover {
+  background: var(--blue-tint, #F4F7FF);
+  color: var(--blue-mid, #1B4FD8);
+}
+.mob-nav-drawer .mob-nav-divider {
+  height: 1px;
+  background: var(--border, #E2E8F0);
+  margin: 8px 0;
+}
+.mob-nav-drawer .mob-nav-cta {
+  background: var(--blue-deep, #0A2463);
+  color: white !important;
+  text-align: center;
+  border-radius: 12px;
+  margin-top: 8px;
+}
+.mob-nav-drawer .mob-nav-cta:hover {
+  background: var(--blue-mid, #1B4FD8) !important;
+}
+
+/* ── MOBILE BREAKPOINTS (applies to all pages) ── */
+@media (max-width: 768px) {
+  /* Nav */
+  nav { padding: 0 16px !important; height: 64px !important; }
+  .nav-links { display: none !important; }
+  .currency-select { display: none !important; }
+  .nav-lang { display: none !important; }
+  .nav-cta { display: none !important; }
+  .mob-menu-btn { display: flex !important; }
+
+  /* Back button */
+  .back-btn { margin: 8px 16px; }
+
+  /* Breadcrumb */
+  .breadcrumb { padding: 8px 16px; font-size: 12px; }
+}
+
+@media (max-width: 480px) {
+  nav { padding: 0 12px !important; }
+}
+
 </style>
 </head>
+</style>
 <body>
 
 <nav>
@@ -248,7 +354,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
         </div>
         <div>
           <div class="auth-stat-val">12k+</div>
-          <div class="auth-stat-label">Happy Renters</div>
+          <div class="auth-stat-label">Happy Tenants</div>
         </div>
       </div>
     </div>
@@ -265,7 +371,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
           <p>Sign in to your MaisonQuest account</p>
         </div>
         <div class="auth-tabs">
-          <button class="auth-tab active" onclick="switchAccountType(this,'renter-signin')">&#128100; Renter</button>
+          <button class="auth-tab active" onclick="switchAccountType(this,'renter-signin')">&#128100; Tenant</button>
           <button class="auth-tab" onclick="switchAccountType(this,'agency-signin')">&#127968; Agency</button>
         </div>
         <div id="auth-alert-signin" class="auth-alert"></div>
@@ -305,8 +411,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
         <div class="account-type" style="margin-bottom:24px;">
           <div class="type-option selected" id="type-renter" onclick="selectType('renter')">
             <div class="type-option-icon">&#128100;</div>
-            <div class="type-option-label">Renter</div>
-            <div class="type-option-sub">Looking for a home</div>
+            <div class="type-option-label">Tenant</div>
+            <div class="type-option-sub">Looking for a property</div>
           </div>
           <div class="type-option" id="type-agency" onclick="selectType('agency')">
             <div class="type-option-icon">&#127968;</div>
@@ -515,7 +621,9 @@ function handleSignIn(){
   var userName = email.split('@')[0].replace(/[._]/g,' ').replace(/\b\w/g,function(c){return c.toUpperCase();});
   var initials = userName.split(' ').map(function(w){return w[0]||'';}).slice(0,2).join('').toUpperCase() || 'U';
   MQ.save(userType, userName, initials);
-  setTimeout(function(){window.location.href='maisonquest.html';},1200);
+  setTimeout(function(){
+    window.location.href = userType === 'agency' ? 'maisonquest-dashboard.html' : 'maisonquest.html';
+  },1200);
 }
 
 function handleSignUp(){
@@ -544,7 +652,7 @@ function handleSignUp(){
     var fullName = fn + ' ' + ln;
     var initials = (fn[0]||'').toUpperCase() + (ln[0]||'').toUpperCase();
     MQ.save(currentType, fullName, initials);
-    window.location.href = 'maisonquest.html';
+    window.location.href = currentType === 'agency' ? 'maisonquest-dashboard.html' : 'maisonquest.html';
   },1200);
 }
 
@@ -634,7 +742,7 @@ var MQ = {
           '<div class="nav-user-menu" id="nav-user-menu">' +
             '<div class="nav-user-menu-header">' +
               '<div class="nav-user-menu-name">' + s.name + '</div>' +
-              '<div class="nav-user-menu-type">' + (s.type === 'agency' ? 'Agency Account' : 'Renter Account') + '</div>' +
+              '<div class="nav-user-menu-type">' + (s.type === 'agency' ? 'Agency Account' : 'Tenant Account') + '</div>' +
             '</div>' +
             '<a href="' + MQ.dashboardUrl() + '" class="nav-user-menu-item">&#9732; Dashboard</a>' +
             (s.type === 'renter' ?
@@ -703,6 +811,19 @@ document.addEventListener('DOMContentLoaded', function() {
   MQ.initNav();
   MQ.startInactivityTimer();
   MQ.touch();
+  // Pre-select Agency tab if arriving from "List a Property"
+  var params = new URLSearchParams(window.location.search);
+  if (params.get('intent') === 'list') {
+    setTimeout(function() {
+      var agencySigninTab = document.querySelector('[onclick*="agency-signin"]');
+      if (agencySigninTab) {
+        document.querySelectorAll('.auth-tab').forEach(function(t){ t.classList.remove('active'); });
+        agencySigninTab.classList.add('active');
+      }
+      selectType('agency');
+      showPanel('panel-signup');
+    }, 80);
+  }
 });
 </script>
 <script id="mq-lang-script">
@@ -711,10 +832,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
   var FR = {
     // NAV
-    'Apartments / Appartements': 'Appartements',
+    'Apartments': 'Appartements',
     'Guest Houses': "Maisons d'hôtes",
-    'Land / Terrains': 'Terrains',
-    'Agencies / Agences': 'Agences',
+    'Land': 'Terrains',
+    'Agencies': 'Agences',
     'List a Property →': 'Publier une annonce →',
     'Sign In': 'Se connecter',
     // HERO
@@ -763,7 +884,7 @@ document.addEventListener('DOMContentLoaded', function() {
     'Direct Communication': 'Communication Directe',
     'Verified Agencies': 'Agences Vérifiées',
     'Verified Listings': 'Annonces Vérifiées',
-    'Happy Renters': 'Locataires Satisfaits',
+    'Happy Tenants': 'Locataires Satisfaits',
     'Are You a Real Estate Agency?': 'Vous êtes une Agence Immobilière ?',
     "Join MaisonQuest — it's free to get started": "Rejoignez MaisonQuest — c'est gratuit",
     'List Your Properties →': 'Publier vos Biens →',
@@ -906,7 +1027,7 @@ document.addEventListener('DOMContentLoaded', function() {
     'Create Account': 'Créer un compte',
     'Create one free': 'Créer un compte gratuit',
     'Renter': 'Locataire',
-    'Agency / Agence': 'Agence',
+    'Agency': 'Agence',
     'I am a...': 'Je suis...',
     'First Name': 'Prénom',
     'Last Name': 'Nom',
@@ -920,8 +1041,8 @@ document.addEventListener('DOMContentLoaded', function() {
     'Back to Sign In': 'Retour à la connexion',
     "Enter your email and we'll send a reset link": 'Entrez votre e-mail et nous vous enverrons un lien',
     'Send Reset Link': 'Envoyer le lien',
-    'Looking for a home': 'Cherche un logement',
-    'Renter account': 'Compte locataire',
+    'Looking for a property': 'Cherche un logement',
+    'Tenant account': 'Compte locataire',
     // DASHBOARD COMMON
     'Dashboard': 'Tableau de bord',
     'Overview': 'Aperçu',
@@ -1299,6 +1420,26 @@ function closePolicyModal() {
   document.body.style.overflow='';
 }
 document.addEventListener('keydown', function(e){ if(e.key==='Escape') closePolicyModal(); });
+</script>
+<script>
+function toggleMobNav() {
+  var btn = document.getElementById('mob-menu-btn');
+  var drawer = document.getElementById('mob-nav-drawer');
+  if (!btn || !drawer) return;
+  var open = drawer.classList.toggle('open');
+  btn.classList.toggle('open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+}
+document.addEventListener('click', function(e) {
+  var drawer = document.getElementById('mob-nav-drawer');
+  var btn = document.getElementById('mob-menu-btn');
+  if (!drawer || !btn) return;
+  if (!drawer.contains(e.target) && !btn.contains(e.target)) {
+    drawer.classList.remove('open');
+    btn.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+});
 </script>
 </body>
 </html>

@@ -500,8 +500,114 @@
 .nav-user-menu-item.danger { color: #dc2626; }
 .nav-user-menu-item.danger:hover { background: #fef2f2; }
 .nav-user-menu-divider { height: 1px; background: var(--border, #E2E8F0); margin: 4px 0; }
+
+/* ============================================
+   MAISONQUEST — SHARED MOBILE STYLES
+   Injected into all pages before </style>
+<style>
+============================================ */
+
+/* ── HAMBURGER BUTTON ── */
+.mob-menu-btn {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 40px; height: 40px;
+  background: none;
+  border: 1.5px solid var(--border, #E2E8F0);
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 8px;
+  flex-shrink: 0;
+}
+.mob-menu-btn span {
+  display: block;
+  height: 2px;
+  background: var(--blue-deep, #0A2463);
+  border-radius: 2px;
+  transition: all 0.25s;
+}
+.mob-menu-btn.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.mob-menu-btn.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.mob-menu-btn.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ── MOBILE NAV DRAWER ── */
+.mob-nav-drawer {
+  display: none;
+  position: fixed;
+  top: 70px; left: 0; right: 0;
+  background: white;
+  border-bottom: 1px solid var(--border, #E2E8F0);
+  box-shadow: 0 8px 32px rgba(10,36,99,0.12);
+  z-index: 99;
+  padding: 16px 20px 24px;
+  flex-direction: column;
+  gap: 4px;
+  max-height: calc(100vh - 70px);
+  overflow-y: auto;
+}
+.mob-nav-drawer.open { display: flex; }
+.mob-nav-drawer a, .mob-nav-drawer button {
+  display: block;
+  padding: 13px 16px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--gray-dark, #1A1A2E);
+  text-decoration: none;
+  border-radius: 10px;
+  border: none;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: background 0.15s;
+  width: 100%;
+}
+.mob-nav-drawer a:hover, .mob-nav-drawer button:hover {
+  background: var(--blue-tint, #F4F7FF);
+  color: var(--blue-mid, #1B4FD8);
+}
+.mob-nav-drawer .mob-nav-divider {
+  height: 1px;
+  background: var(--border, #E2E8F0);
+  margin: 8px 0;
+}
+.mob-nav-drawer .mob-nav-cta {
+  background: var(--blue-deep, #0A2463);
+  color: white !important;
+  text-align: center;
+  border-radius: 12px;
+  margin-top: 8px;
+}
+.mob-nav-drawer .mob-nav-cta:hover {
+  background: var(--blue-mid, #1B4FD8) !important;
+}
+
+/* ── MOBILE BREAKPOINTS (applies to all pages) ── */
+@media (max-width: 768px) {
+  /* Nav */
+  nav { padding: 0 16px !important; height: 64px !important; }
+  .nav-links { display: none !important; }
+  .currency-select { display: none !important; }
+  .nav-lang { display: none !important; }
+  .nav-cta { display: none !important; }
+  .mob-menu-btn { display: flex !important; }
+
+  /* Back button */
+  .back-btn { margin: 8px 16px; }
+
+  /* Breadcrumb */
+  .breadcrumb { padding: 8px 16px; font-size: 12px; }
+}
+
+@media (max-width: 480px) {
+  nav { padding: 0 12px !important; }
+}
+
 </style>
 </head>
+</style>
 <body>
 
 <!-- NAV -->
@@ -610,7 +716,7 @@
         <button class="filter-chip" onclick="setFilter(this)">🏡 Guest Houses (10)</button>
         <button class="filter-chip" onclick="setFilter(this)">🛏 Rooms (6)</button>
         <button class="filter-chip" onclick="setFilter(this)">🌍 Land (3)</button>
-        <select class="filter-sort">
+        <select class="filter-sort" onchange="sortListings(this.value)">
           <option>Newest First</option>
           <option>Price: Low to High</option>
           <option>Price: High to Low</option>
@@ -620,7 +726,7 @@
       <div class="listings-grid">
 
         <!-- Listing 1 -->
-        <div class="listing-card" data-type="apartment">
+        <div class="listing-card" data-type="apartment" data-price="180000" onclick="window.location.href='maisonquest-listing-detail.html'" style="cursor:pointer;">
           <div class="listing-img">
             <div class="listing-badge featured">⭐ Featured</div>
             <div class="listing-fav" onclick="toggleFav(this);event.stopPropagation()">🤍</div>
@@ -635,13 +741,13 @@
             </div>
             <div class="listing-footer">
               <div class="listing-price"><span class="price-val" data-cfa="180000">180,000</span> <span class="unit">CFA/mo</span></div>
-              <a href="maisonquest-listing-detail.html" class="wa-btn">View →</a>
+              <a href="maisonquest-listing-detail.html" class="wa-btn" onclick="event.stopPropagation()">View →</a>
             </div>
           </div>
         </div>
 
         <!-- Listing 2 -->
-        <div class="listing-card" data-type="guesthouse">
+        <div class="listing-card" data-type="guesthouse" data-price="320000" onclick="window.location.href='maisonquest-listing-detail.html'" style="cursor:pointer;">
           <div class="listing-img">
             <div class="listing-badge new">New</div>
             <div class="listing-fav" onclick="toggleFav(this);event.stopPropagation()">🤍</div>
@@ -657,13 +763,13 @@
             </div>
             <div class="listing-footer">
               <div class="listing-price"><span class="price-val" data-cfa="320000">320,000</span> <span class="unit">CFA/mo</span></div>
-              <a href="maisonquest-listing-detail.html" class="wa-btn">View →</a>
+              <a href="maisonquest-listing-detail.html" class="wa-btn" onclick="event.stopPropagation()">View →</a>
             </div>
           </div>
         </div>
 
         <!-- Listing 3 -->
-        <div class="listing-card" data-type="apartment">
+        <div class="listing-card" data-type="apartment" data-price="180000" onclick="window.location.href='maisonquest-listing-detail.html'" style="cursor:pointer;">
           <div class="listing-img">
             <div class="listing-badge">Apartment</div>
             <div class="listing-fav" onclick="toggleFav(this);event.stopPropagation()">🤍</div>
@@ -678,13 +784,13 @@
             </div>
             <div class="listing-footer">
               <div class="listing-price"><span class="price-val" data-cfa="95000">95,000</span> <span class="unit">CFA/mo</span></div>
-              <a href="maisonquest-listing-detail.html" class="wa-btn">View →</a>
+              <a href="maisonquest-listing-detail.html" class="wa-btn" onclick="event.stopPropagation()">View →</a>
             </div>
           </div>
         </div>
 
         <!-- Listing 4 -->
-        <div class="listing-card" data-type="room">
+        <div class="listing-card" data-type="room" onclick="window.location.href='maisonquest-listing-detail.html'" style="cursor:pointer;">
           <div class="listing-img">
             <div class="listing-badge featured">⭐ Featured</div>
             <div class="listing-fav" onclick="toggleFav(this);event.stopPropagation()">🤍</div>
@@ -699,13 +805,13 @@
             </div>
             <div class="listing-footer">
               <div class="listing-price"><span class="price-val" data-cfa="40000">40,000</span> <span class="unit">CFA/mo</span></div>
-              <a href="maisonquest-listing-detail.html" class="wa-btn">View →</a>
+              <a href="maisonquest-listing-detail.html" class="wa-btn" onclick="event.stopPropagation()">View →</a>
             </div>
           </div>
         </div>
 
         <!-- Listing 5 -->
-        <div class="listing-card" data-type="land">
+        <div class="listing-card" data-type="land" onclick="window.location.href='maisonquest-listing-detail.html'" style="cursor:pointer;">
           <div class="listing-img">
             <div class="listing-badge">Land</div>
             <div class="listing-fav" onclick="toggleFav(this);event.stopPropagation()">🤍</div>
@@ -720,13 +826,13 @@
             </div>
             <div class="listing-footer">
               <div class="listing-price"><span class="price-val" data-cfa="8500000">8,500,000</span> <span class="unit">CFA</span></div>
-              <a href="maisonquest-listing-detail.html" class="wa-btn">View →</a>
+              <a href="maisonquest-listing-detail.html" class="wa-btn" onclick="event.stopPropagation()">View →</a>
             </div>
           </div>
         </div>
 
         <!-- Listing 6 -->
-        <div class="listing-card" data-type="guesthouse">
+        <div class="listing-card" data-type="guesthouse" onclick="window.location.href='maisonquest-listing-detail.html'" style="cursor:pointer;">
           <div class="listing-img">
             <div class="listing-badge">Guest House</div>
             <div class="listing-fav" onclick="toggleFav(this);event.stopPropagation()">🤍</div>
@@ -742,7 +848,7 @@
             </div>
             <div class="listing-footer">
               <div class="listing-price"><span class="price-val" data-cfa="250000">250,000</span> <span class="unit">CFA/mo</span></div>
-              <a href="maisonquest-listing-detail.html" class="wa-btn">View →</a>
+              <a href="maisonquest-listing-detail.html" class="wa-btn" onclick="event.stopPropagation()">View →</a>
             </div>
           </div>
         </div>
@@ -1211,6 +1317,20 @@ function showProfileToast(msg) {
     });
   }
 
+  function sortListings(val) {
+    var grid = document.querySelector('.listings-grid');
+    if (!grid) return;
+    var cards = Array.from(grid.querySelectorAll('.listing-card'));
+    cards.sort(function(a, b) {
+      var priceA = parseInt((a.querySelector('.price-val') || {}).dataset.cfa || '0');
+      var priceB = parseInt((b.querySelector('.price-val') || {}).dataset.cfa || '0');
+      if (val === 'Price: Low to High' || val === 'Prix croissant') return priceA - priceB;
+      if (val === 'Price: High to Low' || val === 'Prix décroissant') return priceB - priceA;
+      return 0; // Newest First — keep original order
+    });
+    cards.forEach(function(c) { grid.appendChild(c); });
+  }
+
   function setTab(btn, name) {
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
     btn.classList.add('active');
@@ -1321,7 +1441,7 @@ save:function(t,n,i){sessionStorage.setItem(MQ.SESSION_KEY,JSON.stringify({type:
 get:function(){try{var r=sessionStorage.getItem(MQ.SESSION_KEY);if(!r)return null;var s=JSON.parse(r);if(Date.now()-s.lastActive>MQ.TIMEOUT_MS){MQ.clear();return null;}return s;}catch(e){return null;}},
 touch:function(){try{var r=sessionStorage.getItem(MQ.SESSION_KEY);if(!r)return;var s=JSON.parse(r);s.lastActive=Date.now();sessionStorage.setItem(MQ.SESSION_KEY,JSON.stringify(s));}catch(e){}},
 clear:function(){sessionStorage.removeItem(MQ.SESSION_KEY);},
-logout:function(){MQ.clear();window.location.href='maisonquest-auth.html';},
+logout:function(){MQ.clear();window.location.href='maisonquest-auth.html?intent=list';},
 dashboardUrl:function(){var s=MQ.get();if(!s)return'maisonquest-auth.html';return s.type==='agency'?'maisonquest-dashboard.html':'maisonquest-renter-dashboard.html';},listProperty:function(){
   var s=MQ.get();
   if(s && s.type==='agency'){
@@ -1334,7 +1454,7 @@ dashboardUrl:function(){var s=MQ.get();if(!s)return'maisonquest-auth.html';retur
     }
   } else {
     // Not logged in — send to auth with signup hint
-    window.location.href='maisonquest-auth.html';
+    window.location.href='maisonquest-auth.html?intent=list';
   }
 },
 initNav:function(){
@@ -1343,7 +1463,7 @@ initNav:function(){
   if(!c)return;
   var fr=sessionStorage.getItem('mq_lang')==='FR';
   if(s){
-    var accountType = s.type==='agency' ? (fr?'Compte agence':'Agency Account') : (fr?'Compte locataire':'Renter Account');
+    var accountType = s.type==='agency' ? (fr?'Compte agence':'Agency Account') : (fr?'Compte locataire':'Tenant Account');
     var renterLinks = fr ?
       '<a href="maisonquest-renter-dashboard.html?tab=saved" class="nav-user-menu-item">&#10084; Annonces sauvegardées</a>'+
       '<a href="maisonquest-renter-dashboard.html?tab=inquiries" class="nav-user-menu-item">&#128231; Mes demandes</a>'+
@@ -1398,7 +1518,7 @@ toggleMenu:function(){
 },
 startInactivityTimer:function(){
   ['mousemove','keydown','click','scroll','touchstart'].forEach(function(e){document.addEventListener(e,MQ.touch,{passive:true});});
-  setInterval(function(){if(sessionStorage.getItem(MQ.SESSION_KEY)&&!MQ.get()){MQ.clear();window.location.href='maisonquest-auth.html';}},60000);
+  setInterval(function(){if(sessionStorage.getItem(MQ.SESSION_KEY)&&!MQ.get()){MQ.clear();window.location.href='maisonquest-auth.html?intent=list';}},60000);
 }};
 (function(){
   function run(){MQ.initNav();MQ.startInactivityTimer();MQ.touch();}
@@ -1412,10 +1532,10 @@ startInactivityTimer:function(){
 
   var FR = {
     // NAV
-    'Apartments / Appartements': 'Appartements',
+    'Apartments': 'Appartements',
     'Guest Houses': "Maisons d'hôtes",
-    'Land / Terrains': 'Terrains',
-    'Agencies / Agences': 'Agences',
+    'Land': 'Terrains',
+    'Agencies': 'Agences',
     'List a Property →': 'Publier une annonce →',
     'Sign In': 'Se connecter',
     // HERO
@@ -1464,7 +1584,7 @@ startInactivityTimer:function(){
     'Direct Communication': 'Communication Directe',
     'Verified Agencies': 'Agences Vérifiées',
     'Verified Listings': 'Annonces Vérifiées',
-    'Happy Renters': 'Locataires Satisfaits',
+    'Happy Tenants': 'Locataires Satisfaits',
     'Are You a Real Estate Agency?': 'Vous êtes une Agence Immobilière ?',
     "Join MaisonQuest — it's free to get started": "Rejoignez MaisonQuest — c'est gratuit",
     'List Your Properties →': 'Publier vos Biens →',
@@ -1607,7 +1727,7 @@ startInactivityTimer:function(){
     'Create Account': 'Créer un compte',
     'Create one free': 'Créer un compte gratuit',
     'Renter': 'Locataire',
-    'Agency / Agence': 'Agence',
+    'Agency': 'Agence',
     'I am a...': 'Je suis...',
     'First Name': 'Prénom',
     'Last Name': 'Nom',
@@ -1622,7 +1742,7 @@ startInactivityTimer:function(){
     "Enter your email and we'll send a reset link": 'Entrez votre e-mail et nous vous enverrons un lien',
     'Send Reset Link': 'Envoyer le lien',
     'Looking for a home': 'Cherche un logement',
-    'Renter account': 'Compte locataire',
+    'Tenant account': 'Compte locataire',
     // DASHBOARD COMMON
     'Dashboard': 'Tableau de bord',
     'Overview': 'Aperçu',
@@ -2000,6 +2120,26 @@ function closePolicyModal() {
   document.body.style.overflow='';
 }
 document.addEventListener('keydown', function(e){ if(e.key==='Escape') closePolicyModal(); });
+</script>
+<script>
+function toggleMobNav() {
+  var btn = document.getElementById('mob-menu-btn');
+  var drawer = document.getElementById('mob-nav-drawer');
+  if (!btn || !drawer) return;
+  var open = drawer.classList.toggle('open');
+  btn.classList.toggle('open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+}
+document.addEventListener('click', function(e) {
+  var drawer = document.getElementById('mob-nav-drawer');
+  var btn = document.getElementById('mob-menu-btn');
+  if (!drawer || !btn) return;
+  if (!drawer.contains(e.target) && !btn.contains(e.target)) {
+    drawer.classList.remove('open');
+    btn.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+});
 </script>
 </body>
 </html>

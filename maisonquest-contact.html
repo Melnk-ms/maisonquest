@@ -35,7 +35,7 @@ var MQ = {
     var area=document.getElementById('nav-user-area');if(!area)return;
     var s=MQ.get();var fr=sessionStorage.getItem('mq_lang')==='FR';
     if(!s){area.innerHTML='<a href="maisonquest-auth.html" class="nav-signin">'+(fr?'Se connecter':'Sign In')+'</a>';return;}
-    var atype=s.type==='agency'?(fr?'Compte agence':'Agency Account'):(fr?'Compte locataire':'Renter Account');
+    var atype=s.type==='agency'?(fr?'Compte agence':'Agency Account'):(fr?'Compte locataire':'Tenant Account');
     area.innerHTML='<div class="nav-user-dropdown"><button class="nav-user-icon" onclick="MQ.toggleMenu()">'+s.initials+'</button><div class="nav-user-menu"><div class="nav-user-menu-header"><div class="nav-user-menu-name">'+s.name+'</div><div class="nav-user-menu-type">'+atype+'</div></div><a href="'+MQ.dashboardUrl()+'" class="nav-user-menu-item">Dashboard</a><div class="nav-user-menu-divider"></div><a href="'+MQ.dashboardUrl()+'?tab=settings" class="nav-user-menu-item">'+(fr?'Param\u00e8tres du compte':'Account Settings')+'</a><div class="nav-user-menu-divider"></div><button class="nav-user-menu-item danger" onclick="MQ.logout()">'+(fr?'Se d\u00e9connecter':'Sign Out')+'</button></div></div>';
     document.addEventListener('click',function(e){var d=document.querySelector('.nav-user-dropdown');if(d&&!d.contains(e.target)){var m=document.querySelector('.nav-user-menu');if(m)m.classList.remove('open');}});
   }
@@ -48,10 +48,10 @@ document.addEventListener('DOMContentLoaded', function(){ MQ.initNav(); });
 
   var FR = {
     // NAV
-    'Apartments / Appartements': 'Appartements',
+    'Apartments': 'Appartements',
     'Guest Houses': "Maisons d'hôtes",
-    'Land / Terrains': 'Terrains',
-    'Agencies / Agences': 'Agences',
+    'Land': 'Terrains',
+    'Agencies': 'Agences',
     'List a Property →': 'Publier une annonce →',
     'Sign In': 'Se connecter',
     // HERO
@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function(){ MQ.initNav(); });
     'Direct Communication': 'Communication Directe',
     'Verified Agencies': 'Agences Vérifiées',
     'Verified Listings': 'Annonces Vérifiées',
-    'Happy Renters': 'Locataires Satisfaits',
+    'Happy Tenants': 'Locataires Satisfaits',
     'Are You a Real Estate Agency?': 'Vous êtes une Agence Immobilière ?',
     "Join MaisonQuest — it's free to get started": "Rejoignez MaisonQuest — c'est gratuit",
     'List Your Properties →': 'Publier vos Biens →',
@@ -243,7 +243,7 @@ document.addEventListener('DOMContentLoaded', function(){ MQ.initNav(); });
     'Create Account': 'Créer un compte',
     'Create one free': 'Créer un compte gratuit',
     'Renter': 'Locataire',
-    'Agency / Agence': 'Agence',
+    'Agency': 'Agence',
     'I am a...': 'Je suis...',
     'First Name': 'Prénom',
     'Last Name': 'Nom',
@@ -258,7 +258,7 @@ document.addEventListener('DOMContentLoaded', function(){ MQ.initNav(); });
     "Enter your email and we'll send a reset link": 'Entrez votre e-mail et nous vous enverrons un lien',
     'Send Reset Link': 'Envoyer le lien',
     'Looking for a home': 'Cherche un logement',
-    'Renter account': 'Compte locataire',
+    'Tenant account': 'Compte locataire',
     // DASHBOARD COMMON
     'Dashboard': 'Tableau de bord',
     'Overview': 'Aperçu',
@@ -610,5 +610,36 @@ document.addEventListener('DOMContentLoaded', function(){ MQ.initNav(); });
   }
 })();
 </script>
+<script>
+function toggleMobNav() {
+  var btn = document.getElementById('mob-menu-btn');
+  var drawer = document.getElementById('mob-nav-drawer');
+  if (!btn || !drawer) return;
+  var open = drawer.classList.toggle('open');
+  btn.classList.toggle('open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+}
+document.addEventListener('click', function(e) {
+  var drawer = document.getElementById('mob-nav-drawer');
+  var btn = document.getElementById('mob-menu-btn');
+  if (!drawer || !btn) return;
+  if (!drawer.contains(e.target) && !btn.contains(e.target)) {
+    drawer.classList.remove('open');
+    btn.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+});
+</script>
 </body>
-</html>
+</html
+
+@media (max-width: 900px) {
+  .contact-hero { padding: 90px 20px 50px !important; }
+  .contact-layout { grid-template-columns: 1fr !important; padding: 32px 20px !important; }
+  .form-card { padding: 24px 20px; }
+  .form-row { grid-template-columns: 1fr !important; }
+  .contact-sidebar { order: -1; }
+  footer { padding: 32px 20px; flex-direction: column; gap: 16px; }
+  .footer-links { flex-wrap: wrap; gap: 12px; }
+}
+>

@@ -174,8 +174,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray-bg);color:var(--gray
 .toolbar-search{flex:1;min-width:200px;padding:10px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;background:white;}
 .toolbar-search:focus{border-color:var(--blue-light);}
 .toolbar-select{padding:10px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:13px;font-family:'DM Sans',sans-serif;color:var(--gray-mid);background:white;outline:none;cursor:pointer;}
-.lt-head{display:grid;grid-template-columns:2fr 0.8fr 1fr 0.8fr 260px;background:var(--gray-bg);border-bottom:1px solid var(--border);min-width:800px;}
-.lt-row{display:grid;grid-template-columns:2fr 0.8fr 1fr 0.8fr 260px;border-bottom:1px solid var(--border);align-items:center;transition:background 0.15s;min-width:800px;}
+.lt-th{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--gray-light);padding:11px 16px;}
+.lt-head{display:grid;grid-template-columns:2fr 0.8fr 1fr 0.8fr minmax(240px,auto);background:var(--gray-bg);border-bottom:1px solid var(--border);min-width:820px;}
+.lt-row{display:grid;grid-template-columns:2fr 0.8fr 1fr 0.8fr minmax(240px,auto);border-bottom:1px solid var(--border);align-items:center;transition:background 0.15s;min-width:820px;}
 .lt-row:last-child{border-bottom:none;}
 .lt-row:hover{background:var(--blue-tint);}
 .lt-img{width:44px;height:44px;border-radius:9px;background:linear-gradient(180deg,#e8edf5 0%,#1a2a5e 100%);flex-shrink:0;}
@@ -186,6 +187,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray-bg);color:var(--gray
 .ls-active{background:var(--green-bg);color:var(--green);}
 .ls-paused{background:#fef9c3;color:#92400e;}
 .ls-expired{background:var(--red-bg);color:var(--red);}
+.ls-sold{background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0;}
+.dot-btn.sold-btn:hover{border-color:#15803d;color:#15803d;background:#f0fdf4;}
 .action-dots{display:flex;gap:6px;padding:0 12px;flex-wrap:nowrap;align-items:center;}
 .dot-btn{height:30px;padding:0 8px;border-radius:7px;border:1.5px solid var(--border);background:white;font-size:12px;font-weight:600;font-family:'DM Sans',sans-serif;color:var(--gray-mid);cursor:pointer;display:flex;align-items:center;gap:4px;transition:all 0.2s;white-space:nowrap;}
 .dot-btn:hover{border-color:var(--blue-mid);color:var(--blue-mid);background:var(--blue-tint);}
@@ -323,6 +326,58 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray-bg);color:var(--gray
 
 @media(max-width:1024px){.stats-grid{grid-template-columns:repeat(2,1fr);}.charts-row{grid-template-columns:1fr;}.top-listings{grid-template-columns:repeat(2,1fr);}.plan-feats{grid-template-columns:repeat(2,1fr);}.upgrade-grid{grid-template-columns:1fr;}}
 @media(max-width:768px){.main{margin-left:0;}.page-content{padding:16px;}.topbar{padding:0 16px;}.lt-head,.lt-row{grid-template-columns:1fr auto;}}
+
+/* ── AGENCY DASHBOARD MOBILE ── */
+@media (max-width: 768px) {
+  .layout { flex-direction: column !important; }
+  .sidebar {
+    position: fixed !important; bottom: 0 !important; left: 0 !important; right: 0 !important;
+    top: auto !important; width: 100% !important; min-width: 0 !important;
+    height: 64px !important; flex-direction: row !important;
+    overflow: hidden; z-index: 200; border-top: 1px solid var(--border);
+    border-right: none !important; padding: 0 !important; gap: 0 !important;
+    border-radius: 0 !important; justify-content: space-around;
+    background: white; box-shadow: 0 -4px 20px rgba(10,36,99,0.08);
+  }
+  .sidebar .logo-area { display: none !important; }
+  .sidebar .sidebar-section-label { display: none !important; }
+  .nav-item {
+    flex-direction: column !important; gap: 3px !important;
+    padding: 8px 4px !important; font-size: 10px !important;
+    border-radius: 0 !important; flex: 1 !important;
+    justify-content: center; align-items: center;
+    min-width: 0; border-left: none !important; border-top: 3px solid transparent;
+  }
+  .nav-item.active { border-top: 3px solid var(--blue-mid) !important; border-left: none !important; background: var(--blue-tint) !important; }
+  .nav-item svg { width: 20px !important; height: 20px !important; }
+  .nav-item span.nav-label { display: block !important; font-size: 9px !important; line-height: 1; }
+  .sidebar .logout-btn { display: none !important; }
+  .sidebar .upgrade-card { display: none !important; }
+  .main { margin-left: 0 !important; padding-bottom: 80px !important; }
+  .top-bar { padding: 14px 16px !important; }
+  .top-bar-left h1 { font-size: 20px !important; }
+  .stats-grid { grid-template-columns: repeat(2,1fr) !important; gap: 10px !important; }
+  .stat-card { padding: 14px !important; }
+  .listings-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .tab-panel { padding: 16px !important; }
+  .inquiry-toolbar { flex-wrap: wrap; gap: 8px; }
+  .monthly-chart-wrap { overflow-x: auto; }
+  .perf-table { min-width: 600px; }
+  .perf-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .modal-overlay .modal { width: calc(100vw - 32px) !important; max-width: 100% !important; padding: 20px !important; }
+}
+@media (max-width: 480px) {
+  .stats-grid { grid-template-columns: 1fr 1fr !important; }
+  .top-bar { flex-wrap: wrap; gap: 10px; }
+}
+
+/* AMENITIES */
+.amenity-section-title{font-size:12px;font-weight:700;color:var(--gray-mid);text-transform:uppercase;letter-spacing:0.6px;margin-bottom:12px;}
+.amenity-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.amenity-check{display:flex;align-items:center;gap:8px;padding:9px 12px;border:1.5px solid var(--border);border-radius:10px;cursor:pointer;transition:all 0.2s;user-select:none;font-size:13px;font-weight:500;color:var(--gray-mid);}
+.amenity-check:hover{border-color:var(--blue-mid);color:var(--blue-mid);background:var(--blue-tint);}
+.amenity-check input{width:15px;height:15px;accent-color:var(--blue-mid);cursor:pointer;flex-shrink:0;}
+.amenity-check.checked{border-color:var(--blue-mid);background:var(--blue-pale);color:var(--blue-deep);}
 </style>
 </head>
 <body>
@@ -417,7 +472,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray-bg);color:var(--gray
       <div class="section-header"><div class="section-title">Recent Inquiries</div><a class="see-all" onclick="showTab('inquiries')">See all &#8594;</a></div>
       <div class="data-table">
         <div class="t-head" style="grid-template-columns:2fr 2fr 1fr 1fr 1fr;">
-          <div class="th">Renter</div><div class="th">Property</div><div class="th">Via</div><div class="th">Status</div><div class="th">Date</div>
+          <div class="th">Tenant</div><div class="th">Property</div><div class="th">Via</div><div class="th">Status</div><div class="th">Date</div>
         </div>
         <div class="t-row" style="grid-template-columns:2fr 2fr 1fr 1fr 1fr;cursor:pointer;" onclick="showTab('inquiries')" title="View inquiry"><div class="td td-name">Sandrine Mbah</div><div class="td td-link">3-Bed, Bonapriso</div><div class="td"><span class="via-pill via-wa">WhatsApp</span></div><div class="td"><span class="status-pill s-new">&#9679; New</span></div><div class="td">Today, 9:14am</div></div>
         <div class="t-row" style="grid-template-columns:2fr 2fr 1fr 1fr 1fr;cursor:pointer;" onclick="showTab('inquiries')" title="View inquiry"><div class="td td-name">Jean-Pierre Kamga</div><div class="td td-link">Studio, Akwa</div><div class="td"><span class="via-pill via-platform">Platform</span></div><div class="td"><span class="status-pill s-new">&#9679; New</span></div><div class="td">Today, 7:02am</div></div>
@@ -442,10 +497,13 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray-bg);color:var(--gray
         <button class="topbar-btn btn-primary" onclick="openModal()">+ Add New Listing</button>
       </div>
       <div class="data-table">
-        <div class="lt-head"><div class="th">Property</div><div class="th">Type</div><div class="th">Price</div><div class="th">Status</div><div class="th">Actions</div></div>
-        <div class="lt-row"><div class="lt-info"><div class="lt-img"></div><div><div class="lt-title">Modern 3-Bed Apartment</div><div class="lt-loc">Bonapriso, Douala</div></div></div><div class="td">Apartment</div><div class="td" style="font-weight:700;">180,000 CFA</div><div class="td"><span class="ls ls-active">&#9679; Active</span></div><div class="action-dots"><button class="dot-btn" onclick="editListing('Modern 3-Bed Apartment')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Edit</button><button class="dot-btn pause-btn" onclick="pauseListing(this,'Modern 3-Bed Apartment')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg> Pause</button><button class="dot-btn del-btn" onclick="deleteListing('Modern 3-Bed Apartment','Bonapriso, Douala')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg> Delete</button></div></div>
-        <div class="lt-row"><div class="lt-info"><div class="lt-img"></div><div><div class="lt-title">Executive Guest House</div><div class="lt-loc">Bonanjo, Douala</div></div></div><div class="td">Guest House</div><div class="td" style="font-weight:700;">320,000 CFA</div><div class="td"><span class="ls ls-active">&#9679; Active</span></div><div class="action-dots"><button class="dot-btn" onclick="editListing('Executive Guest House')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Edit</button><button class="dot-btn pause-btn" onclick="pauseListing(this,'Executive Guest House')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg> Pause</button><button class="dot-btn del-btn" onclick="deleteListing('Executive Guest House','Bonanjo, Douala')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg> Delete</button></div></div>
-        <div class="lt-row"><div class="lt-info"><div class="lt-img"></div><div><div class="lt-title">Studio - Students Welcome</div><div class="lt-loc">Akwa, Douala</div></div></div><div class="td">Room/Studio</div><div class="td" style="font-weight:700;">40,000 CFA</div><div class="td"><span class="ls ls-active">&#9679; Active</span></div><div class="action-dots"><button class="dot-btn" onclick="editListing('Studio - Students Welcome')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Edit</button><button class="dot-btn pause-btn" onclick="pauseListing(this,'Studio - Students Welcome')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg> Pause</button><button class="dot-btn del-btn" onclick="deleteListing('Studio - Students Welcome','Akwa, Douala')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg> Delete</button></div></div>
+        <div class="lt-head"><div class="lt-th">Property</div><div class="lt-th">Type</div><div class="lt-th">Price</div><div class="lt-th">Status</div><div class="lt-th">Actions</div></div>
+        <div class="lt-row"><div class="lt-info"><div class="lt-img"></div><div><div class="lt-title">Modern 3-Bed Apartment</div><div class="lt-loc">Bonapriso, Douala</div></div></div><div class="td">Apartment</div><div class="td" style="font-weight:700;">180,000 CFA</div><div class="td"><span class="ls ls-active">&#9679; Active</span></div><div class="action-dots"><button class="dot-btn sold-btn" onclick="markAsSold(this,'Modern 3-Bed Apartment','Bonapriso, Douala')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Mark Sold</button>
+<button class="dot-btn" onclick="editListing('Modern 3-Bed Apartment')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Edit</button><button class="dot-btn pause-btn" onclick="pauseListing(this,'Modern 3-Bed Apartment')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg> Pause</button><button class="dot-btn del-btn" onclick="deleteListing('Modern 3-Bed Apartment','Bonapriso, Douala')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg> Delete</button></div></div>
+        <div class="lt-row"><div class="lt-info"><div class="lt-img"></div><div><div class="lt-title">Executive Guest House</div><div class="lt-loc">Bonanjo, Douala</div></div></div><div class="td">Guest House</div><div class="td" style="font-weight:700;">320,000 CFA</div><div class="td"><span class="ls ls-active">&#9679; Active</span></div><div class="action-dots"><button class="dot-btn sold-btn" onclick="markAsSold(this,'Executive Guest House','Bonanjo, Douala')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Mark Sold</button>
+<button class="dot-btn" onclick="editListing('Executive Guest House')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Edit</button><button class="dot-btn pause-btn" onclick="pauseListing(this,'Executive Guest House')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg> Pause</button><button class="dot-btn del-btn" onclick="deleteListing('Executive Guest House','Bonanjo, Douala')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg> Delete</button></div></div>
+        <div class="lt-row"><div class="lt-info"><div class="lt-img"></div><div><div class="lt-title">Studio - Students Welcome</div><div class="lt-loc">Akwa, Douala</div></div></div><div class="td">Room/Studio</div><div class="td" style="font-weight:700;">40,000 CFA</div><div class="td"><span class="ls ls-active">&#9679; Active</span></div><div class="action-dots"><button class="dot-btn sold-btn" onclick="markAsSold(this,'Studio - Students Welcome','Akwa, Douala')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Mark Sold</button>
+<button class="dot-btn" onclick="editListing('Studio - Students Welcome')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Edit</button><button class="dot-btn pause-btn" onclick="pauseListing(this,'Studio - Students Welcome')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg> Pause</button><button class="dot-btn del-btn" onclick="deleteListing('Studio - Students Welcome','Akwa, Douala')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg> Delete</button></div></div>
         <div class="lt-row"><div class="lt-info"><div class="lt-img"></div><div><div class="lt-title">600m2 Land Plot</div><div class="lt-loc">Logpom, Douala</div></div></div><div class="td">Land</div><div class="td" style="font-weight:700;">8,500,000 CFA</div><div class="td"><span class="ls ls-paused">&#9208; Paused</span></div><div class="action-dots"><button class="dot-btn" onclick="editListing('600m2 Land Plot')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Edit</button><button class="dot-btn" onclick="resumeListing(this,'600m2 Land Plot')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg> Resume</button><button class="dot-btn del-btn" onclick="deleteListing('600m2 Land Plot','Logpom, Douala')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg> Delete</button></div></div>
         <div class="lt-row"><div class="lt-info"><div class="lt-img"></div><div><div class="lt-title">2-Bed, Secured Building</div><div class="lt-loc">Makepe, Douala</div></div></div><div class="td">Apartment</div><div class="td" style="font-weight:700;">95,000 CFA</div><div class="td"><span class="ls ls-expired">&#10005; Expired</span></div><div class="action-dots"><button class="dot-btn" onclick="renewListing(this,'2-Bed, Secured Building')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg> Renew</button><button class="dot-btn" onclick="editListing('2-Bed, Secured Building')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Edit</button><button class="dot-btn del-btn" onclick="deleteListing('2-Bed, Secured Building','Makepe, Douala')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg> Delete</button></div></div>
       </div>
@@ -834,7 +892,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray-bg);color:var(--gray
         </div>
         <div class="form-group">
           <label class="form-label">Property Type <span class="req">*</span></label>
-          <select class="form-select" id="f-type"><option>Apartment</option><option>Guest House</option><option>Room / Studio</option><option>Land</option></select>
+          <select class="form-select" id="f-type" onchange="toggleAmenitySection(this.value)"><option>Apartment</option><option>Guest House</option><option>Room / Studio</option><option>Land</option></select>
         </div>
       </div>
       <div class="form-row">
@@ -901,6 +959,80 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray-bg);color:var(--gray
           <div id="photo-count" style="margin-top:8px;font-size:12px;color:var(--green);font-weight:700;display:none;"></div>
         </div>
         <div class="field-error" id="err-photos">&#9888; Please upload at least 1 photo</div>
+      </div>
+
+      <div class="form-group" id="amenity-section" style="margin-top:4px;">
+        <label class="form-label">Amenities &amp; Features</label>
+        <div class="amenity-grid" id="amenity-grid">
+          <label class="amenity-check"><input type="checkbox" value="Electricity (AES)" onchange="toggleAmenity(this.closest('.amenity-check'), this.checked)"> Electricity (AES)
+          </label>
+          <label class="amenity-check"><input type="checkbox" value="Running Water (CDE)" onchange="toggleAmenity(this.closest('.amenity-check'), this.checked)"> Running Water (CDE)
+          </label>
+          <label class="amenity-check"><input type="checkbox" value="24/7 Security" onchange="toggleAmenity(this.closest('.amenity-check'), this.checked)"> 24/7 Security
+          </label>
+          <label class="amenity-check"><input type="checkbox" value="Parking Space" onchange="toggleAmenity(this.closest('.amenity-check'), this.checked)"> Parking Space
+          </label>
+          <label class="amenity-check"><input type="checkbox" value="Backup Generator" onchange="toggleAmenity(this.closest('.amenity-check'), this.checked)"> Backup Generator
+          </label>
+          <label class="amenity-check"><input type="checkbox" value="Fibre Internet Ready" onchange="toggleAmenity(this.closest('.amenity-check'), this.checked)"> Fibre Internet Ready
+          </label>
+          <label class="amenity-check"><input type="checkbox" value="Furnished" onchange="toggleAmenity(this.closest('.amenity-check'), this.checked)"> Furnished
+          </label>
+          <label class="amenity-check"><input type="checkbox" value="Air Conditioning" onchange="toggleAmenity(this.closest('.amenity-check'), this.checked)"> Air Conditioning
+          </label>
+          <label class="amenity-check"><input type="checkbox" value="Building Garden" onchange="toggleAmenity(this.closest('.amenity-check'), this.checked)"> Building Garden
+          </label>
+          <label class="amenity-check"><input type="checkbox" value="Elevator" onchange="toggleAmenity(this.closest('.amenity-check'), this.checked)"> Elevator
+          </label>
+          <label class="amenity-check"><input type="checkbox" value="Laundry Area" onchange="toggleAmenity(this.closest('.amenity-check'), this.checked)"> Laundry Area
+          </label>
+          <label class="amenity-check"><input type="checkbox" value="Canal+ Ready" onchange="toggleAmenity(this.closest('.amenity-check'), this.checked)"> Canal+ Ready
+          </label>
+          <label class="amenity-check"><input type="checkbox" value="Swimming Pool" onchange="toggleAmenity(this.closest('.amenity-check'), this.checked)"> Swimming Pool
+          </label>
+          <label class="amenity-check"><input type="checkbox" value="Gym" onchange="toggleAmenity(this.closest('.amenity-check'), this.checked)"> Gym
+          </label>
+          <label class="amenity-check"><input type="checkbox" value="Guard / Watchman" onchange="toggleAmenity(this.closest('.amenity-check'), this.checked)"> Guard / Watchman
+          </label>
+          <label class="amenity-check"><input type="checkbox" value="CCTV Cameras" onchange="toggleAmenity(this.closest('.amenity-check'), this.checked)"> CCTV Cameras
+          </label>
+          <label class="amenity-check"><input type="checkbox" value="Balcony / Terrace" onchange="toggleAmenity(this.closest('.amenity-check'), this.checked)"> Balcony / Terrace
+          </label>
+          <label class="amenity-check"><input type="checkbox" value="Gated Compound" onchange="toggleAmenity(this.closest('.amenity-check'), this.checked)"> Gated Compound
+          </label>
+        </div>
+        <div style="margin-top:12px;border-top:1px solid var(--border);padding-top:12px;">
+          <div style="font-size:12px;font-weight:600;color:var(--gray-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;">Add your own</div>
+          <div style="display:flex;gap:8px;">
+            <input type="text" id="custom-amenity-input" class="form-input" placeholder="e.g. Rooftop access, Private pool..." style="flex:1;" maxlength="40" onkeydown="if(event.key==='Enter'){event.preventDefault();addCustomAmenity();}">
+            <button type="button" onclick="addCustomAmenity()" style="padding:0 16px;background:var(--blue-mid);color:white;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;flex-shrink:0;">+ Add</button>
+          </div>
+          <div id="custom-amenities-list" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;"></div>
+        </div>
+
+      <div class="form-group" id="land-features-section" style="margin-top:4px;display:none;">
+        <label class="form-label">Land Features</label>
+        <div class="amenity-grid" id="land-features-grid">
+          <label class="amenity-check"><input type="checkbox" value="Titre Foncier" onchange="toggleAmenity(this.closest('.amenity-check'), this.checked)"> Titre Foncier</label>
+          <label class="amenity-check"><input type="checkbox" value="Road Access" onchange="toggleAmenity(this.closest('.amenity-check'), this.checked)"> Road Access</label>
+          <label class="amenity-check"><input type="checkbox" value="Electricity Connection" onchange="toggleAmenity(this.closest('.amenity-check'), this.checked)"> Electricity Connection</label>
+          <label class="amenity-check"><input type="checkbox" value="Water Connection" onchange="toggleAmenity(this.closest('.amenity-check'), this.checked)"> Water Connection</label>
+          <label class="amenity-check"><input type="checkbox" value="Fenced / Walled" onchange="toggleAmenity(this.closest('.amenity-check'), this.checked)"> Fenced / Walled</label>
+          <label class="amenity-check"><input type="checkbox" value="Flat Terrain" onchange="toggleAmenity(this.closest('.amenity-check'), this.checked)"> Flat Terrain</label>
+          <label class="amenity-check"><input type="checkbox" value="Corner Plot" onchange="toggleAmenity(this.closest('.amenity-check'), this.checked)"> Corner Plot</label>
+          <label class="amenity-check"><input type="checkbox" value="Near Main Road" onchange="toggleAmenity(this.closest('.amenity-check'), this.checked)"> Near Main Road</label>
+          <label class="amenity-check"><input type="checkbox" value="Residential Zone" onchange="toggleAmenity(this.closest('.amenity-check'), this.checked)"> Residential Zone</label>
+          <label class="amenity-check"><input type="checkbox" value="Commercial Zone" onchange="toggleAmenity(this.closest('.amenity-check'), this.checked)"> Commercial Zone</label>
+        </div>
+        <div style="margin-top:12px;border-top:1px solid var(--border);padding-top:12px;">
+          <div style="font-size:12px;font-weight:600;color:var(--gray-light);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;">Add your own</div>
+          <div style="display:flex;gap:8px;">
+            <input type="text" id="custom-land-input" class="form-input" placeholder="e.g. Spring water source, Orchard..." style="flex:1;" maxlength="40" onkeydown="if(event.key==='Enter'){event.preventDefault();addCustomLandFeature();}">
+            <button type="button" onclick="addCustomLandFeature()" style="padding:0 16px;background:var(--blue-mid);color:white;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;flex-shrink:0;">+ Add</button>
+          </div>
+          <div id="custom-land-list" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;"></div>
+        </div>
+      </div>
       </div>
     </div>
     <div class="modal-footer">
@@ -1363,10 +1495,10 @@ if (document.getElementById('tab-stats') && document.getElementById('tab-stats')
 })();
 
 var listingData={
-  'Modern 3-Bed Apartment':{type:'Apartment',city:'Douala',neighborhood:'Bonapriso',price:180000,beds:'3',baths:'2',size:120,listingFor:'Rent / Monthly',photoCount:5,desc:'Modern and spacious 3-bedroom apartment in the heart of Bonapriso with parking and 24/7 security.'},
-  'Executive Guest House':{type:'Guest House',city:'Douala',neighborhood:'Bonanjo',price:320000,beds:'4',baths:'3',size:200,listingFor:'Rent / Monthly',photoCount:4,desc:'Executive guest house with pool and garden in prestigious Bonanjo.'},
+  'Modern 3-Bed Apartment':{type:'Apartment',city:'Douala',neighborhood:'Bonapriso',price:180000,beds:'3',baths:'2',size:120,listingFor:'Rent / Monthly',photoCount:5,desc:'Modern and spacious 3-bedroom apartment in the heart of Bonapriso with parking and 24/7 security.',amenities:['Electricity (AES)','Running Water (CDE)','24/7 Security','Parking Space','Backup Generator','Fibre Internet Ready','Building Garden','Elevator','Laundry Area','Canal+ Ready']},
+  'Executive Guest House':{type:'Guest House',city:'Douala',neighborhood:'Bonanjo',price:320000,beds:'4',baths:'3',size:200,listingFor:'Rent / Monthly',photoCount:4,desc:'Executive guest house with pool and garden in prestigious Bonanjo.',amenities:['Electricity (AES)','Running Water (CDE)','24/7 Security','Parking Space','Swimming Pool','Building Garden','Gated Compound','Guard / Watchman','CCTV Cameras','Backup Generator']},
   'Studio - Students Welcome':{type:'Room / Studio',city:'Douala',neighborhood:'Akwa',price:40000,beds:'studio',baths:'1',size:32,listingFor:'Rent / Monthly',photoCount:3,desc:'Affordable studio ideal for students, close to the university.'},
-  '600m2 Land Plot':{type:'Land',city:'Douala',neighborhood:'Logpom',price:8500000,beds:null,baths:null,size:600,listingFor:'Sale',photoCount:2,desc:'Prime 600m2 land plot in Logpom with Titre Foncier and road access.'},
+  '600m2 Land Plot':{type:'Land',city:'Douala',neighborhood:'Logpom',price:8500000,beds:null,baths:null,size:600,listingFor:'Sale',photoCount:2,desc:'Prime 600m2 land plot in Logpom with Titre Foncier and road access.',landFeatures:['Titre Foncier','Road Access','Flat Terrain','Near Main Road','Residential Zone']},
   '2-Bed, Secured Building':{type:'Apartment',city:'Douala',neighborhood:'Makepe',price:95000,beds:'2',baths:'1',size:80,listingFor:'Rent / Monthly',photoCount:3,desc:'Bright 2-bedroom apartment in a secured building in Makepe.'}
 };
 
@@ -1384,6 +1516,29 @@ function editListing(title){
   document.getElementById('f-price').value=data?data.price:'';
   document.getElementById('f-size').value=data?data.size:'';
   document.getElementById('f-desc').value=data?data.desc:'';
+  // Separate standard from custom amenities when editing
+  var stdAmenities = ['Electricity (AES)','Running Water (CDE)','24/7 Security','Parking Space','Backup Generator','Fibre Internet Ready','Furnished','Air Conditioning','Building Garden','Elevator','Laundry Area','Canal+ Ready','Swimming Pool','Gym','Guard / Watchman','CCTV Cameras','Balcony / Terrace','Gated Compound'];
+  var stdLand = ['Titre Foncier','Road Access','Electricity Connection','Water Connection','Fenced / Walled','Flat Terrain','Corner Plot','Near Main Road','Residential Zone','Commercial Zone'];
+  if (data && data.amenities) {
+    var std = data.amenities.filter(function(a){ return stdAmenities.indexOf(a) > -1; });
+    var custom = data.amenities.filter(function(a){ return stdAmenities.indexOf(a) === -1; });
+    setAmenities(std);
+    setCustomAmenities(custom, 'custom-amenities-list', 'custom-amenity-input');
+  } else { setAmenities([]); }
+  // Populate land features if Land type
+  if (data && data.type === 'Land') {
+    setTimeout(function() {
+      toggleAmenitySection('Land');
+      var landChecks = document.querySelectorAll('#land-features-grid input[type="checkbox"]');
+      for (var i = 0; i < landChecks.length; i++) {
+        var checked = data.landFeatures && data.landFeatures.indexOf(landChecks[i].value) > -1;
+        landChecks[i].checked = checked;
+        landChecks[i].closest('.amenity-check').classList.toggle('checked', checked);
+      }
+    }, 50);
+  } else {
+    toggleAmenitySection(data ? data.type : 'Apartment');
+  }
   if(data){
     setSelectVal('f-type',data.type);
     setSelectVal('f-for',data.listingFor);
@@ -1713,8 +1868,122 @@ function markInquiry(btn,newStatus){
 function openModal(){
   document.getElementById('modal').classList.add('open');
   updateNeighborhoods();
+  // Show correct section for current property type
+  var currentType = document.getElementById('f-type') ? document.getElementById('f-type').value : 'Apartment';
+  toggleAmenitySection(currentType);
 renderTrash();
 updateListingCount();
+}
+
+
+// ── AMENITIES ──
+
+// ── CUSTOM AMENITIES / LAND FEATURES ──
+function addCustomAmenity() {
+  var input = document.getElementById('custom-amenity-input');
+  var val = input.value.trim();
+  if (!val) return;
+  var list = document.getElementById('custom-amenities-list');
+  var tag = document.createElement('div');
+  tag.style.cssText = 'display:flex;align-items:center;gap:6px;padding:6px 12px;background:var(--blue-pale);border:1.5px solid var(--blue-mid);border-radius:20px;font-size:12px;font-weight:600;color:var(--blue-deep);';
+  tag.innerHTML = val + '<button onclick="this.parentNode.remove()" style="background:none;border:none;cursor:pointer;color:var(--blue-mid);font-size:14px;line-height:1;padding:0;margin-left:2px;">&times;</button>';
+  tag.dataset.value = val;
+  list.appendChild(tag);
+  input.value = '';
+  input.focus();
+}
+
+function addCustomLandFeature() {
+  var input = document.getElementById('custom-land-input');
+  var val = input.value.trim();
+  if (!val) return;
+  var list = document.getElementById('custom-land-list');
+  var tag = document.createElement('div');
+  tag.style.cssText = 'display:flex;align-items:center;gap:6px;padding:6px 12px;background:var(--blue-pale);border:1.5px solid var(--blue-mid);border-radius:20px;font-size:12px;font-weight:600;color:var(--blue-deep);';
+  tag.innerHTML = val + '<button onclick="this.parentNode.remove()" style="background:none;border:none;cursor:pointer;color:var(--blue-mid);font-size:14px;line-height:1;padding:0;margin-left:2px;">&times;</button>';
+  tag.dataset.value = val;
+  list.appendChild(tag);
+  input.value = '';
+  input.focus();
+}
+
+function getCustomAmenities() {
+  var tags = document.querySelectorAll('#custom-amenities-list [data-value]');
+  return Array.from(tags).map(function(t){ return t.dataset.value; });
+}
+
+function getCustomLandFeatures() {
+  var tags = document.querySelectorAll('#custom-land-list [data-value]');
+  return Array.from(tags).map(function(t){ return t.dataset.value; });
+}
+
+function clearCustomAmenities() {
+  var list = document.getElementById('custom-amenities-list');
+  if (list) list.innerHTML = '';
+  var input = document.getElementById('custom-amenity-input');
+  if (input) input.value = '';
+  var landList = document.getElementById('custom-land-list');
+  if (landList) landList.innerHTML = '';
+  var landInput = document.getElementById('custom-land-input');
+  if (landInput) landInput.value = '';
+}
+
+function setCustomAmenities(customList, listId, inputId) {
+  var list = document.getElementById(listId);
+  if (!list || !customList) return;
+  list.innerHTML = '';
+  customList.forEach(function(val) {
+    var tag = document.createElement('div');
+    tag.style.cssText = 'display:flex;align-items:center;gap:6px;padding:6px 12px;background:var(--blue-pale);border:1.5px solid var(--blue-mid);border-radius:20px;font-size:12px;font-weight:600;color:var(--blue-deep);';
+    tag.innerHTML = val + '<button onclick="this.parentNode.remove()" style="background:none;border:none;cursor:pointer;color:var(--blue-mid);font-size:14px;line-height:1;padding:0;margin-left:2px;">&times;</button>';
+    tag.dataset.value = val;
+    list.appendChild(tag);
+  });
+}
+
+function toggleAmenitySection(type) {
+  var amenitySection = document.getElementById('amenity-section');
+  var landSection = document.getElementById('land-features-section');
+  if (amenitySection) amenitySection.style.display = type === 'Land' ? 'none' : 'block';
+  if (landSection) landSection.style.display = type === 'Land' ? 'block' : 'none';
+}
+
+function toggleAmenity(label, checked) {
+  label.classList.toggle('checked', checked);
+}
+
+function getSelectedAmenities() {
+  var checked = document.querySelectorAll('#amenity-grid input[type="checkbox"]:checked');
+  var result = [];
+  for (var i = 0; i < checked.length; i++) result.push(checked[i].value);
+  return result.concat(getCustomAmenities());
+}
+
+function setAmenities(amenityList) {
+  var checks = document.querySelectorAll('#amenity-grid input[type="checkbox"]');
+  for (var i = 0; i < checks.length; i++) {
+    var checked = amenityList && amenityList.indexOf(checks[i].value) > -1;
+    checks[i].checked = checked;
+    checks[i].closest('.amenity-check').classList.toggle('checked', checked);
+  }
+}
+
+function clearAmenities() {
+  setAmenities([]);
+  clearCustomAmenities();
+  // Clear land features too
+  var landChecks = document.querySelectorAll('#land-features-grid input[type="checkbox"]');
+  for (var i = 0; i < landChecks.length; i++) {
+    landChecks[i].checked = false;
+    landChecks[i].closest('.amenity-check').classList.remove('checked');
+  }
+}
+
+function getSelectedLandFeatures() {
+  var checked = document.querySelectorAll('#land-features-grid input[type="checkbox"]:checked');
+  var result = [];
+  for (var i = 0; i < checked.length; i++) result.push(checked[i].value);
+  return result.concat(getCustomLandFeatures());
 }
 
 function closeModal(){
@@ -1725,6 +1994,7 @@ function closeModal(){
   document.getElementById('upload-text').textContent='Click to upload photos';
   document.getElementById('photo-count').style.display='none';
   document.getElementById('modal-title').textContent='+ Add New Listing';
+  clearAmenities();
   document.getElementById('modal-submit').textContent='Publish Listing';
   document.getElementById('val-banner').classList.remove('show');
   document.getElementById('success-banner').classList.remove('show');
@@ -1759,6 +2029,8 @@ function submitListing(){
   for(var i=0;i<errs.length;i++) errs[i].classList.remove('show');
   document.getElementById('val-banner').classList.remove('show');
   document.getElementById('success-banner').classList.remove('show');
+  var selectedAmenities = getSelectedAmenities();
+  var selectedLandFeatures = getSelectedLandFeatures();
   var valid=true;
   if(!document.getElementById('f-title').value.trim()){markErr('f-title','err-title');valid=false;}
   var priceRaw=document.getElementById('f-price').value.replace(/,/g,'');
@@ -1772,6 +2044,12 @@ function submitListing(){
   if(document.getElementById('bed-select').value==='custom'&&!document.getElementById('bed-custom').value.trim()){document.getElementById('bed-custom').classList.add('error');valid=false;}
   if(document.getElementById('bath-select').value==='custom'&&!document.getElementById('bath-custom').value.trim()){document.getElementById('bath-custom').classList.add('error');valid=false;}
   if(!valid){document.getElementById('val-banner').classList.add('show');document.querySelector('.modal-body').scrollTo({top:0,behavior:'smooth'});return;}
+  // Save amenities to listingData
+  var title = document.getElementById('f-title').value.trim();
+  if(title && listingData[title]) {
+    listingData[title].amenities = selectedAmenities;
+    listingData[title].landFeatures = selectedLandFeatures;
+  }
   document.getElementById('success-banner').classList.add('show');
   document.querySelector('.modal-body').scrollTo({top:0,behavior:'smooth'});
   setTimeout(function(){closeModal();},2200);
@@ -2021,7 +2299,7 @@ function logOut() { MQ.logout(); }
     'Direct Communication': 'Communication Directe',
     'Verified Agencies': 'Agences Vérifiées',
     'Verified Listings': 'Annonces Vérifiées',
-    'Happy Renters': 'Locataires Satisfaits',
+    'Happy Tenants': 'Locataires Satisfaits',
     'Are You a Real Estate Agency?': 'Vous êtes une Agence Immobilière ?',
     "Join MaisonQuest — it's free to get started": "Rejoignez MaisonQuest — c'est gratuit",
     'List Your Properties →': 'Publier vos Biens →',
@@ -2179,7 +2457,7 @@ function logOut() { MQ.logout(); }
     "Enter your email and we'll send a reset link": 'Entrez votre e-mail et nous vous enverrons un lien',
     'Send Reset Link': 'Envoyer le lien',
     'Looking for a home': 'Cherche un logement',
-    'Renter account': 'Compte locataire',
+    'Tenant account': 'Compte locataire',
     // DASHBOARD COMMON
     'Dashboard': 'Tableau de bord',
     'Overview': 'Aperçu',
@@ -2557,6 +2835,295 @@ function closePolicyModal() {
   document.body.style.overflow='';
 }
 document.addEventListener('keydown', function(e){ if(e.key==='Escape') closePolicyModal(); });
+</script>
+<!-- SOLD / LEASED MODAL -->
+<div class="del-modal-overlay" id="sold-modal" onclick="closeSoldModal()">
+  <div class="del-modal" style="max-width:520px;" onclick="event.stopPropagation()">
+
+    <!-- Step 1: Sale type -->
+    <div id="sold-step-1" style="padding:28px 28px 20px;">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
+        <div style="width:40px;height:40px;background:#f0fdf4;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">✅</div>
+        <div>
+          <div style="font-size:16px;font-weight:700;color:var(--blue-deep);" id="sold-listing-name">Modern 3-Bed Apartment</div>
+          <div style="font-size:12px;color:var(--gray-light);" id="sold-listing-loc">Bonapriso, Douala</div>
+        </div>
+      </div>
+      <div style="font-size:14px;font-weight:700;color:var(--gray-dark);margin-bottom:16px;">What happened to this property?</div>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:24px;">
+        <label id="sold-opt-sold" style="display:flex;align-items:center;gap:12px;padding:14px 16px;border:2px solid var(--border);border-radius:12px;cursor:pointer;transition:all 0.2s;" onclick="selectSaleType('sold')">
+          <div style="width:20px;height:20px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;" id="radio-sold"></div>
+          <div>
+            <div style="font-size:14px;font-weight:700;color:var(--blue-deep);">Property Sold</div>
+            <div style="font-size:12px;color:var(--gray-light);">Ownership transferred to buyer</div>
+          </div>
+        </label>
+        <label id="sold-opt-leased" style="display:flex;align-items:center;gap:12px;padding:14px 16px;border:2px solid var(--border);border-radius:12px;cursor:pointer;transition:all 0.2s;" onclick="selectSaleType('leased')">
+          <div style="width:20px;height:20px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;" id="radio-leased"></div>
+          <div>
+            <div style="font-size:14px;font-weight:700;color:var(--blue-deep);">Property Leased / Rented</div>
+            <div style="font-size:12px;color:var(--gray-light);">Tenant has moved in</div>
+          </div>
+        </label>
+      </div>
+      <div style="display:flex;gap:10px;">
+        <button onclick="closeSoldModal()" style="flex:1;padding:12px;background:var(--gray-bg);border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;color:var(--gray-mid);">Cancel</button>
+        <button onclick="soldStep2()" id="sold-next-1" style="flex:2;padding:12px;background:var(--blue-deep);color:white;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;opacity:0.4;pointer-events:none;">Next →</button>
+      </div>
+    </div>
+
+    <!-- Step 2: MaisonQuest attribution -->
+    <div id="sold-step-2" style="display:none;padding:28px 28px 20px;">
+      <div style="margin-bottom:20px;">
+        <div style="font-size:13px;color:var(--gray-light);margin-bottom:4px;">Step 2 of 3</div>
+        <div style="font-size:16px;font-weight:700;color:var(--blue-deep);">Was this deal found through MaisonQuest?</div>
+        <div style="font-size:13px;color:var(--gray-mid);margin-top:6px;line-height:1.5;">Your answer helps us verify platform performance. Honest reporting earns your agency a verified deal badge visible to all renters.</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:24px;">
+        <label id="via-opt-yes" style="display:flex;align-items:center;gap:12px;padding:14px 16px;border:2px solid var(--border);border-radius:12px;cursor:pointer;transition:all 0.2s;" onclick="selectVia('yes')">
+          <div style="width:20px;height:20px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;" id="radio-via-yes"></div>
+          <div>
+            <div style="font-size:14px;font-weight:700;color:var(--blue-deep);">Yes — the renter found us on MaisonQuest</div>
+            <div style="font-size:12px;color:var(--gray-light);">Counts as a verified deal toward your profile badge</div>
+          </div>
+        </label>
+        <label id="via-opt-no" style="display:flex;align-items:center;gap:12px;padding:14px 16px;border:2px solid var(--border);border-radius:12px;cursor:pointer;transition:all 0.2s;" onclick="selectVia('no')">
+          <div style="width:20px;height:20px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;" id="radio-via-no"></div>
+          <div>
+            <div style="font-size:14px;font-weight:700;color:var(--blue-deep);">No — deal came from another source</div>
+            <div style="font-size:12px;color:var(--gray-light);">Listing still marked as sold, no badge credit</div>
+          </div>
+        </label>
+        <label id="via-opt-unsure" style="display:flex;align-items:center;gap:12px;padding:14px 16px;border:2px solid var(--border);border-radius:12px;cursor:pointer;transition:all 0.2s;" onclick="selectVia('unsure')">
+          <div style="width:20px;height:20px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;" id="radio-via-unsure"></div>
+          <div>
+            <div style="font-size:14px;font-weight:700;color:var(--blue-deep);">Not sure</div>
+            <div style="font-size:12px;color:var(--gray-light);">We'll cross-check platform activity automatically</div>
+          </div>
+        </label>
+      </div>
+      <div style="display:flex;gap:10px;">
+        <button onclick="soldStep1Back()" style="flex:1;padding:12px;background:var(--gray-bg);border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;color:var(--gray-mid);">← Back</button>
+        <button onclick="soldStep3()" id="sold-next-2" style="flex:2;padding:12px;background:var(--blue-deep);color:white;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;opacity:0.4;pointer-events:none;">Next →</button>
+      </div>
+    </div>
+
+    <!-- Step 3: Renter selection (only shown if via = yes) -->
+    <div id="sold-step-3" style="display:none;padding:28px 28px 20px;">
+      <div style="margin-bottom:20px;">
+        <div style="font-size:13px;color:var(--gray-light);margin-bottom:4px;">Step 3 of 3</div>
+        <div style="font-size:16px;font-weight:700;color:var(--blue-deep);">Which renter completed this deal?</div>
+        <div style="font-size:13px;color:var(--gray-mid);margin-top:6px;line-height:1.5;">Select from renters who inquired about this listing via MaisonQuest. We'll send them a confirmation to verify the deal independently.</div>
+      </div>
+      <div id="sold-renter-note" style="background:var(--blue-tint);border:1px solid var(--blue-pale);border-radius:10px;padding:12px 14px;margin-bottom:16px;font-size:12px;color:var(--blue-mid);line-height:1.5;">
+        🔒 <strong>Fraud protection:</strong> Only renters with platform activity (inquiry, save, or WhatsApp tap) on this listing can be selected. Both parties must confirm for a verified deal badge.
+      </div>
+      <select id="sold-renter-select" style="width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;font-family:inherit;color:var(--gray-dark);background:var(--gray-bg);outline:none;margin-bottom:16px;appearance:none;" onchange="document.getElementById('sold-confirm-btn').style.opacity=this.value?'1':'0.4';document.getElementById('sold-confirm-btn').style.pointerEvents=this.value?'all':'none';">
+        <option value="">— Select a renter —</option>
+        <option value="sandrine-m">Sandrine M. — inquired 3 days ago · verified platform activity</option>
+        <option value="jean-pierre-k">Jean-Pierre K. — inquired 1 week ago · verified platform activity</option>
+        <option value="armelle-n">Armelle N. — saved listing · verified platform activity</option>
+        <option value="not-listed">Renter not listed (no platform activity recorded)</option>
+      </select>
+      <div id="no-activity-warn" style="display:none;background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:12px 14px;margin-bottom:16px;font-size:12px;color:#dc2626;line-height:1.5;">
+        ⚠️ This renter has no recorded platform activity for this listing. The deal will be logged as <strong>reported</strong> but will not count toward your verified badge.
+      </div>
+      <div style="display:flex;gap:10px;">
+        <button onclick="soldStep2Back()" style="flex:1;padding:12px;background:var(--gray-bg);border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;color:var(--gray-mid);">← Back</button>
+        <button onclick="confirmSold()" id="sold-confirm-btn" style="flex:2;padding:12px;background:#15803d;color:white;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;opacity:0.4;pointer-events:none;">Confirm Sale ✓</button>
+      </div>
+    </div>
+
+    <!-- Step 3b: No platform attribution — direct confirm -->
+    <div id="sold-step-3b" style="display:none;padding:28px 28px 20px;">
+      <div style="margin-bottom:20px;">
+        <div style="font-size:16px;font-weight:700;color:var(--blue-deep);">Confirm marking as sold</div>
+        <div style="font-size:13px;color:var(--gray-mid);margin-top:8px;line-height:1.6;">This listing will be marked as <span id="sold-type-label" style="font-weight:700;color:#15803d;">Sold</span> and removed from public search. Renters who saved or inquired will be notified.</div>
+      </div>
+      <div style="background:var(--blue-tint);border-radius:10px;padding:14px;margin-bottom:20px;font-size:13px;color:var(--gray-mid);line-height:1.6;">
+        The listing will remain visible with a sold banner for <strong>30 days</strong>, then automatically archived.
+      </div>
+      <div style="display:flex;gap:10px;">
+        <button onclick="soldStep2Back()" style="flex:1;padding:12px;background:var(--gray-bg);border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;color:var(--gray-mid);">← Back</button>
+        <button onclick="confirmSold()" style="flex:2;padding:12px;background:#15803d;color:white;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;">Confirm ✓</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function toggleMobNav() {}
+
+// ── SOLD / LEASED MODAL ──
+var pendingSoldRow = null;
+var soldSaleType = null;
+var soldVia = null;
+
+function markAsSold(btn, title, loc) {
+  // Find the row
+  var rows = document.querySelectorAll('.lt-row');
+  pendingSoldRow = null;
+  for (var i = 0; i < rows.length; i++) {
+    var el = rows[i].querySelector('.lt-title');
+    if (el && el.textContent.trim() === title) { pendingSoldRow = rows[i]; break; }
+  }
+  soldSaleType = null;
+  soldVia = null;
+  document.getElementById('sold-listing-name').textContent = title;
+  document.getElementById('sold-listing-loc').textContent = loc || '';
+  // Reset steps
+  document.getElementById('sold-step-1').style.display = 'block';
+  document.getElementById('sold-step-2').style.display = 'none';
+  document.getElementById('sold-step-3').style.display = 'none';
+  document.getElementById('sold-step-3b').style.display = 'none';
+  // Reset radio states
+  ['sold','leased'].forEach(function(t) {
+    var el = document.getElementById('sold-opt-'+t);
+    if (el) { el.style.borderColor = 'var(--border)'; el.style.background = 'white'; }
+    var r = document.getElementById('radio-'+t);
+    if (r) r.innerHTML = '';
+  });
+  var btn1 = document.getElementById('sold-next-1');
+  btn1.style.opacity = '0.4'; btn1.style.pointerEvents = 'none';
+  document.getElementById('sold-modal').classList.add('open');
+}
+
+function closeSoldModal() {
+  document.getElementById('sold-modal').classList.remove('open');
+  pendingSoldRow = null;
+}
+
+function selectSaleType(type) {
+  soldSaleType = type;
+  ['sold','leased'].forEach(function(t) {
+    var el = document.getElementById('sold-opt-'+t);
+    var r = document.getElementById('radio-'+t);
+    if (t === type) {
+      el.style.borderColor = '#15803d'; el.style.background = '#f0fdf4';
+      r.innerHTML = '<div style="width:10px;height:10px;background:#15803d;border-radius:50%;"></div>';
+    } else {
+      el.style.borderColor = 'var(--border)'; el.style.background = 'white';
+      r.innerHTML = '';
+    }
+  });
+  var btn = document.getElementById('sold-next-1');
+  btn.style.opacity = '1'; btn.style.pointerEvents = 'all';
+}
+
+function soldStep2() {
+  if (!soldSaleType) return;
+  document.getElementById('sold-step-1').style.display = 'none';
+  document.getElementById('sold-step-2').style.display = 'block';
+  // Reset via selection
+  soldVia = null;
+  ['yes','no','unsure'].forEach(function(v) {
+    var el = document.getElementById('via-opt-'+v);
+    if (el) { el.style.borderColor = 'var(--border)'; el.style.background = 'white'; }
+    var r = document.getElementById('radio-via-'+v);
+    if (r) r.innerHTML = '';
+  });
+  var btn2 = document.getElementById('sold-next-2');
+  btn2.style.opacity = '0.4'; btn2.style.pointerEvents = 'none';
+}
+
+function soldStep1Back() {
+  document.getElementById('sold-step-2').style.display = 'none';
+  document.getElementById('sold-step-1').style.display = 'block';
+}
+
+function selectVia(via) {
+  soldVia = via;
+  ['yes','no','unsure'].forEach(function(v) {
+    var el = document.getElementById('via-opt-'+v);
+    var r = document.getElementById('radio-via-'+v);
+    if (v === via) {
+      el.style.borderColor = 'var(--blue-mid)'; el.style.background = 'var(--blue-tint)';
+      r.innerHTML = '<div style="width:10px;height:10px;background:var(--blue-mid);border-radius:50%;"></div>';
+    } else {
+      el.style.borderColor = 'var(--border)'; el.style.background = 'white';
+      r.innerHTML = '';
+    }
+  });
+  var btn2 = document.getElementById('sold-next-2');
+  btn2.style.opacity = '1'; btn2.style.pointerEvents = 'all';
+}
+
+function soldStep3() {
+  if (!soldVia) return;
+  document.getElementById('sold-step-2').style.display = 'none';
+  var typeLabel = soldSaleType === 'sold' ? 'Sold' : 'Leased/Rented';
+  document.getElementById('sold-type-label').textContent = typeLabel;
+  if (soldVia === 'yes') {
+    document.getElementById('sold-step-3').style.display = 'block';
+    document.getElementById('sold-renter-select').value = '';
+    document.getElementById('no-activity-warn').style.display = 'none';
+    var cb = document.getElementById('sold-confirm-btn');
+    cb.style.opacity = '0.4'; cb.style.pointerEvents = 'none';
+  } else {
+    document.getElementById('sold-step-3b').style.display = 'block';
+  }
+}
+
+function soldStep2Back() {
+  document.getElementById('sold-step-3').style.display = 'none';
+  document.getElementById('sold-step-3b').style.display = 'none';
+  document.getElementById('sold-step-2').style.display = 'block';
+}
+
+// Watch renter select for "not listed" warning
+document.addEventListener('DOMContentLoaded', function() {
+  var sel = document.getElementById('sold-renter-select');
+  if (sel) sel.addEventListener('change', function() {
+    var warn = document.getElementById('no-activity-warn');
+    if (this.value === 'not-listed') {
+      warn.style.display = 'block';
+    } else {
+      warn.style.display = 'none';
+    }
+  });
+});
+
+function confirmSold() {
+  if (!pendingSoldRow) return;
+  var typeLabel = soldSaleType === 'sold' ? 'Sold' : 'Leased';
+  var isVerified = soldVia === 'yes' && document.getElementById('sold-renter-select') &&
+                   document.getElementById('sold-renter-select').value &&
+                   document.getElementById('sold-renter-select').value !== 'not-listed';
+
+  // Update the row status badge
+  var statusEl = pendingSoldRow.querySelector('.ls');
+  if (statusEl) {
+    statusEl.className = 'ls ls-sold';
+    statusEl.textContent = '✓ ' + typeLabel;
+  }
+
+  // Remove action buttons except Delete, replace with sold info
+  var actionDots = pendingSoldRow.querySelector('.action-dots');
+  if (actionDots) {
+        var t = pendingSoldRow.querySelector('.lt-title').textContent;
+    var l = pendingSoldRow.querySelector('.lt-loc').textContent;
+    var dealLabel = isVerified ? '🏅 Verified deal' : '📋 Reported deal';
+    var safeTitle = t.replace(/'/g, "\\'");
+    var safeLoc = l.replace(/'/g, "\\'");
+    actionDots.innerHTML = '<span style="font-size:11px;color:#a0aec0;padding:0 4px;">' + dealLabel + '</span>' +
+      '<button class="dot-btn del-btn" onclick="deleteListing(\'' + safeTitle + '\',\'' + safeLoc + '\')">' +
+      '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">' +
+      '<polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/>' +
+      '<path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg> Archive</button>';  }
+
+  closeSoldModal();
+  showToast(typeLabel + ' confirmed' + (isVerified ? ' — verified deal logged ✓' : ' — reported deal logged'));
+}
+
+function showToast(msg) {
+  var n = document.createElement('div');
+  n.style.cssText = 'position:fixed;top:80px;right:24px;background:#15803d;color:white;border-radius:12px;padding:12px 18px;font-size:13px;font-weight:600;z-index:9999;box-shadow:0 4px 16px rgba(0,0,0,0.2);max-width:320px;line-height:1.5;';
+  n.textContent = msg;
+  document.body.appendChild(n);
+  setTimeout(function(){ n.style.transition='opacity 0.3s'; n.style.opacity='0'; setTimeout(function(){n.remove();},300); }, 4000);
+}
+
 </script>
 </body>
 </html>

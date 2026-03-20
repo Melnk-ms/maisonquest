@@ -224,6 +224,49 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray-bg);color:var(--gray
 .no-chat-selected{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;gap:12px;color:var(--gray-light);}
 .no-chat-selected .icon{font-size:48px;}
 .no-chat-selected p{font-size:14px;font-weight:600;}
+
+/* ── RENTER DASHBOARD MOBILE ── */
+@media (max-width: 768px) {
+  .layout { flex-direction: column !important; }
+  .sidebar {
+    position: fixed !important; bottom: 0 !important; left: 0 !important; right: 0 !important;
+    top: auto !important; width: 100% !important; min-width: 0 !important;
+    height: 64px !important; flex-direction: row !important;
+    overflow: hidden; z-index: 200; border-top: 1px solid var(--border);
+    border-right: none !important; padding: 0 !important; gap: 0 !important;
+    justify-content: space-around; background: white;
+    box-shadow: 0 -4px 20px rgba(10,36,99,0.08);
+  }
+  .sidebar .sidebar-header { display: none !important; }
+  .sidebar .sidebar-section { font-size: 0; }
+  .sidebar .sidebar-section-label { display: none !important; }
+  .nav-item {
+    flex-direction: column !important; gap: 3px !important;
+    padding: 8px 4px !important; font-size: 10px !important;
+    border-radius: 0 !important; flex: 1 !important;
+    justify-content: center; align-items: center;
+    min-width: 0; border-left: none !important; border-top: 3px solid transparent;
+  }
+  .nav-item.active { border-top: 3px solid var(--blue-mid) !important; border-left: none !important; background: var(--blue-tint) !important; }
+  .sidebar .logout-section { display: none !important; }
+  .main { margin-left: 0 !important; padding-bottom: 80px !important; }
+  .top-bar { padding: 14px 16px !important; flex-wrap: wrap; gap: 10px; }
+  .top-bar h1 { font-size: 20px !important; }
+  .overview-stats { grid-template-columns: repeat(2,1fr) !important; gap: 10px; }
+  .stat-card { padding: 14px !important; }
+  .tab-panel { padding: 16px !important; }
+  .messages-layout { grid-template-columns: 1fr !important; height: auto !important; }
+  .messages-list { border-right: none !important; border-bottom: 1px solid var(--border); max-height: 240px; overflow-y: auto; }
+  .thread-view { min-height: 400px; }
+  .saved-grid { grid-template-columns: 1fr !important; }
+  .inq-card { padding: 14px !important; }
+  .settings-grid { grid-template-columns: 1fr !important; }
+  .modal { width: calc(100vw - 32px) !important; max-width: 100% !important; padding: 20px !important; }
+}
+@media (max-width: 480px) {
+  .overview-stats { grid-template-columns: 1fr 1fr !important; }
+  .messages-list { max-height: 200px; }
+}
 </style>
 </head>
 <body>
@@ -239,7 +282,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray-bg);color:var(--gray
     <div class="user-avatar">JK</div>
     <div>
       <div class="user-info-name">Jean Kamga</div>
-      <div class="user-info-tag">Renter account</div>
+      <div class="user-info-tag">Tenant account</div>
     </div>
   </div>
   <nav class="sidebar-nav">
@@ -1046,7 +1089,7 @@ function logOut() { MQ.logout(); }
     'Direct Communication': 'Communication Directe',
     'Verified Agencies': 'Agences Vérifiées',
     'Verified Listings': 'Annonces Vérifiées',
-    'Happy Renters': 'Locataires Satisfaits',
+    'Happy Tenants': 'Locataires Satisfaits',
     'Are You a Real Estate Agency?': 'Vous êtes une Agence Immobilière ?',
     "Join MaisonQuest — it's free to get started": "Rejoignez MaisonQuest — c'est gratuit",
     'List Your Properties →': 'Publier vos Biens →',
@@ -1204,7 +1247,7 @@ function logOut() { MQ.logout(); }
     "Enter your email and we'll send a reset link": 'Entrez votre e-mail et nous vous enverrons un lien',
     'Send Reset Link': 'Envoyer le lien',
     'Looking for a home': 'Cherche un logement',
-    'Renter account': 'Compte locataire',
+    'Tenant account': 'Compte locataire',
     // DASHBOARD COMMON
     'Dashboard': 'Tableau de bord',
     'Overview': 'Aperçu',
@@ -1601,6 +1644,9 @@ function closePolicyModal() {
   document.body.style.overflow='';
 }
 document.addEventListener('keydown', function(e){ if(e.key==='Escape') closePolicyModal(); });
+</script>
+<script>
+function toggleMobNav() {}
 </script>
 </body>
 </html>
