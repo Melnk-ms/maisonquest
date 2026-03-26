@@ -814,15 +814,19 @@ document.addEventListener('DOMContentLoaded', function() {
   // Pre-select Agency tab if arriving from "List a Property"
   var params = new URLSearchParams(window.location.search);
   if (params.get('intent') === 'list') {
+    // Use longer delay to ensure lang script has finished
     setTimeout(function() {
+      // Show signup panel
+      showPanel('panel-signup');
+      // Select agency type in signup
+      selectType('agency');
+      // Switch the sign-in tab toggle to Agency visually
       var agencySigninTab = document.querySelector('[onclick*="agency-signin"]');
       if (agencySigninTab) {
         document.querySelectorAll('.auth-tab').forEach(function(t){ t.classList.remove('active'); });
         agencySigninTab.classList.add('active');
       }
-      selectType('agency');
-      showPanel('panel-signup');
-    }, 80);
+    }, 250);
   }
 });
 </script>
